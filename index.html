@@ -31,8 +31,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             background-color: rgba(255, 255, 255, 0.85);
             border-radius: 50%;
             pointer-events: none;
@@ -41,8 +41,8 @@
         }
 
         #crosshair.interactive {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             background-color: rgba(212, 175, 55, 0.25);
             border: 2px solid #d4af37;
         }
@@ -50,14 +50,14 @@
         /* Dica de Interação */
         #interact-prompt {
             position: absolute;
-            top: 54%;
+            top: 55%;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(10, 12, 16, 0.9);
+            background: rgba(10, 12, 16, 0.92);
             border: 1px solid rgba(212, 175, 55, 0.6);
-            padding: 7px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 0.75rem;
             font-weight: 600;
             color: #f7d070;
             letter-spacing: 1px;
@@ -65,14 +65,14 @@
             opacity: 0;
             transition: opacity 0.2s ease;
             z-index: 10;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
 
         /* HUD Superior */
         #hud-top {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 18px;
+            left: 18px;
             display: flex;
             flex-direction: column;
             gap: 6px;
@@ -81,26 +81,26 @@
         }
 
         .hud-badge {
-            background: rgba(12, 15, 20, 0.75);
+            background: rgba(12, 15, 20, 0.78);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.78rem;
             color: #d1d5db;
         }
 
         .hud-badge b {
             color: #d4af37;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
         .keys-badge {
             display: inline-block;
             background: rgba(255, 255, 255, 0.15);
-            border-radius: 4px;
-            padding: 2px 6px;
-            font-size: 0.75rem;
+            border-radius: 3px;
+            padding: 1px 5px;
+            font-size: 0.7rem;
             color: #fff;
             margin: 0 2px;
         }
@@ -119,93 +119,128 @@
             background: radial-gradient(circle, rgba(16, 20, 28, 0.95) 0%, rgba(5, 7, 10, 0.98) 100%);
             backdrop-filter: blur(12px);
             z-index: 50;
-            cursor: pointer;
             text-align: center;
             padding: 20px;
         }
 
         #instructions h1 {
-            font-size: 2.8rem;
-            font-weight: 400;
-            letter-spacing: 0;
-            margin-bottom: 8px;
+            font-size: 2.2rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            margin-bottom: 4px;
             text-transform: uppercase;
             color: #f7d070;
             text-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
         }
 
         #instructions h2 {
-            font-size: 1rem;
+            font-size: 0.85rem;
             font-weight: 400;
             color: #aaa;
-            letter-spacing: 0;
-            margin-bottom: 0;
-            text-transform: none;
-        }
-
-        #instructions p {
-            font-size: 1.05rem;
-            color: #ccc;
-            margin: 6px 0;
-            max-width: 620px;
-            line-height: 1.6;
-        }
-
-        .btn-start {
-            margin-top: 30px;
-            padding: 15px 45px;
-            font-size: 1rem;
-            background: linear-gradient(135deg, #d4af37, #aa820a);
-            color: #0b0d12;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
             letter-spacing: 2px;
-            font-weight: 700;
-            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
-            transition: all 0.3s;
+            text-transform: uppercase;
+            margin-bottom: 12px;
         }
 
         .menu-actions {
             display: flex;
             flex-direction: column;
-            gap: 14px;
-            width: min(320px, 100%);
-            margin-top: 32px;
+            gap: 10px;
+            width: min(240px, 90%);
+            margin-top: 18px;
         }
 
-        .menu-actions .btn-start {
-            width: 100%;
-            margin-top: 0;
-        }
-
-        .btn-start:disabled,
-        .btn-start:disabled:hover {
-            transform: none;
-            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.18);
+        /* Botões com design menor e refinado */
+        .btn-start {
+            padding: 10px 22px;
+            font-size: 0.82rem;
+            background: linear-gradient(135deg, #d4af37, #b28c12);
+            color: #0b0d12;
+            border: none;
+            border-radius: 20px;
             cursor: pointer;
-            opacity: 1;
-        }
-
-        .btn-shop {
-            width: 100%;
-            padding: 14px 24px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 30px;
-            background: rgba(255, 255, 255, 0.04);
-            color: #aeb4bf;
-            font: inherit;
-            font-weight: 600;
-            cursor: not-allowed;
-            opacity: 0.7;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            transition: all 0.2s ease;
         }
 
         .btn-start:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.6);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
         }
 
-        /* Modal do Terminal do Balcão */
+        .btn-shop {
+            padding: 9px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            color: #aeb4bf;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        #pause-menu {
+            position: fixed;
+            inset: 0;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.78);
+            backdrop-filter: blur(8px);
+            z-index: 80;
+            padding: 20px;
+        }
+
+        #pause-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: min(360px, 100%);
+            padding: 30px 24px;
+            background: rgba(15, 18, 22, 0.97);
+            border: 1px solid rgba(212, 175, 55, 0.6);
+            border-top: 3px solid #d4af37;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        #pause-card h2 {
+            margin: 0 0 8px;
+            color: #f7d070;
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .pause-option {
+            width: 100%;
+            padding: 12px 18px;
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            border-radius: 4px;
+            background: rgba(212, 175, 55, 0.08);
+            color: #eee7d3;
+            font: inherit;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .pause-option:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+        }
+
+        .pause-option-primary {
+            background: linear-gradient(135deg, #d4af37, #b28c12);
+            color: #0b0d12;
+            font-weight: 700;
+        }
+
+        /* Modal do Terminal estilo computador/monitor */
         #kiosk-modal {
             position: absolute;
             top: 0;
@@ -215,96 +250,130 @@
             display: none;
             justify-content: center;
             align-items: center;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.82);
+            backdrop-filter: blur(8px);
             z-index: 40;
         }
 
-        .kiosk-card {
-            background: #0f131a;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            border-radius: 16px;
-            width: 90%;
-            max-width: 850px;
-            padding: 35px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(212, 175, 55, 0.15);
-            text-align: center;
+        .kiosk-device-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            max-width: 720px;
+            width: 92%;
         }
 
-        .kiosk-card h2 {
-            font-size: 1.8rem;
-            font-weight: 400;
-            letter-spacing: 4px;
-            color: #f7d070;
+        /* Moldura estilo monitor físico */
+        .kiosk-monitor-frame {
+            background: #0f1216;
+            border: 14px solid #080a0d;
+            outline: 2px solid #232730;
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 35px rgba(0,0,0,0.7);
+            width: 100%;
+            padding: 24px 28px;
+            background-color: #f7d679;
+            color: #1a160d;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Pedestal cilíndrico idêntico à imagem */
+        .kiosk-pedestal {
+            width: 60px;
+            height: 50px;
+            background: linear-gradient(90deg, #6c5722 0%, #d4af37 40%, #ffdf78 60%, #574618 100%);
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.6), 0 8px 18px rgba(0,0,0,0.8);
+            border-radius: 0 0 6px 6px;
+            margin-top: -2px;
+            z-index: 1;
+        }
+
+        .kiosk-monitor-frame h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #241d0f;
             text-transform: uppercase;
-            margin-bottom: 8px;
+            text-align: center;
+            margin-bottom: 4px;
         }
 
-        .kiosk-card p.subtitle {
-            color: #8e95a5;
-            font-size: 0.95rem;
-            margin-bottom: 30px;
+        .kiosk-monitor-frame p.subtitle {
+            color: #5d4f33;
+            font-size: 0.82rem;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 500;
         }
 
         .rooms-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 20px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+            margin-bottom: 20px;
         }
 
         .room-item {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 24px 18px;
+            background: rgba(255, 255, 255, 0.55);
+            border: 1px solid rgba(80, 65, 30, 0.25);
+            border-radius: 8px;
+            padding: 16px 12px;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
         }
 
         .room-item:hover {
-            border-color: #d4af37;
-            background: rgba(212, 175, 55, 0.1);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+            border-color: #8c6a0c;
+            background: rgba(255, 255, 255, 0.85);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.12);
         }
 
         .room-icon {
-            font-size: 2.2rem;
-            margin-bottom: 12px;
-        }
-
-        .room-title {
-            font-size: 1.15rem;
-            color: #fff;
-            font-weight: 600;
+            font-size: 1.6rem;
             margin-bottom: 6px;
         }
 
+        .room-title {
+            font-size: 0.92rem;
+            color: #1e190e;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
         .room-desc {
-            font-size: 0.85rem;
-            color: #8f9ba8;
-            line-height: 1.4;
+            font-size: 0.72rem;
+            color: #4f432a;
+            line-height: 1.35;
+        }
+
+        .kiosk-footer {
+            display: flex;
+            justify-content: center;
         }
 
         .btn-close-modal {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #aaa;
-            padding: 10px 28px;
-            border-radius: 20px;
+            background: #1e1b14;
+            border: 1px solid #3d3420;
+            color: #f7d070;
+            padding: 7px 20px;
+            border-radius: 16px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.76rem;
+            font-weight: 600;
             transition: all 0.2s;
         }
 
         .btn-close-modal:hover {
+            background: #000;
             color: #fff;
-            border-color: #fff;
         }
 
         /* Overlay de Transição */
@@ -317,7 +386,7 @@
             background: #000;
             pointer-events: none;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.4s ease;
             z-index: 100;
         }
     </style>
@@ -336,7 +405,7 @@
         <div class="hud-badge">
             <span class="keys-badge">W</span><span class="keys-badge">A</span><span class="keys-badge">S</span><span class="keys-badge">D</span> Andar &nbsp;|&nbsp; 
             <span class="keys-badge">E</span> Interagir &nbsp;|&nbsp; 
-            <span class="keys-badge">M</span> Menu de Salas
+            <span class="keys-badge">M</span> Menu
         </div>
     </div>
 
@@ -350,29 +419,43 @@
         </div>
     </div>
 
-    <!-- Modal do Terminal do Balcão -->
+    <div id="pause-menu" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+        <section id="pause-card">
+            <h2 id="pause-title">Jogo Pausado</h2>
+            <button class="pause-option" id="pause-reception" type="button">Ir para Recepção</button>
+            <button class="pause-option" type="button">Loja de Skinns</button>
+            <button class="pause-option pause-option-primary" id="pause-resume" type="button">Voltar ao jogo</button>
+        </section>
+    </div>
+
+    <!-- Modal do Terminal em formato de Monitor -->
     <div id="kiosk-modal">
-        <div class="kiosk-card">
-            <h2>Terminal da Recepção</h2>
-            <p class="subtitle">Selecione a ala de exposição que você deseja explorar agora:</p>
-            <div class="rooms-grid">
-                <div class="room-item" onclick="travelToRoom('classica')">
-                    <div class="room-icon">🏛️</div>
-                    <div class="room-title">Ala Clássica</div>
-                    <div class="room-desc">Mestres do Renascimento e Barroco em suportes de cristal autoportantes.</div>
+        <div class="kiosk-device-container">
+            <div class="kiosk-monitor-frame">
+                <h2>Salas</h2>
+                <p class="subtitle">Selecione uma sala para iniciar a visita:</p>
+                <div class="rooms-grid">
+                    <div class="room-item" onclick="travelToRoom('classica')">
+                        <div class="room-icon">🏛️</div>
+                        <div class="room-title">Sala Clássica</div>
+                        <div class="room-desc">Mestres do Renascimento e Barroco em suportes de cristal.</div>
+                    </div>
+                    <div class="room-item" onclick="travelToRoom('moderna')">
+                        <div class="room-icon">🎨</div>
+                        <div class="room-title">Sala Moderna</div>
+                        <div class="room-desc">Vanguardas do séc. XX e Abstracionismo minimalista.</div>
+                    </div>
+                    <div class="room-item" onclick="travelToRoom('impressionismo')">
+                        <div class="room-icon">🌌</div>
+                        <div class="room-title">Sala do Impressionismo</div>
+                        <div class="room-desc">Obras marcantes com iluminação artística direcionada.</div>
+                    </div>
                 </div>
-                <div class="room-item" onclick="travelToRoom('moderna')">
-                    <div class="room-icon">🎨</div>
-                    <div class="room-title">Arte Moderna</div>
-                    <div class="room-desc">Vanguardas do séc. XX e Abstracionismo em ambiente minimalista.</div>
-                </div>
-                <div class="room-item" onclick="travelToRoom('impressionismo')">
-                    <div class="room-icon">🌌</div>
-                    <div class="room-title">Impressionismo</div>
-                    <div class="room-desc">Obras marcantes do Pós-Impressionismo com iluminação focada.</div>
+                <div class="kiosk-footer">
+                    <button class="btn-close-modal" onclick="closeKioskModal()">Fechar Terminal</button>
                 </div>
             </div>
-            <button class="btn-close-modal" onclick="closeKioskModal()">Voltar ao Saguão</button>
+            <div class="kiosk-pedestal"></div>
         </div>
     </div>
 
@@ -430,41 +513,6 @@
             return tex;
         }
 
-        function createConcreteTexture() {
-            const canvas = document.createElement('canvas');
-            canvas.width = 256;
-            canvas.height = 256;
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#9e9a93';
-            ctx.fillRect(0, 0, 256, 256);
-
-            for (let i = 0; i < 8000; i++) {
-                const val = Math.floor(Math.random() * 40 - 20);
-                ctx.fillStyle = `rgba(${150 + val}, ${148 + val}, ${142 + val}, 0.5)`;
-                ctx.fillRect(Math.random() * 256, Math.random() * 256, 2, 2);
-            }
-            return new THREE.CanvasTexture(canvas);
-        }
-
-        function createGalleryFloorTexture(hexColor) {
-            const canvas = document.createElement('canvas');
-            canvas.width = 256;
-            canvas.height = 256;
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = hexColor;
-            ctx.fillRect(0, 0, 256, 256);
-
-            ctx.strokeStyle = 'rgba(0, 0, 0, 0.4)';
-            ctx.lineWidth = 3;
-            ctx.strokeRect(0, 0, 256, 256);
-
-            const tex = new THREE.CanvasTexture(canvas);
-            tex.wrapS = THREE.RepeatWrapping;
-            tex.wrapT = THREE.RepeatWrapping;
-            tex.repeat.set(6, 7);
-            return tex;
-        }
-
         function createMuseumWallTexture(baseHex) {
             const canvas = document.createElement('canvas');
             canvas.width = 512;
@@ -485,7 +533,6 @@
             return tex;
         }
 
-        // Textura com o nome "Yumira Studios"
         function createYumiraSignTexture() {
             const canvas = document.createElement('canvas');
             canvas.width = 1024;
@@ -523,108 +570,64 @@
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
         camera.rotation.order = 'YXZ';
         
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         container.appendChild(renderer.domElement);
 
-        function createPointerControls(camera, domElement) {
-            const controls = new THREE.EventDispatcher();
-            const euler = new THREE.Euler(0, 0, 0, 'YXZ');
-            controls.isLocked = false;
-            controls.minPolarAngle = 0.1;
-            controls.maxPolarAngle = Math.PI - 0.1;
-            let isDragging = false;
-            let previousMouseX = 0;
-            let previousMouseY = 0;
+        /* =======================================================
+           3. CONTROLES FPS ULTRA-ESTÁVEIS (MOUSE + TECLADO JUNTOS)
+           ======================================================= */
+        let pitch = 0;
+        let yaw = 0; // olhando para o balcão inicialmente
+        let isLocked = false;
+        let gameStarted = false;
 
-            const onMouseMove = event => {
-                if (!controls.isLocked && !isDragging) return;
+        function updateCameraRotation() {
+            camera.rotation.set(pitch, yaw, 0, 'YXZ');
+        }
 
-                euler.setFromQuaternion(camera.quaternion, 'YXZ');
-                const movementX = controls.isLocked ? event.movementX : event.clientX - previousMouseX;
-                const movementY = controls.isLocked ? event.movementY : event.clientY - previousMouseY;
-                euler.y -= movementX * 0.002;
-                euler.x -= movementY * 0.002;
-                euler.x = Math.max(
-                    Math.PI / 2 - controls.maxPolarAngle,
-                    Math.min(Math.PI / 2 - controls.minPolarAngle, euler.x)
-                );
-                camera.quaternion.setFromEuler(euler);
-                previousMouseX = event.clientX;
-                previousMouseY = event.clientY;
-            };
+        document.addEventListener('mousemove', (e) => {
+            if (!isLocked) return;
+            const movementX = e.movementX || 0;
+            const movementY = e.movementY || 0;
 
-            const onPointerDown = event => {
-                if (controls.isLocked || event.button !== 0) return;
-                isDragging = true;
-                previousMouseX = event.clientX;
-                previousMouseY = event.clientY;
-            };
-            const stopDragging = () => { isDragging = false; };
+            yaw -= movementX * 0.0022;
+            pitch -= movementY * 0.0022;
 
-            const onPointerLockChange = () => {
-                const isLocked = document.pointerLockElement === domElement;
-                if (controls.isLocked === isLocked) return;
+            // Limita a visão vertical entre -85° e +85° sem gimbal lock nem giros bruscos
+            pitch = Math.max(-1.48, Math.min(1.48, pitch));
+            updateCameraRotation();
+        });
 
-                controls.isLocked = isLocked;
-                controls.dispatchEvent({ type: isLocked ? 'lock' : 'unlock' });
-            };
-
-            const onPointerLockError = () => {
-                console.error('O navegador não permitiu capturar o mouse.');
-                controls.dispatchEvent({ type: 'lockerror' });
-            };
-
-            controls.lock = () => {
-                if (document.pointerLockElement === domElement) return;
-
-                try {
-                    const request = domElement.requestPointerLock();
-                    if (request && typeof request.catch === 'function') {
-                        request.catch(error => {
-                            console.error('Não foi possível capturar o mouse:', error);
-                            controls.dispatchEvent({ type: 'lockerror' });
-                        });
-                    }
-                } catch (error) {
-                    console.error('Não foi possível capturar o mouse:', error);
-                    controls.dispatchEvent({ type: 'lockerror' });
+        document.addEventListener('pointerlockchange', () => {
+            isLocked = (document.pointerLockElement === renderer.domElement);
+            if (!isLocked) {
+                if (kioskModal.style.display !== 'flex' && !gameStarted) {
+                    instructions.style.display = 'flex';
                 }
-            };
+            } else {
+                instructions.style.display = 'none';
+            }
+        });
 
-            controls.unlock = () => {
-                if (document.pointerLockElement === domElement) document.exitPointerLock();
-            };
+        function lockPointer() {
+            try {
+                renderer.domElement.requestPointerLock();
+            } catch (err) {
+                console.warn(err);
+            }
+        }
 
-            document.addEventListener('mousemove', onMouseMove);
-            domElement.addEventListener('pointerdown', onPointerDown);
-            document.addEventListener('pointerup', stopDragging);
-            window.addEventListener('blur', stopDragging);
-            document.addEventListener('pointerlockchange', onPointerLockChange);
-            document.addEventListener('pointerlockerror', onPointerLockError);
-            return controls;
+        function unlockPointer() {
+            if (document.exitPointerLock) document.exitPointerLock();
         }
 
         /* =======================================================
-           3. MATERIAIS
+           4. MATERIAIS & AMBIENTE
            ======================================================= */
-        const concreteMat = new THREE.MeshStandardMaterial({
-            map: createConcreteTexture(),
-            roughness: 0.9,
-            metalness: 0.05
-        });
-
-        const glassMat = new THREE.MeshStandardMaterial({
-            color: 0xebf3f8,
-            transparent: true,
-            opacity: 0.38,
-            roughness: 0.08,
-            metalness: 0.1
-        });
-
         const goldMetalMat = new THREE.MeshStandardMaterial({
             color: 0xd4af37,
             roughness: 0.3,
@@ -637,32 +640,16 @@
             metalness: 0.1
         });
 
-        const blankCanvasMat = new THREE.MeshStandardMaterial({
-            color: 0xedebe4,
-            roughness: 0.85,
-            metalness: 0.02
-        });
-
-        /* =======================================================
-           4. SISTEMA DE FÍSICA E COLISÃO (AABB)
-           ======================================================= */
         const interactiveObjects = [];
-        const colliders = []; // Caixas de colisão
-        let isReceptionistLoaded = false;
-        let pendingGameStart = false;
-        const btnStart = document.querySelector('#instructions .btn-start');
-
-        function registerCollider(minX, maxX, minZ, maxZ) {
-            colliders.push({ minX, maxX, minZ, maxZ });
-        }
+        const colliders = [];
 
         function registerBoxCollider(x, z, sizeX, sizeZ) {
-            registerCollider(
-                x - sizeX / 2,
-                x + sizeX / 2,
-                z - sizeZ / 2,
-                z + sizeZ / 2
-            );
+            colliders.push({
+                minX: x - sizeX / 2,
+                maxX: x + sizeX / 2,
+                minZ: z - sizeZ / 2,
+                maxZ: z + sizeZ / 2
+            });
         }
 
         const LOCATIONS = {
@@ -672,12 +659,13 @@
             impressionismo: { name: "Ala Impressionismo", spawn: new THREE.Vector3(-80, 1.7, 10), lookAt: new THREE.Vector3(-80, 1.7, -5) }
         };
 
-        /* 4.1 RECEPÇÃO COMPACTA (14 x 12) COM TODAS AS PAREDES */
+        let isReceptionistLoaded = false;
+        let pendingGameStart = false;
+        const btnStart = document.querySelector('#instructions .btn-start');
+
         function buildReception() {
             const group = new THREE.Group();
-            const w = 14;
-            const d = 12;
-            const h = 4.8;
+            const w = 14, d = 12, h = 4.8;
 
             // Piso Mármore
             const floorMat = new THREE.MeshStandardMaterial({ map: createMarbleTexture(), roughness: 0.2, metalness: 0.25 });
@@ -693,21 +681,19 @@
             ceiling.rotation.x = Math.PI / 2;
             group.add(ceiling);
 
-            // Materiais das Paredes
+            // Materiais Paredes
             const wallMat = new THREE.MeshStandardMaterial({ map: createMuseumWallTexture('#181b22'), roughness: 0.75 });
             const woodWallMat = new THREE.MeshStandardMaterial({ map: createWoodSlatTexture(), roughness: 0.55 });
 
-            // Parede de Fundo (Atrás do Tablet) com Madeira Ripada
+            // Paredes
             const backWall = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.4), woodWallMat);
             backWall.position.set(0, h / 2, -d / 2);
             group.add(backWall);
 
-            // Parede Frontal (com entrada decorativa)
             const frontWall = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.4), wallMat);
             frontWall.position.set(0, h / 2, d / 2);
             group.add(frontWall);
 
-            // Paredes Laterais
             const leftWall = new THREE.Mesh(new THREE.BoxGeometry(0.4, h, d), wallMat);
             leftWall.position.set(-w / 2, h / 2, 0);
             group.add(leftWall);
@@ -716,103 +702,46 @@
             rightWall.position.set(w / 2, h / 2, 0);
             group.add(rightWall);
 
-            // ==========================================
-            // Quadros nas Paredes da Recepção
-            // ==========================================
+            // Quadros nas laterais
             const textureLoader = new THREE.TextureLoader();
 
-            // 1. Quadro na Parede Esquerda: "A Noite Estrelada"
-            const starryNightTexture = textureLoader.load('imagens/a_noite_estrelada.png');
-            const starryNightGroup = new THREE.Group();
-            starryNightGroup.position.set(-w / 2 + 0.22, 2.3, 0);
-            starryNightGroup.rotation.y = Math.PI / 2;
-
-            const snFrameW = 2.6;
-            const snFrameH = 1.95;
-
-            const snFrameBorderGold = new THREE.Mesh(
-                new THREE.BoxGeometry(snFrameW + 0.12, snFrameH + 0.12, 0.05),
-                goldMetalMat
-            );
-            starryNightGroup.add(snFrameBorderGold);
-
-            const snFrameWood = new THREE.Mesh(
-                new THREE.BoxGeometry(snFrameW, snFrameH, 0.06),
-                darkWoodMat
-            );
-            snFrameWood.castShadow = true;
-            starryNightGroup.add(snFrameWood);
-
-            const starryNightMat = new THREE.MeshStandardMaterial({
-                map: starryNightTexture,
-                roughness: 0.35,
-                metalness: 0.05
+            // Esquerda: Noite Estrelada
+            const snGroup = new THREE.Group();
+            snGroup.position.set(-w / 2 + 0.22, 2.3, 0);
+            snGroup.rotation.y = Math.PI / 2;
+            const snBorder = new THREE.Mesh(new THREE.BoxGeometry(2.72, 2.07, 0.05), goldMetalMat);
+            snGroup.add(snBorder);
+            const snFrame = new THREE.Mesh(new THREE.BoxGeometry(2.6, 1.95, 0.06), darkWoodMat);
+            snGroup.add(snFrame);
+            textureLoader.load('imagens/a_noite_estrelada.png', (tex) => {
+                const snCanvas = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 1.85), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.35 }));
+                snCanvas.position.z = 0.032;
+                snGroup.add(snCanvas);
             });
-            const snCanvasPainting = new THREE.Mesh(
-                new THREE.PlaneGeometry(snFrameW - 0.1, snFrameH - 0.1),
-                starryNightMat
-            );
-            snCanvasPainting.position.z = 0.032;
-            starryNightGroup.add(snCanvasPainting);
+            group.add(snGroup);
 
-            group.add(starryNightGroup);
-
-            const starryNightSpot = new THREE.SpotLight(0xfffae8, 2.4, 9, Math.PI / 3.5, 0.4, 1.0);
-            starryNightSpot.position.set(-4.0, 4.2, 0);
-            starryNightSpot.target = starryNightGroup;
-            group.add(starryNightSpot);
-
-            // 2. Quadro na Parede Direita: "Abaporu"
-            const abaporuTexture = textureLoader.load('imagens/abaporu.png');
-            const abaporuGroup = new THREE.Group();
-            abaporuGroup.position.set(w / 2 - 0.22, 2.3, 0);
-            abaporuGroup.rotation.y = -Math.PI / 2;
-
-            const abaporuFrameW = 1.95;
-            const abaporuFrameH = 2.35;
-
-            const abaporuFrameBorderGold = new THREE.Mesh(
-                new THREE.BoxGeometry(abaporuFrameW + 0.12, abaporuFrameH + 0.12, 0.05),
-                goldMetalMat
-            );
-            abaporuGroup.add(abaporuFrameBorderGold);
-
-            const abaporuFrameWood = new THREE.Mesh(
-                new THREE.BoxGeometry(abaporuFrameW, abaporuFrameH, 0.06),
-                darkWoodMat
-            );
-            abaporuFrameWood.castShadow = true;
-            abaporuGroup.add(abaporuFrameWood);
-
-            const abaporuMat = new THREE.MeshStandardMaterial({
-                map: abaporuTexture,
-                roughness: 0.35,
-                metalness: 0.05
+            // Direita: Abaporu
+            const abGroup = new THREE.Group();
+            abGroup.position.set(w / 2 - 0.22, 2.3, 0);
+            abGroup.rotation.y = -Math.PI / 2;
+            const abBorder = new THREE.Mesh(new THREE.BoxGeometry(2.07, 2.47, 0.05), goldMetalMat);
+            abGroup.add(abBorder);
+            const abFrame = new THREE.Mesh(new THREE.BoxGeometry(1.95, 2.35, 0.06), darkWoodMat);
+            abGroup.add(abFrame);
+            textureLoader.load('imagens/abaporu.png', (tex) => {
+                const abCanvas = new THREE.Mesh(new THREE.PlaneGeometry(1.85, 2.25), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.35 }));
+                abCanvas.position.z = 0.032;
+                abGroup.add(abCanvas);
             });
-            const abaporuCanvasPainting = new THREE.Mesh(
-                new THREE.PlaneGeometry(abaporuFrameW - 0.1, abaporuFrameH - 0.1),
-                abaporuMat
-            );
-            abaporuCanvasPainting.position.z = 0.032;
-            abaporuGroup.add(abaporuCanvasPainting);
+            group.add(abGroup);
 
-            group.add(abaporuGroup);
-
-            const abaporuSpot = new THREE.SpotLight(0xfffae8, 2.4, 9, Math.PI / 3.5, 0.4, 1.0);
-            abaporuSpot.position.set(4.0, 4.2, 0);
-            abaporuSpot.target = abaporuGroup;
-            group.add(abaporuSpot);
-
-            // Inscrição Luminosa "YUMIRA STUDIOS" na parede traseira
-            const signMat = new THREE.MeshBasicMaterial({
-                map: createYumiraSignTexture(),
-                transparent: true
-            });
+            // Letreiro
+            const signMat = new THREE.MeshBasicMaterial({ map: createYumiraSignTexture(), transparent: true });
             const signMesh = new THREE.Mesh(new THREE.PlaneGeometry(5.0, 1.25), signMat);
             signMesh.position.set(0, 3.0, -d / 2 + 0.22);
             group.add(signMesh);
 
-            // Balcão de Recepção
+            // Balcão
             const deskW = 3.6, deskH = 1.1, deskD = 1.1;
             const deskMesh = new THREE.Mesh(
                 new THREE.BoxGeometry(deskW, deskH, deskD),
@@ -827,40 +756,38 @@
             deskTop.position.set(0, deskH + 0.04, 0.2);
             group.add(deskTop);
 
-            // Terminal Digital no Balcão
-            const kioskStand = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.2, 16), goldMetalMat);
-            kioskStand.position.set(0, deskH + 0.14, 0.2);
+            // Terminal Digital estilizado (computador idêntico ao modelo da imagem)
+            const kioskStand = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.055, 0.18, 16), goldMetalMat);
+            kioskStand.position.set(0, deskH + 0.13, 0.2);
             group.add(kioskStand);
 
             const kioskScreen = new THREE.Mesh(
-                new THREE.BoxGeometry(0.44, 0.3, 0.04),
-                new THREE.MeshStandardMaterial({ color: 0x05070a, roughness: 0.1 })
+                new THREE.BoxGeometry(0.48, 0.34, 0.04),
+                new THREE.MeshStandardMaterial({ color: 0x07090c, roughness: 0.2 })
             );
-            kioskScreen.position.set(0, deskH + 0.32, 0.2);
-            kioskScreen.rotation.x = -Math.PI / 6;
+            kioskScreen.position.set(0, deskH + 0.33, 0.2);
+            kioskScreen.rotation.x = -Math.PI / 7;
 
             const display = new THREE.Mesh(
-                new THREE.PlaneGeometry(0.4, 0.26),
-                new THREE.MeshBasicMaterial({ color: 0xf7d070 })
+                new THREE.PlaneGeometry(0.44, 0.30),
+                new THREE.MeshBasicMaterial({ color: 0xf7d679 })
             );
             display.position.set(0, 0, 0.022);
             kioskScreen.add(display);
 
             kioskScreen.userData = {
                 action: 'openModal',
-                prompt: "[E] OU CLIQUE: SELECIONAR SALAS DE ARTE"
+                prompt: "[E] OU CLIQUE: ABRIR TERMINAL"
             };
             interactiveObjects.push(kioskScreen);
             group.add(kioskScreen);
 
-            // Recepcionista 3D atrás do balcão (.glb) com escala aumentada e carregamento imediato
+            // Recepcionista 3D
             const gltfLoader = new THREE.GLTFLoader();
             gltfLoader.load(
                 'personagens/recepcionista.glb',
                 (gltf) => {
                     const receptionist = gltf.scene;
-
-                    // Ajuste de escala aumentado (2.30m) para presença proporcional na recepção
                     const bbox = new THREE.Box3().setFromObject(receptionist);
                     const size = new THREE.Vector3();
                     bbox.getSize(size);
@@ -871,12 +798,10 @@
                         receptionist.scale.set(scale, scale, scale);
                     }
 
-                    // Recalcula o bounding box após aplicar escala para alinhar pés ao chão e centralizar
                     const updatedBbox = new THREE.Box3().setFromObject(receptionist);
                     const center = new THREE.Vector3();
                     updatedBbox.getCenter(center);
 
-                    // Posição: centralizado atrás do balcão (z = -0.70) e pés no chão (y = 0)
                     receptionist.position.x = -center.x;
                     receptionist.position.y = -updatedBbox.min.y;
                     receptionist.position.z = -center.z - 0.70;
@@ -890,299 +815,77 @@
 
                     group.add(receptionist);
                     isReceptionistLoaded = true;
-                    instructions.setAttribute('aria-busy', 'false');
                     btnStart.disabled = false;
+                    btnStart.textContent = 'Iniciar jogo';
                     if (pendingGameStart) {
                         pendingGameStart = false;
-                        btnStart.textContent = 'Iniciar jogo';
-                        if (controls.isLocked) instructions.style.display = 'none';
+                        gameStarted = true;
+                        if (pauseMenu.style.display !== 'flex') lockPointer();
                     }
                 },
                 undefined,
-                (error) => {
-                    console.warn('Erro ao carregar personagens/recepcionista.glb:', error);
-                    pendingGameStart = false;
-                    instructions.setAttribute('aria-busy', 'false');
-                    btnStart.disabled = true;
-                    btnStart.textContent = 'Falha ao carregar personagem';
-                    if (controls.isLocked) controls.unlock();
+                () => {
+                    // Fallback gracioso se não houver modelo
+                    isReceptionistLoaded = true;
+                    btnStart.disabled = false;
+                    btnStart.textContent = 'Iniciar jogo';
                 }
             );
 
-            // Luzes
-            const ambient = new THREE.AmbientLight(0xffeedd, 0.7);
+            // Iluminação
+            const ambient = new THREE.AmbientLight(0xffeedd, 0.75);
             group.add(ambient);
 
-            const deskSpot = new THREE.SpotLight(0xfff2dc, 2.8, 8, Math.PI / 3.8, 0.3, 1.0);
+            const deskSpot = new THREE.SpotLight(0xfff2dc, 2.6, 9, Math.PI / 3.8, 0.3, 1.0);
             deskSpot.position.set(0, 4.4, 1.4);
             deskSpot.target = deskMesh;
             group.add(deskSpot);
 
             scene.add(group);
 
-            // Colisões da Recepção
-            // Paredes (w = 14 => x: -7 a 7, d = 12 => z: -6 a 6)
-            registerBoxCollider(0, -6, 14, 0.6); // Traseira
-            registerBoxCollider(0, 6, 14, 0.6);  // Frontal
-            registerBoxCollider(-7, 0, 0.6, 12); // Esquerda
-            registerBoxCollider(7, 0, 0.6, 12);  // Direita
-            // Balcão
+            // Colisões das paredes e balcão
+            registerBoxCollider(0, -6, 14, 0.6);
+            registerBoxCollider(0, 6, 14, 0.6);
+            registerBoxCollider(-7, 0, 0.6, 12);
+            registerBoxCollider(7, 0, 0.6, 12);
             registerBoxCollider(0, 0.2, deskW + 0.3, deskD + 0.3);
-            registerBoxCollider(0, -0.70, 0.9, 0.9); // Recepcionista
+            registerBoxCollider(0, -0.70, 0.9, 0.9);
         }
 
-        /* 4.2 CAVALETES DE CRISTAL (COM COLISÃO) */
-        function createEmptyEasel(galleryCenterX, galleryCenterZ, x, z, rotY = 0, frameType = "gold", width = 1.4, aspect = 1.25) {
-            const group = new THREE.Group();
-
-            // 1. Base Concreto
-            const base = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.45, 0.85), concreteMat);
-            base.position.y = 0.225;
-            base.castShadow = true;
-            base.receiveShadow = true;
-            group.add(base);
-
-            // Cunha
-            const wedge = new THREE.Mesh(new THREE.BoxGeometry(0.88, 0.08, 0.08), darkWoodMat);
-            wedge.position.set(0, 0.43, 0);
-            group.add(wedge);
-
-            // 2. Vidro de Cristal
-            const frameW = width;
-            const frameH = width * aspect;
-            const glassW = Math.max(frameW + 0.35, 1.6);
-            const glassH = Math.max(frameH + 0.9, 2.7);
-
-            const glass = new THREE.Mesh(new THREE.BoxGeometry(glassW, glassH, 0.025), glassMat);
-            glass.position.y = glassH / 2 + 0.35;
-            group.add(glass);
-
-            // 3. Moldura de Apoio
-            const frameGroup = new THREE.Group();
-            const borderT = 0.07;
-            const frameD = 0.06;
-            const mat = (frameType === 'gold') ? goldMetalMat : darkWoodMat;
-
-            const topB = new THREE.Mesh(new THREE.BoxGeometry(frameW, borderT, frameD), mat);
-            topB.position.y = (frameH / 2) - (borderT / 2);
-            const botB = new THREE.Mesh(new THREE.BoxGeometry(frameW, borderT, frameD), mat);
-            botB.position.y = -(frameH / 2) + (borderT / 2);
-            const leftB = new THREE.Mesh(new THREE.BoxGeometry(borderT, frameH, frameD), mat);
-            leftB.position.x = -(frameW / 2) + (borderT / 2);
-            const rightB = new THREE.Mesh(new THREE.BoxGeometry(borderT, frameH, frameD), mat);
-            rightB.position.x = (frameW / 2) - (borderT / 2);
-            frameGroup.add(topB, botB, leftB, rightB);
-
-            // Tela em Branco
-            const canvasMesh = new THREE.Mesh(
-                new THREE.PlaneGeometry(frameW - borderT * 1.5, frameH - borderT * 1.5),
-                blankCanvasMat
-            );
-            canvasMesh.position.z = 0.015;
-            frameGroup.add(canvasMesh);
-
-            frameGroup.position.set(0, 1.8, 0.035);
-            group.add(frameGroup);
-
-            // Foco de Luz
-            const spot = new THREE.SpotLight(0xfffae8, 2.5, 7, Math.PI / 5, 0.4, 1.0);
-            spot.position.set(0, 4.0, 1.3);
-            spot.target = frameGroup;
-            group.add(spot);
-
-            group.position.set(x, 0, z);
-            group.rotation.y = rotY;
-
-            // Registra colisão no mundo para a base do cavalete
-            registerBoxCollider(galleryCenterX + x, galleryCenterZ + z, 1.1, 1.1);
-
-            return group;
-        }
-
-        /* 4.3 CONSTRUÇÃO COMPLETA DAS SALAS COM 4 PAREDES */
-        function buildGallery(centerX, centerZ, floorColor, wallColor, easelConfigs) {
-            const group = new THREE.Group();
-            group.position.set(centerX, 0, centerZ);
-
-            const roomW = 26;
-            const roomD = 30;
-            const roomH = 5.2;
-
-            // Piso
-            const floorMat = new THREE.MeshStandardMaterial({
-                map: createGalleryFloorTexture(floorColor),
-                roughness: 0.35,
-                metalness: 0.1
-            });
-            const floor = new THREE.Mesh(new THREE.PlaneGeometry(roomW, roomD), floorMat);
-            floor.rotation.x = -Math.PI / 2;
-            floor.receiveShadow = true;
-            group.add(floor);
-
-            // Teto
-            const ceilingMat = new THREE.MeshStandardMaterial({ color: 0x111317, roughness: 0.9 });
-            const ceiling = new THREE.Mesh(new THREE.PlaneGeometry(roomW, roomD), ceilingMat);
-            ceiling.position.y = roomH;
-            ceiling.rotation.x = Math.PI / 2;
-            group.add(ceiling);
-
-            // Paredes fechadas
-            const wallMat = new THREE.MeshStandardMaterial({
-                map: createMuseumWallTexture(wallColor),
-                roughness: 0.8
-            });
-
-            // Parede Traseira (Z negativo)
-            const backWall = new THREE.Mesh(new THREE.BoxGeometry(roomW, roomH, 0.5), wallMat);
-            backWall.position.set(0, roomH / 2, -roomD / 2);
-            group.add(backWall);
-
-            // Parede Frontal (Z positivo)
-            const frontWall = new THREE.Mesh(new THREE.BoxGeometry(roomW, roomH, 0.5), wallMat);
-            frontWall.position.set(0, roomH / 2, roomD / 2);
-            group.add(frontWall);
-
-            // Paredes Laterais (X negativo e positivo)
-            const leftWall = new THREE.Mesh(new THREE.BoxGeometry(0.5, roomH, roomD), wallMat);
-            leftWall.position.set(-roomW / 2, roomH / 2, 0);
-            group.add(leftWall);
-
-            const rightWall = new THREE.Mesh(new THREE.BoxGeometry(0.5, roomH, roomD), wallMat);
-            rightWall.position.set(roomW / 2, roomH / 2, 0);
-            group.add(rightWall);
-
-            // Totem de Retorno à Recepção
-            const totemPillar = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.2, 1.1, 16), darkWoodMat);
-            totemPillar.position.set(2.5, 0.55, 12);
-
-            const totemButton = new THREE.Mesh(
-                new THREE.BoxGeometry(0.35, 0.25, 0.08),
-                new THREE.MeshStandardMaterial({ color: 0x11141a, emissive: 0xd4af37, emissiveIntensity: 0.35 })
-            );
-            totemButton.position.set(2.5, 1.15, 12);
-            totemButton.rotation.x = -Math.PI / 6;
-
-            totemButton.userData = {
-                action: 'returnLobby',
-                prompt: "[E] OU CLIQUE: RETORNAR À RECEPÇÃO"
-            };
-            interactiveObjects.push(totemButton);
-            group.add(totemPillar, totemButton);
-
-            // Colisão do Totem
-            registerBoxCollider(centerX + 2.5, centerZ + 12, 0.7, 0.7);
-
-            // Luz ambiente
-            group.add(new THREE.AmbientLight(0xdce6f2, 0.65));
-
-            // Cavaletes
-            easelConfigs.forEach(cfg => {
-                const easel = createEmptyEasel(centerX, centerZ, cfg.x, cfg.z, cfg.rotY, cfg.frame, cfg.w, cfg.aspect);
-                group.add(easel);
-            });
-
-            scene.add(group);
-
-            // Colisões das paredes desta sala
-            registerBoxCollider(centerX, centerZ - roomD / 2, roomW, 0.6); // Fundo
-            registerBoxCollider(centerX, centerZ + roomD / 2, roomW, 0.6); // Frente
-            registerBoxCollider(centerX - roomW / 2, centerZ, 0.6, roomD); // Esquerda
-            registerBoxCollider(centerX + roomW / 2, centerZ, 0.6, roomD); // Direita
-        }
-
-        const standardEasels = [
-            { x: -4.5, z: 4.5, rotY: 0.05, frame: 'gold', w: 1.35, aspect: 1.3 },
-            { x: 0, z: 5.0, rotY: -0.04, frame: 'wood', w: 1.25, aspect: 1.4 },
-            { x: 4.5, z: 4.2, rotY: 0.08, frame: 'gold', w: 1.45, aspect: 1.1 },
-            { x: -5.5, z: -0.5, rotY: -0.06, frame: 'wood', w: 1.6, aspect: 0.8 },
-            { x: -1.0, z: 0.0, rotY: 0.03, frame: 'gold', w: 1.25, aspect: 1.3 },
-            { x: 4.0, z: -1.0, rotY: -0.05, frame: 'gold', w: 1.35, aspect: 1.2 },
-            { x: -4.0, z: -5.5, rotY: 0.07, frame: 'gold', w: 1.3, aspect: 1.25 },
-            { x: 1.5, z: -5.0, rotY: -0.03, frame: 'wood', w: 1.7, aspect: 0.7 },
-            { x: 5.5, z: -5.8, rotY: 0.04, frame: 'gold', w: 1.4, aspect: 1.0 },
-        ];
-
-        // Construir Salas
-        const currentPage = document.body.dataset.page;
-        if (currentPage === 'recepcao') buildReception();
-        if (currentPage === 'classica') buildGallery(LOCATIONS.classica.spawn.x, -90, "#181a20", "#21242c", standardEasels);
-        if (currentPage === 'moderna') buildGallery(LOCATIONS.moderna.spawn.x, 0, "#20232a", "#1b1d24", standardEasels);
-        if (currentPage === 'impressionismo') buildGallery(LOCATIONS.impressionismo.spawn.x, 0, "#14161c", "#1f2229", standardEasels);
+        buildReception();
 
         /* =======================================================
-           5. CONTROLES E TRANSIÇÕES
+           5. EVENTOS E INTERAÇÃO
            ======================================================= */
-        const controls = createPointerControls(camera, renderer.domElement);
         const instructions = document.getElementById('instructions');
         const kioskModal = document.getElementById('kiosk-modal');
         const fadeOverlay = document.getElementById('fade-overlay');
         const crosshair = document.getElementById('crosshair');
         const interactPrompt = document.getElementById('interact-prompt');
-        const locBadge = document.getElementById('current-location');
 
-        const currentLocation = LOCATIONS[currentPage];
-        camera.position.copy(currentLocation.spawn);
-        camera.lookAt(currentLocation.lookAt);
-        locBadge.textContent = currentLocation.name;
-        if (currentPage !== 'recepcao') instructions.querySelector('p').hidden = true;
+        camera.position.copy(LOCATIONS.recepcao.spawn);
+        updateCameraRotation();
 
-        btnStart.addEventListener('click', () => {
-            if (controls.isLocked) return;
+        btnStart.addEventListener('click', (e) => {
+            e.stopPropagation();
             if (!isReceptionistLoaded) {
                 pendingGameStart = true;
                 btnStart.disabled = true;
-                btnStart.textContent = 'Carregando jogo...';
+                btnStart.textContent = 'Carregando...';
+                return;
             }
-            controls.lock();
+            gameStarted = true;
+            lockPointer();
         });
-
-        controls.addEventListener('lock', () => {
-            if (isReceptionistLoaded) {
-                instructions.style.display = 'none';
-                pendingGameStart = false;
-                btnStart.disabled = false;
-                btnStart.textContent = 'Iniciar jogo';
-            }
-        });
-
-        controls.addEventListener('unlock', () => {
-            if (pendingGameStart && !isReceptionistLoaded) {
-                pendingGameStart = false;
-                btnStart.disabled = false;
-                btnStart.textContent = 'Iniciar jogo';
-            }
-            if (kioskModal.style.display !== 'flex') instructions.style.display = 'flex';
-        });
-        controls.addEventListener('lockerror', () => {
-            pendingGameStart = false;
-            if (!isReceptionistLoaded) {
-                btnStart.disabled = false;
-                btnStart.textContent = 'Iniciar jogo';
-            }
-            instructions.style.display = 'flex';
-        });
-
-        function teleportTo(key) {
-            const loc = LOCATIONS[key];
-            if (!loc) return;
-
-            fadeOverlay.style.opacity = '1';
-            setTimeout(() => {
-                camera.position.copy(loc.spawn);
-                camera.lookAt(loc.lookAt);
-                locBadge.textContent = loc.name;
-                setTimeout(() => { fadeOverlay.style.opacity = '0'; }, 250);
-            }, 500);
-        }
 
         function openKioskModal() {
-            controls.unlock();
+            unlockPointer();
             kioskModal.style.display = 'flex';
         }
 
         function closeKioskModal() {
             kioskModal.style.display = 'none';
-            controls.lock();
+            if (gameStarted) lockPointer();
         }
 
         function travelToRoom(key) {
@@ -1195,138 +898,137 @@
             if (!pages[key]) return;
 
             fadeOverlay.style.opacity = '1';
-            setTimeout(() => { window.location.href = pages[key]; }, 500);
+            setTimeout(() => { window.location.href = pages[key]; }, 400);
         }
 
         // Teclado
         const keys = { forward: false, backward: false, left: false, right: false };
-        const handleKey = (code, state) => {
-            if (code === 'ArrowUp' || code === 'KeyW') keys.forward = state;
-            else if (code === 'ArrowDown' || code === 'KeyS') keys.backward = state;
-            else if (code === 'ArrowLeft' || code === 'KeyA') keys.left = state;
-            else if (code === 'ArrowRight' || code === 'KeyD') keys.right = state;
-            else return false;
+        const pauseMenu = document.getElementById('pause-menu');
 
-            return true;
-        };
+        function openPauseMenu() {
+            keys.forward = keys.backward = keys.left = keys.right = false;
+            pauseMenu.style.display = 'flex';
+            unlockPointer();
+        }
 
-        const clearMovementKeys = () => {
-            keys.forward = false;
-            keys.backward = false;
-            keys.left = false;
-            keys.right = false;
-        };
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) clearMovementKeys();
+        function closePauseMenu() {
+            pauseMenu.style.display = 'none';
+            if (gameStarted && kioskModal.style.display !== 'flex') lockPointer();
+        }
+
+        document.getElementById('pause-reception').addEventListener('click', () => {
+            window.location.href = 'index.html';
         });
-        controls.addEventListener('unlock', clearMovementKeys);
+        document.getElementById('pause-resume').addEventListener('click', closePauseMenu);
 
         window.addEventListener('keydown', (e) => {
-            if (handleKey(e.code, true)) e.preventDefault();
+            if (e.code === 'Escape') {
+                e.preventDefault();
+                if (pauseMenu.style.display !== 'flex') openPauseMenu();
+                return;
+            }
+            if (pauseMenu.style.display === 'flex') return;
+            if (!gameStarted) return;
+
+            if (e.code === 'KeyW' || e.code === 'ArrowUp') keys.forward = true;
+            if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.backward = true;
+            if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = true;
+            if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = true;
+
             if (e.code === 'KeyE' && focusedObject) triggerAction(focusedObject);
-            if (e.code === 'KeyM') openKioskModal();
+            if (e.code === 'KeyM') {
+                if (kioskModal.style.display === 'flex') closeKioskModal();
+                else openKioskModal();
+            }
         });
 
         window.addEventListener('keyup', (e) => {
-            if (handleKey(e.code, false)) e.preventDefault();
+            if (e.code === 'KeyW' || e.code === 'ArrowUp') keys.forward = false;
+            if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.backward = false;
+            if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = false;
+            if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = false;
+        });
+
+        window.addEventListener('blur', () => {
+            keys.forward = keys.backward = keys.left = keys.right = false;
         });
 
         document.addEventListener('click', () => {
-            if (controls.isLocked && focusedObject) triggerAction(focusedObject);
+            if (isLocked && focusedObject) triggerAction(focusedObject);
         });
 
         function triggerAction(obj) {
             if (obj.userData.action === 'openModal') openKioskModal();
-            if (obj.userData.action === 'returnLobby') travelToRoom('recepcao');
         }
 
         /* =======================================================
-           6. DETECÇÃO DE COLISÃO DO JOGADOR
+           6. FÍSICA E DESLIZAMENTO SUAVE CONTRA COLISÕES
            ======================================================= */
-        const playerRadius = 0.45;
+        const playerRadius = 0.42;
 
-        function overlapsCollider(x, z, collider) {
-            return (
-                x + playerRadius > collider.minX &&
-                x - playerRadius < collider.maxX &&
-                z + playerRadius > collider.minZ &&
-                z - playerRadius < collider.maxZ
-            );
-        }
-
-        function canMoveTo(currentX, currentZ, targetX, targetZ, axis) {
+        function checkCollision(x, z) {
             for (let i = 0; i < colliders.length; i++) {
-                const collider = colliders[i];
-                if (!overlapsCollider(targetX, targetZ, collider)) continue;
-                if (!overlapsCollider(currentX, currentZ, collider)) return false;
-
-                const currentOverlap = axis === 'x'
-                    ? Math.min(currentX + playerRadius, collider.maxX) - Math.max(currentX - playerRadius, collider.minX)
-                    : Math.min(currentZ + playerRadius, collider.maxZ) - Math.max(currentZ - playerRadius, collider.minZ);
-                const targetOverlap = axis === 'x'
-                    ? Math.min(targetX + playerRadius, collider.maxX) - Math.max(targetX - playerRadius, collider.minX)
-                    : Math.min(targetZ + playerRadius, collider.maxZ) - Math.max(targetZ - playerRadius, collider.minZ);
-
-                if (targetOverlap > currentOverlap) return false;
+                const c = colliders[i];
+                if (x + playerRadius > c.minX && x - playerRadius < c.maxX &&
+                    z + playerRadius > c.minZ && z - playerRadius < c.maxZ) {
+                    return true;
+                }
             }
-
-            return true;
+            return false;
         }
 
         /* =======================================================
-           7. LOOP DE ANIMAÇÃO COM FÍSICA
+           7. LOOP DE ANIMAÇÃO
            ======================================================= */
-        const direction = new THREE.Vector3();
-        const forward = new THREE.Vector3();
-        const right = new THREE.Vector3();
-        const moveStep = new THREE.Vector3();
+        const forwardDir = new THREE.Vector3();
+        const rightDir = new THREE.Vector3();
         let prevTime = performance.now();
-
         const raycaster = new THREE.Raycaster();
-        const center = new THREE.Vector2(0, 0);
+        const screenCenter = new THREE.Vector2(0, 0);
         let focusedObject = null;
 
         function animate() {
             requestAnimationFrame(animate);
 
-            const time = performance.now();
-            const delta = Math.min((time - prevTime) / 1000, 0.1);
+            const now = performance.now();
+            const delta = Math.min((now - prevTime) / 1000, 0.08);
+            prevTime = now;
 
-            if (controls.isLocked && isReceptionistLoaded && kioskModal.style.display !== 'flex') {
-                direction.z = Number(keys.forward) - Number(keys.backward);
-                direction.x = Number(keys.right) - Number(keys.left);
-                direction.normalize();
+            if (isLocked && kioskModal.style.display !== 'flex') {
+                // Cálculo de direção puramente horizontal a partir do yaw
+                forwardDir.set(-Math.sin(yaw), 0, -Math.cos(yaw)).normalize();
+                rightDir.set(Math.cos(yaw), 0, -Math.sin(yaw)).normalize();
 
-                // Use apenas o yaw: olhar para cima ou para baixo não altera a direção do movimento.
-                const yaw = camera.rotation.y;
-                forward.set(-Math.sin(yaw), 0, -Math.cos(yaw));
-                right.set(Math.cos(yaw), 0, -Math.sin(yaw));
+                let moveX = 0;
+                let moveZ = 0;
+                const speed = 4.2;
 
-                // Movimento pretendido
-                moveStep.set(0, 0, 0);
-                moveStep.addScaledVector(forward, direction.z * 4.0 * delta);
-                moveStep.addScaledVector(right, direction.x * 4.0 * delta);
+                if (keys.forward) { moveX += forwardDir.x; moveZ += forwardDir.z; }
+                if (keys.backward) { moveX -= forwardDir.x; moveZ -= forwardDir.z; }
+                if (keys.right) { moveX += rightDir.x; moveZ += rightDir.z; }
+                if (keys.left) { moveX -= rightDir.x; moveZ -= rightDir.z; }
 
-                // Verificação e deslizamento nos eixos X e Z separadamente
-                const curPos = camera.position;
+                const len = Math.hypot(moveX, moveZ);
+                if (len > 0) {
+                    moveX = (moveX / len) * speed * delta;
+                    moveZ = (moveZ / len) * speed * delta;
 
-                // Eixo X
-                if (canMoveTo(curPos.x, curPos.z, curPos.x + moveStep.x, curPos.z, 'x')) {
-                    curPos.x += moveStep.x;
+                    // Deslizamento independente nos eixos X e Z
+                    if (!checkCollision(camera.position.x + moveX, camera.position.z)) {
+                        camera.position.x += moveX;
+                    }
+                    if (!checkCollision(camera.position.x, camera.position.z + moveZ)) {
+                        camera.position.z += moveZ;
+                    }
                 }
 
-                // Eixo Z
-                if (canMoveTo(curPos.x, curPos.z, curPos.x, curPos.z + moveStep.z, 'z')) {
-                    curPos.z += moveStep.z;
-                }
+                camera.position.y = 1.7;
 
-                camera.position.y = 1.7; // Altura dos olhos consistente
-
-                // Raycast central para interações
-                raycaster.setFromCamera(center, camera);
+                // Raycast para mira de interação
+                raycaster.setFromCamera(screenCenter, camera);
                 const hits = raycaster.intersectObjects(interactiveObjects, false);
 
-                if (hits.length > 0 && hits[0].distance < 3.8) {
+                if (hits.length > 0 && hits[0].distance < 3.5) {
                     focusedObject = hits[0].object;
                     crosshair.classList.add('interactive');
                     interactPrompt.textContent = focusedObject.userData.prompt || "[E] INTERAGIR";
@@ -1338,7 +1040,6 @@
                 }
             }
 
-            prevTime = time;
             renderer.render(scene, camera);
         }
 

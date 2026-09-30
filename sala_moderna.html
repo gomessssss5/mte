@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grand Musée 3D - Recepção & Galerias</title>
+    <title>Grand Musée 3D - Arte Moderna</title>
     <style>
         * {
             margin: 0;
@@ -31,8 +31,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             background-color: rgba(255, 255, 255, 0.85);
             border-radius: 50%;
             pointer-events: none;
@@ -41,8 +41,8 @@
         }
 
         #crosshair.interactive {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             background-color: rgba(212, 175, 55, 0.25);
             border: 2px solid #d4af37;
         }
@@ -50,14 +50,14 @@
         /* Dica de Interação */
         #interact-prompt {
             position: absolute;
-            top: 54%;
+            top: 55%;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(10, 12, 16, 0.9);
+            background: rgba(10, 12, 16, 0.92);
             border: 1px solid rgba(212, 175, 55, 0.6);
-            padding: 7px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 0.75rem;
             font-weight: 600;
             color: #f7d070;
             letter-spacing: 1px;
@@ -65,14 +65,14 @@
             opacity: 0;
             transition: opacity 0.2s ease;
             z-index: 10;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
 
         /* HUD Superior */
         #hud-top {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 18px;
+            left: 18px;
             display: flex;
             flex-direction: column;
             gap: 6px;
@@ -81,239 +81,126 @@
         }
 
         .hud-badge {
-            background: rgba(12, 15, 20, 0.75);
+            background: rgba(12, 15, 20, 0.78);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.78rem;
             color: #d1d5db;
         }
 
         .hud-badge b {
             color: #d4af37;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
         .keys-badge {
             display: inline-block;
             background: rgba(255, 255, 255, 0.15);
-            border-radius: 4px;
-            padding: 2px 6px;
-            font-size: 0.75rem;
+            border-radius: 3px;
+            padding: 1px 5px;
+            font-size: 0.7rem;
             color: #fff;
             margin: 0 2px;
         }
 
-        /* Tela Inicial de Entrada */
-        #instructions {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle, rgba(16, 20, 28, 0.95) 0%, rgba(5, 7, 10, 0.98) 100%);
-            backdrop-filter: blur(12px);
-            z-index: 50;
-            cursor: pointer;
-            text-align: center;
-            padding: 20px;
-        }
-
-        #instructions h1 {
-            font-size: 2.8rem;
-            font-weight: 300;
-            letter-spacing: 6px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            color: #f7d070;
-            text-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
-        }
-
-        #instructions h2 {
-            font-size: 1rem;
-            font-weight: 400;
-            color: #aaa;
-            letter-spacing: 3px;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-        }
-
-        #instructions p {
-            font-size: 1.05rem;
-            color: #ccc;
-            margin: 6px 0;
-            max-width: 620px;
-            line-height: 1.6;
-        }
-
-        .btn-start {
-            margin-top: 30px;
-            padding: 15px 45px;
-            font-size: 1rem;
-            background: linear-gradient(135deg, #d4af37, #aa820a);
-            color: #0b0d12;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            letter-spacing: 2px;
-            font-weight: 700;
-            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
-            transition: all 0.3s;
-        }
-
-        .btn-start:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.6);
-        }
-
-        /* Modal do Terminal do Balcão */
-        #kiosk-modal {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 40;
-        }
-
-        .kiosk-card {
-            background: #0f131a;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            border-radius: 16px;
-            width: 90%;
-            max-width: 850px;
-            padding: 35px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(212, 175, 55, 0.15);
-            text-align: center;
-        }
-
-        .kiosk-card h2 {
-            font-size: 1.8rem;
-            font-weight: 400;
-            letter-spacing: 4px;
-            color: #f7d070;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .kiosk-card p.subtitle {
-            color: #8e95a5;
-            font-size: 0.95rem;
-            margin-bottom: 30px;
-        }
-
-        .rooms-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-
-        .room-item {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 24px 18px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .room-item:hover {
-            border-color: #d4af37;
-            background: rgba(212, 175, 55, 0.1);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
-        }
-
-        .room-icon {
-            font-size: 2.2rem;
-            margin-bottom: 12px;
-        }
-
-        .room-title {
-            font-size: 1.15rem;
-            color: #fff;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .room-desc {
-            font-size: 0.85rem;
-            color: #8f9ba8;
-            line-height: 1.4;
-        }
-
-        .btn-close-modal {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #aaa;
-            padding: 10px 28px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-        }
-
-        .btn-close-modal:hover {
-            color: #fff;
-            border-color: #fff;
-        }
-
-        /* Overlay de Transição */
+        /* Tela de entrada da sala */
         #room-welcome {
-            position: absolute;
-            top: 15%;
-            left: 50%;
-            transform: translateX(-50%);
+            position: fixed;
+            inset: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            min-width: min(380px, calc(100vw - 32px));
-            padding: 18px 28px 20px;
-            background: rgba(10, 12, 16, 0.82);
-            border: 1px solid rgba(212, 175, 55, 0.5);
-            border-top: 2px solid #d4af37;
-            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
-            backdrop-filter: blur(8px);
-            pointer-events: none;
-            z-index: 20;
+            justify-content: center;
+            gap: 4px;
+            padding: 24px;
+            background: rgba(170, 129, 24, 0.28);
+            backdrop-filter: blur(3px);
+            cursor: pointer;
+            z-index: 50;
             opacity: 1;
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
         }
 
         #room-welcome span {
-            color: #c1c5cc;
-            font-size: 0.72rem;
+            color: #fff0bd;
+            font-size: 0.75rem;
             text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         #room-welcome h1 {
-            color: #f7d070;
-            font-size: 1.35rem;
-            font-weight: 400;
+            color: #fff4d0;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-weight: 500;
             text-align: center;
+            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
         }
 
         #room-welcome.is-hidden {
             opacity: 0;
-            transform: translate(-50%, -8px);
+            visibility: hidden;
+            pointer-events: none;
         }
 
+        #pause-menu {
+            position: fixed;
+            inset: 0;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.78);
+            backdrop-filter: blur(8px);
+            z-index: 80;
+            padding: 20px;
+        }
+
+        #pause-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: min(360px, 100%);
+            padding: 30px 24px;
+            background: rgba(15, 18, 22, 0.97);
+            border: 1px solid rgba(212, 175, 55, 0.6);
+            border-top: 3px solid #d4af37;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        #pause-card h2 {
+            margin: 0 0 8px;
+            color: #f7d070;
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .pause-option {
+            width: 100%;
+            padding: 12px 18px;
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            border-radius: 4px;
+            background: rgba(212, 175, 55, 0.08);
+            color: #eee7d3;
+            font: inherit;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .pause-option:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+        }
+
+        .pause-option-primary {
+            background: linear-gradient(135deg, #d4af37, #b28c12);
+            color: #0b0d12;
+            font-weight: 700;
+        }
+
+        /* Visualizador de Obra */
         #artwork-viewer {
             position: absolute;
             inset: 0;
@@ -329,67 +216,71 @@
         #artwork-card {
             position: absolute;
             top: 50%;
-            right: clamp(24px, 4.5vw, 72px);
+            right: clamp(20px, 4vw, 60px);
             transform: translateY(-50%);
-            width: min(540px, calc(100vw - 40px));
-            padding: 42px 40px;
+            width: min(440px, calc(100vw - 40px));
+            padding: 28px 24px;
             color: #f3f4f6;
             background: rgba(12, 15, 20, 0.94);
             border: 1px solid rgba(212, 175, 55, 0.45);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(12px);
+            border-radius: 8px;
             pointer-events: auto;
         }
 
         #artwork-card .artwork-label {
             color: #d4af37;
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         #artwork-card h2 {
-            margin-top: 12px;
-            font-size: 1.9rem;
-            font-weight: 400;
+            margin-top: 8px;
+            font-size: 1.4rem;
+            font-weight: 500;
             color: #f7d070;
         }
 
         #artwork-card p {
-            margin-top: 20px;
+            margin-top: 14px;
             color: #c1c5cc;
-            font-size: 1.05rem;
-            line-height: 1.75;
+            font-size: 0.88rem;
+            line-height: 1.6;
         }
 
         #start-painting {
             width: 100%;
-            margin-top: 28px;
-            padding: 13px 18px;
+            margin-top: 20px;
+            padding: 10px 16px;
             border: 1px solid rgba(212, 175, 55, 0.55);
             background: linear-gradient(135deg, #d4af37, #aa820a);
             color: #0b0d12;
             font: inherit;
+            font-size: 0.78rem;
             font-weight: 700;
+            border-radius: 20px;
             cursor: not-allowed;
             opacity: 0.7;
         }
 
         #artwork-close {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 16px;
+            right: 16px;
             display: grid;
             place-items: center;
-            width: 46px;
-            height: 46px;
-            border: 1px solid rgba(255, 255, 255, 0.35);
+            width: 34px;
+            height: 34px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             color: #fff;
             background: rgba(12, 15, 20, 0.88);
-            font: inherit;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             cursor: pointer;
             pointer-events: auto;
+            transition: all 0.2s;
         }
 
         #artwork-close:hover {
@@ -397,22 +288,138 @@
             color: #f7d070;
         }
 
-        @media (max-width: 680px) {
-            #artwork-card {
-                top: auto;
-                right: 16px;
-                bottom: 16px;
-                transform: none;
-                width: calc(100vw - 32px);
-                max-height: 48vh;
-                overflow-y: auto;
-                padding: 22px;
-            }
+        /* Modal do Terminal estilo computador/monitor */
+        #kiosk-modal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.82);
+            backdrop-filter: blur(8px);
+            z-index: 40;
+        }
 
-            #artwork-close {
-                top: 12px;
-                right: 12px;
-            }
+        .kiosk-device-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            max-width: 720px;
+            width: 92%;
+        }
+
+        .kiosk-monitor-frame {
+            background: #0f1216;
+            border: 14px solid #080a0d;
+            outline: 2px solid #232730;
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 35px rgba(0,0,0,0.7);
+            width: 100%;
+            padding: 24px 28px;
+            background-color: #f7d679;
+            color: #1a160d;
+            position: relative;
+            z-index: 2;
+        }
+
+        .kiosk-pedestal {
+            width: 60px;
+            height: 50px;
+            background: linear-gradient(90deg, #6c5722 0%, #d4af37 40%, #ffdf78 60%, #574618 100%);
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.6), 0 8px 18px rgba(0,0,0,0.8);
+            border-radius: 0 0 6px 6px;
+            margin-top: -2px;
+            z-index: 1;
+        }
+
+        .kiosk-monitor-frame h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #241d0f;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        .kiosk-monitor-frame p.subtitle {
+            color: #5d4f33;
+            font-size: 0.82rem;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .room-item {
+            background: rgba(255, 255, 255, 0.55);
+            border: 1px solid rgba(80, 65, 30, 0.25);
+            border-radius: 8px;
+            padding: 16px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        .room-item:hover {
+            border-color: #8c6a0c;
+            background: rgba(255, 255, 255, 0.85);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+        }
+
+        .room-icon {
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+
+        .room-title {
+            font-size: 0.92rem;
+            color: #1e190e;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .room-desc {
+            font-size: 0.72rem;
+            color: #4f432a;
+            line-height: 1.35;
+        }
+
+        .kiosk-footer {
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-close-modal {
+            background: #1e1b14;
+            border: 1px solid #3d3420;
+            color: #f7d070;
+            padding: 7px 20px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 0.76rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-close-modal:hover {
+            background: #000;
+            color: #fff;
         }
 
         #fade-overlay {
@@ -424,7 +431,7 @@
             background: #000;
             pointer-events: none;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.4s ease;
             z-index: 100;
         }
     </style>
@@ -434,59 +441,33 @@
 
     <div id="canvas-container"></div>
     <div id="crosshair"></div>
-    <div id="interact-prompt">[E] SELECIONAR SALAS</div>
+    <div id="interact-prompt">[E] EXAMINAR OBRA</div>
 
     <div id="hud-top">
-        <div class="hud-badge"><b>LOCAL:</b> <span id="current-location">Recepção Principal</span></div>
+        <div class="hud-badge"><b>LOCAL:</b> <span id="current-location">Ala Arte Moderna</span></div>
         <div class="hud-badge">
             <span class="keys-badge">W</span><span class="keys-badge">A</span><span class="keys-badge">S</span><span class="keys-badge">D</span> Andar &nbsp;|&nbsp; 
             <span class="keys-badge">E</span> Interagir &nbsp;|&nbsp; 
-            <span class="keys-badge">M</span> Menu de Salas
+            <span class="keys-badge">M</span> Menu
         </div>
     </div>
 
-    <!-- Tela de Início -->
-    <div id="instructions">
-        <h1>Grand Musée</h1>
-        <h2>Experiência Arquitetônica 3D</h2>
-        <p>Você está na recepção do museu. Aproxime-se do <b>Balcão de Atendimento</b> e use o terminal interativo para escolher qual ala de artes deseja visitar.</p>
-        <p>Use <b>W / A / S / D</b> ou as <b>Setas</b> para andar e o <b>Mouse</b> para olhar.</p>
-        <button class="btn-start">ENTRAR NO MUSEU</button>
-    </div>
-
-    <!-- Modal do Terminal do Balcão -->
-    <div id="kiosk-modal">
-        <div class="kiosk-card">
-            <h2>Terminal da Recepção</h2>
-            <p class="subtitle">Selecione a ala de exposição que você deseja explorar agora:</p>
-            <div class="rooms-grid">
-                <div class="room-item" onclick="travelToRoom('classica')">
-                    <div class="room-icon">🏛️</div>
-                    <div class="room-title">Ala Clássica</div>
-                    <div class="room-desc">Mestres do Renascimento e Barroco em suportes de cristal autoportantes.</div>
-                </div>
-                <div class="room-item" onclick="travelToRoom('moderna')">
-                    <div class="room-icon">🎨</div>
-                    <div class="room-title">Arte Moderna</div>
-                    <div class="room-desc">Vanguardas do séc. XX e Abstracionismo em ambiente minimalista.</div>
-                </div>
-                <div class="room-item" onclick="travelToRoom('impressionismo')">
-                    <div class="room-icon">🌌</div>
-                    <div class="room-title">Impressionismo</div>
-                    <div class="room-desc">Obras marcantes do Pós-Impressionismo com iluminação focada.</div>
-                </div>
-            </div>
-            <button class="btn-close-modal" onclick="closeKioskModal()">Voltar ao Saguão</button>
-        </div>
-    </div>
-
-    <div id="fade-overlay"></div>
-    <div id="room-welcome" role="status" aria-live="polite">
+    <div id="room-welcome" role="button" tabindex="0" aria-label="Clique na tela para iniciar a experiência">
         <span>Grand Musée</span>
-        <h1>Bem-vindo(a) à Arte Moderna</h1>
+        <h1>Clique na tela para iniciar a experiência</h1>
     </div>
+
+    <div id="pause-menu" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+        <section id="pause-card">
+            <h2 id="pause-title">Jogo Pausado</h2>
+            <button class="pause-option" id="pause-reception" type="button">Ir para Recepção</button>
+            <button class="pause-option" type="button">Loja de Skinns</button>
+            <button class="pause-option pause-option-primary" id="pause-resume" type="button">Voltar ao jogo</button>
+        </section>
+    </div>
+
     <div id="artwork-viewer" aria-hidden="true">
-        <button id="artwork-close" type="button" aria-label="Sair da visualização da obra">×</button>
+        <button id="artwork-close" type="button" aria-label="Sair">×</button>
         <section id="artwork-card" aria-live="polite">
             <span class="artwork-label">Obra da exposição</span>
             <h2 id="artwork-title"></h2>
@@ -495,66 +476,45 @@
         </section>
     </div>
 
+    <div id="kiosk-modal">
+        <div class="kiosk-device-container">
+            <div class="kiosk-monitor-frame">
+                <h2>Terminal Interativo</h2>
+                <p class="subtitle">Selecione uma galeria para iniciar a visita:</p>
+                <div class="rooms-grid">
+                    <div class="room-item" onclick="travelToRoom('classica')">
+                        <div class="room-icon">🏛️</div>
+                        <div class="room-title">Ala Clássica</div>
+                        <div class="room-desc">Mestres do Renascimento e Barroco em suportes de cristal.</div>
+                    </div>
+                    <div class="room-item" onclick="travelToRoom('moderna')">
+                        <div class="room-icon">🎨</div>
+                        <div class="room-title">Arte Moderna</div>
+                        <div class="room-desc">Vanguardas do séc. XX e Abstracionismo minimalista.</div>
+                    </div>
+                    <div class="room-item" onclick="travelToRoom('impressionismo')">
+                        <div class="room-icon">🌌</div>
+                        <div class="room-title">Impressionismo</div>
+                        <div class="room-desc">Obras marcantes com iluminação artística direcionada.</div>
+                    </div>
+                </div>
+                <div class="kiosk-footer">
+                    <button class="btn-close-modal" onclick="closeKioskModal()">Fechar Terminal</button>
+                </div>
+            </div>
+            <div class="kiosk-pedestal"></div>
+        </div>
+    </div>
+
+    <div id="fade-overlay"></div>
+
     <script>
-        /* =======================================================
-           1. TEXTURAS PROCEDURAIS
-           ======================================================= */
-        function createMarbleTexture() {
-            const canvas = document.createElement('canvas');
-            canvas.width = 512;
-            canvas.height = 512;
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#14171d';
-            ctx.fillRect(0, 0, 512, 512);
-
-            for (let i = 0; i < 12; i++) {
-                ctx.beginPath();
-                let x = Math.random() * 512;
-                let y = Math.random() * 512;
-                ctx.moveTo(x, y);
-                ctx.strokeStyle = (i % 2 === 0) ? 'rgba(212, 175, 55, 0.25)' : 'rgba(255, 255, 255, 0.15)';
-                ctx.lineWidth = 2;
-                for (let j = 0; j < 5; j++) {
-                    x += (Math.random() - 0.45) * 180;
-                    y += (Math.random() - 0.45) * 180;
-                    ctx.lineTo(x, y);
-                }
-                ctx.stroke();
-            }
-            const tex = new THREE.CanvasTexture(canvas);
-            tex.wrapS = THREE.RepeatWrapping;
-            tex.wrapT = THREE.RepeatWrapping;
-            tex.repeat.set(3, 3);
-            return tex;
-        }
-
-        function createWoodSlatTexture() {
-            const canvas = document.createElement('canvas');
-            canvas.width = 256;
-            canvas.height = 256;
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#261b14';
-            ctx.fillRect(0, 0, 256, 256);
-
-            for (let x = 0; x < 256; x += 16) {
-                ctx.fillStyle = '#140c07';
-                ctx.fillRect(x, 0, 3, 256);
-            }
-            const tex = new THREE.CanvasTexture(canvas);
-            tex.wrapS = THREE.RepeatWrapping;
-            tex.wrapT = THREE.RepeatWrapping;
-            tex.repeat.set(4, 2);
-            return tex;
-        }
-
         function createConcreteTexture() {
             const canvas = document.createElement('canvas');
-            canvas.width = 256;
-            canvas.height = 256;
+            canvas.width = 256; canvas.height = 256;
             const ctx = canvas.getContext('2d');
             ctx.fillStyle = '#9e9a93';
             ctx.fillRect(0, 0, 256, 256);
-
             for (let i = 0; i < 8000; i++) {
                 const val = Math.floor(Math.random() * 40 - 20);
                 ctx.fillStyle = `rgba(${150 + val}, ${148 + val}, ${142 + val}, 0.5)`;
@@ -565,16 +525,13 @@
 
         function createGalleryFloorTexture(hexColor) {
             const canvas = document.createElement('canvas');
-            canvas.width = 256;
-            canvas.height = 256;
+            canvas.width = 256; canvas.height = 256;
             const ctx = canvas.getContext('2d');
             ctx.fillStyle = hexColor;
             ctx.fillRect(0, 0, 256, 256);
-
             ctx.strokeStyle = 'rgba(0, 0, 0, 0.4)';
             ctx.lineWidth = 3;
             ctx.strokeRect(0, 0, 256, 256);
-
             const tex = new THREE.CanvasTexture(canvas);
             tex.wrapS = THREE.RepeatWrapping;
             tex.wrapT = THREE.RepeatWrapping;
@@ -584,12 +541,10 @@
 
         function createMuseumWallTexture(baseHex) {
             const canvas = document.createElement('canvas');
-            canvas.width = 512;
-            canvas.height = 512;
+            canvas.width = 512; canvas.height = 512;
             const ctx = canvas.getContext('2d');
             ctx.fillStyle = baseHex;
             ctx.fillRect(0, 0, 512, 512);
-
             for (let i = 0; i < 12000; i++) {
                 const alpha = Math.random() * 0.05;
                 ctx.fillStyle = (Math.random() > 0.5) ? `rgba(255,255,255,${alpha})` : `rgba(0,0,0,${alpha})`;
@@ -602,36 +557,6 @@
             return tex;
         }
 
-        // Textura com o nome "Yumira Studios"
-        function createYumiraSignTexture() {
-            const canvas = document.createElement('canvas');
-            canvas.width = 1024;
-            canvas.height = 256;
-            const ctx = canvas.getContext('2d');
-
-            ctx.clearRect(0, 0, 1024, 256);
-            ctx.fillStyle = '#0a0d12';
-            ctx.fillRect(10, 10, 1004, 236);
-
-            ctx.strokeStyle = '#d4af37';
-            ctx.lineWidth = 6;
-            ctx.strokeRect(20, 20, 984, 216);
-
-            ctx.font = 'bold 78px "Segoe UI", sans-serif';
-            ctx.fillStyle = '#f7d070';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.letterSpacing = '8px';
-            ctx.shadowColor = 'rgba(212, 175, 55, 0.7)';
-            ctx.shadowBlur = 18;
-            ctx.fillText('YUMIRA STUDIOS', 512, 128);
-
-            return new THREE.CanvasTexture(canvas);
-        }
-
-        /* =======================================================
-           2. CENA, CÂMERA E RENDERIZADOR
-           ======================================================= */
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x06080b);
@@ -639,285 +564,72 @@
 
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
         camera.rotation.order = 'YXZ';
-        
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         container.appendChild(renderer.domElement);
 
-        function createPointerControls(camera, domElement) {
-            const controls = new THREE.EventDispatcher();
-            const euler = new THREE.Euler(0, 0, 0, 'YXZ');
-            controls.isLocked = false;
-            controls.minPolarAngle = 0.1;
-            controls.maxPolarAngle = Math.PI - 0.1;
-            let isDragging = false;
-            let previousMouseX = 0;
-            let previousMouseY = 0;
+        let pitch = 0;
+        let yaw = 0;
+        let isLocked = false;
+        let gameStarted = false;
+        let viewingArtwork = false;
+        let previousCameraView = null;
 
-            const onMouseMove = event => {
-                if (!controls.isLocked && !isDragging) return;
-
-                euler.setFromQuaternion(camera.quaternion, 'YXZ');
-                const movementX = controls.isLocked ? event.movementX : event.clientX - previousMouseX;
-                const movementY = controls.isLocked ? event.movementY : event.clientY - previousMouseY;
-                euler.y -= movementX * 0.002;
-                euler.x -= movementY * 0.002;
-                euler.x = Math.max(
-                    Math.PI / 2 - controls.maxPolarAngle,
-                    Math.min(Math.PI / 2 - controls.minPolarAngle, euler.x)
-                );
-                camera.quaternion.setFromEuler(euler);
-                previousMouseX = event.clientX;
-                previousMouseY = event.clientY;
-            };
-
-            const onPointerDown = event => {
-                if (controls.isLocked || event.button !== 0) return;
-                isDragging = true;
-                previousMouseX = event.clientX;
-                previousMouseY = event.clientY;
-            };
-            const stopDragging = () => { isDragging = false; };
-
-            const onPointerLockChange = () => {
-                const isLocked = document.pointerLockElement === domElement;
-                if (controls.isLocked === isLocked) return;
-
-                controls.isLocked = isLocked;
-                controls.dispatchEvent({ type: isLocked ? 'lock' : 'unlock' });
-            };
-
-            const onPointerLockError = () => {
-                console.error('O navegador não permitiu capturar o mouse.');
-                controls.dispatchEvent({ type: 'lockerror' });
-            };
-
-            controls.lock = () => {
-                if (document.pointerLockElement === domElement) return;
-
-                try {
-                    const request = domElement.requestPointerLock();
-                    if (request && typeof request.catch === 'function') {
-                        request.catch(error => {
-                            console.error('Não foi possível capturar o mouse:', error);
-                            controls.dispatchEvent({ type: 'lockerror' });
-                        });
-                    }
-                } catch (error) {
-                    console.error('Não foi possível capturar o mouse:', error);
-                    controls.dispatchEvent({ type: 'lockerror' });
-                }
-            };
-
-            controls.unlock = () => {
-                if (document.pointerLockElement === domElement) document.exitPointerLock();
-            };
-
-            document.addEventListener('mousemove', onMouseMove);
-            domElement.addEventListener('pointerdown', onPointerDown);
-            document.addEventListener('pointerup', stopDragging);
-            window.addEventListener('blur', stopDragging);
-            document.addEventListener('pointerlockchange', onPointerLockChange);
-            document.addEventListener('pointerlockerror', onPointerLockError);
-            return controls;
+        function updateCameraRotation() {
+            camera.rotation.set(pitch, yaw, 0, 'YXZ');
         }
 
-        /* =======================================================
-           3. MATERIAIS
-           ======================================================= */
-        const concreteMat = new THREE.MeshStandardMaterial({
-            map: createConcreteTexture(),
-            roughness: 0.9,
-            metalness: 0.05
+        document.addEventListener('mousemove', (e) => {
+            if (!isLocked || viewingArtwork) return;
+            yaw -= (e.movementX || 0) * 0.0022;
+            pitch -= (e.movementY || 0) * 0.0022;
+            pitch = Math.max(-1.48, Math.min(1.48, pitch));
+            updateCameraRotation();
         });
 
-        const glassMat = new THREE.MeshStandardMaterial({
-            color: 0xebf3f8,
-            transparent: true,
-            opacity: 0.38,
-            roughness: 0.08,
-            metalness: 0.1
+        document.addEventListener('pointerlockchange', () => {
+            isLocked = (document.pointerLockElement === renderer.domElement);
         });
 
-        const goldMetalMat = new THREE.MeshStandardMaterial({
-            color: 0xd4af37,
-            roughness: 0.3,
-            metalness: 0.8
+        function lockPointer() {
+            try { renderer.domElement.requestPointerLock(); } catch (err) {}
+        }
+
+        function unlockPointer() {
+            if (document.exitPointerLock) document.exitPointerLock();
+        }
+
+        renderer.domElement.addEventListener('click', () => {
+            if (gameStarted && !isLocked && !viewingArtwork && kioskModal.style.display !== 'flex') lockPointer();
         });
 
-        const darkWoodMat = new THREE.MeshStandardMaterial({
-            color: 0x241812,
-            roughness: 0.6,
-            metalness: 0.1
-        });
+        const concreteMat = new THREE.MeshStandardMaterial({ map: createConcreteTexture(), roughness: 0.9, metalness: 0.05 });
+        const glassMat = new THREE.MeshStandardMaterial({ color: 0xebf3f8, transparent: true, opacity: 0.38, roughness: 0.08, metalness: 0.1 });
+        const goldMetalMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, roughness: 0.3, metalness: 0.8 });
+        const darkWoodMat = new THREE.MeshStandardMaterial({ color: 0x241812, roughness: 0.6, metalness: 0.1 });
+        const blankCanvasMat = new THREE.MeshStandardMaterial({ color: 0xedebe4, roughness: 0.85, metalness: 0.02 });
 
-        const blankCanvasMat = new THREE.MeshStandardMaterial({
-            color: 0xedebe4,
-            roughness: 0.85,
-            metalness: 0.02
-        });
-
-        /* =======================================================
-           4. SISTEMA DE FÍSICA E COLISÃO (AABB)
-           ======================================================= */
         const interactiveObjects = [];
-        const colliders = []; // Caixas de colisão
-
-        function registerCollider(minX, maxX, minZ, maxZ) {
-            colliders.push({ minX, maxX, minZ, maxZ });
-        }
+        const colliders = [];
 
         function registerBoxCollider(x, z, sizeX, sizeZ) {
-            registerCollider(
-                x - sizeX / 2,
-                x + sizeX / 2,
-                z - sizeZ / 2,
-                z + sizeZ / 2
-            );
+            colliders.push({ minX: x - sizeX / 2, maxX: x + sizeX / 2, minZ: z - sizeZ / 2, maxZ: z + sizeZ / 2 });
         }
 
-        const LOCATIONS = {
-            recepcao: { name: "Recepção Principal", spawn: new THREE.Vector3(0, 1.7, 4.0), lookAt: new THREE.Vector3(0, 1.7, 0) },
-            classica: { name: "Ala Clássica & Renascimento", spawn: new THREE.Vector3(0, 1.7, -78), lookAt: new THREE.Vector3(0, 1.7, -90) },
-            moderna: { name: "Ala Arte Moderna", spawn: new THREE.Vector3(80, 1.7, 10), lookAt: new THREE.Vector3(80, 1.7, -5) },
-            impressionismo: { name: "Ala Impressionismo", spawn: new THREE.Vector3(-80, 1.7, 10), lookAt: new THREE.Vector3(-80, 1.7, -5) }
-        };
-
-        /* 4.1 RECEPÇÃO COMPACTA (14 x 12) COM TODAS AS PAREDES */
-        function buildReception() {
-            const group = new THREE.Group();
-            const w = 14;
-            const d = 12;
-            const h = 4.8;
-
-            // Piso Mármore
-            const floorMat = new THREE.MeshStandardMaterial({ map: createMarbleTexture(), roughness: 0.2, metalness: 0.25 });
-            const floor = new THREE.Mesh(new THREE.PlaneGeometry(w, d), floorMat);
-            floor.rotation.x = -Math.PI / 2;
-            floor.receiveShadow = true;
-            group.add(floor);
-
-            // Teto
-            const ceilingMat = new THREE.MeshStandardMaterial({ color: 0x0c0e12, roughness: 0.85 });
-            const ceiling = new THREE.Mesh(new THREE.PlaneGeometry(w, d), ceilingMat);
-            ceiling.position.y = h;
-            ceiling.rotation.x = Math.PI / 2;
-            group.add(ceiling);
-
-            // Materiais das Paredes
-            const wallMat = new THREE.MeshStandardMaterial({ map: createMuseumWallTexture('#181b22'), roughness: 0.75 });
-            const woodWallMat = new THREE.MeshStandardMaterial({ map: createWoodSlatTexture(), roughness: 0.55 });
-
-            // Parede de Fundo (Atrás do Tablet) com Madeira Ripada
-            const backWall = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.4), woodWallMat);
-            backWall.position.set(0, h / 2, -d / 2);
-            group.add(backWall);
-
-            // Parede Frontal (com entrada decorativa)
-            const frontWall = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.4), wallMat);
-            frontWall.position.set(0, h / 2, d / 2);
-            group.add(frontWall);
-
-            // Paredes Laterais
-            const leftWall = new THREE.Mesh(new THREE.BoxGeometry(0.4, h, d), wallMat);
-            leftWall.position.set(-w / 2, h / 2, 0);
-            group.add(leftWall);
-
-            const rightWall = new THREE.Mesh(new THREE.BoxGeometry(0.4, h, d), wallMat);
-            rightWall.position.set(w / 2, h / 2, 0);
-            group.add(rightWall);
-
-            // Inscrição Luminosa "YUMIRA STUDIOS" na parede traseira
-            const signMat = new THREE.MeshBasicMaterial({
-                map: createYumiraSignTexture(),
-                transparent: true
-            });
-            const signMesh = new THREE.Mesh(new THREE.PlaneGeometry(5.0, 1.25), signMat);
-            signMesh.position.set(0, 3.0, -d / 2 + 0.22);
-            group.add(signMesh);
-
-            // Balcão de Recepção
-            const deskW = 3.6, deskH = 1.1, deskD = 1.1;
-            const deskMesh = new THREE.Mesh(
-                new THREE.BoxGeometry(deskW, deskH, deskD),
-                new THREE.MeshStandardMaterial({ color: 0x161920, roughness: 0.25, metalness: 0.2 })
-            );
-            deskMesh.position.set(0, deskH / 2, 0.2);
-            deskMesh.castShadow = true;
-            deskMesh.receiveShadow = true;
-            group.add(deskMesh);
-
-            const deskTop = new THREE.Mesh(new THREE.BoxGeometry(deskW + 0.2, 0.08, deskD + 0.2), goldMetalMat);
-            deskTop.position.set(0, deskH + 0.04, 0.2);
-            group.add(deskTop);
-
-            // Terminal Digital no Balcão
-            const kioskStand = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.2, 16), goldMetalMat);
-            kioskStand.position.set(0, deskH + 0.14, 0.2);
-            group.add(kioskStand);
-
-            const kioskScreen = new THREE.Mesh(
-                new THREE.BoxGeometry(0.44, 0.3, 0.04),
-                new THREE.MeshStandardMaterial({ color: 0x05070a, roughness: 0.1 })
-            );
-            kioskScreen.position.set(0, deskH + 0.32, 0.2);
-            kioskScreen.rotation.x = -Math.PI / 6;
-
-            const display = new THREE.Mesh(
-                new THREE.PlaneGeometry(0.4, 0.26),
-                new THREE.MeshBasicMaterial({ color: 0xf7d070 })
-            );
-            display.position.set(0, 0, 0.022);
-            kioskScreen.add(display);
-
-            kioskScreen.userData = {
-                action: 'openModal',
-                prompt: "[E] OU CLIQUE: SELECIONAR SALAS DE ARTE"
-            };
-            interactiveObjects.push(kioskScreen);
-            group.add(kioskScreen);
-
-            // Luzes
-            const ambient = new THREE.AmbientLight(0xffeedd, 0.7);
-            group.add(ambient);
-
-            const deskSpot = new THREE.SpotLight(0xfff2dc, 2.8, 8, Math.PI / 3.8, 0.3, 1.0);
-            deskSpot.position.set(0, 4.4, 1.4);
-            deskSpot.target = deskMesh;
-            group.add(deskSpot);
-
-            scene.add(group);
-
-            // Colisões da Recepção
-            // Paredes (w = 14 => x: -7 a 7, d = 12 => z: -6 a 6)
-            registerBoxCollider(0, -6, 14, 0.6); // Traseira
-            registerBoxCollider(0, 6, 14, 0.6);  // Frontal
-            registerBoxCollider(-7, 0, 0.6, 12); // Esquerda
-            registerBoxCollider(7, 0, 0.6, 12);  // Direita
-            // Balcão
-            registerBoxCollider(0, 0.2, deskW + 0.3, deskD + 0.3);
-        }
-
-        /* 4.2 CAVALETES DE CRISTAL (COM COLISÃO) */
         function createEmptyEasel(galleryCenterX, galleryCenterZ, x, z, rotY = 0, frameType = "gold", width = 1.4, aspect = 1.25, easelInfo = {}) {
             const group = new THREE.Group();
-
-            // 1. Base Concreto
             const base = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.45, 0.85), concreteMat);
             base.position.y = 0.225;
-            base.castShadow = true;
-            base.receiveShadow = true;
             group.add(base);
 
-            // Cunha
             const wedge = new THREE.Mesh(new THREE.BoxGeometry(0.88, 0.08, 0.08), darkWoodMat);
             wedge.position.set(0, 0.43, 0);
             group.add(wedge);
 
-            // 2. Vidro de Cristal
             const frameW = width;
             const frameH = width * aspect;
             const glassW = Math.max(frameW + 0.35, 1.6);
@@ -927,10 +639,8 @@
             glass.position.y = glassH / 2 + 0.35;
             group.add(glass);
 
-            // 3. Moldura de Apoio
             const frameGroup = new THREE.Group();
-            const borderT = 0.07;
-            const frameD = 0.06;
+            const borderT = 0.07, frameD = 0.06;
             const mat = (frameType === 'gold') ? goldMetalMat : darkWoodMat;
 
             const topB = new THREE.Mesh(new THREE.BoxGeometry(frameW, borderT, frameD), mat);
@@ -943,17 +653,13 @@
             rightB.position.x = (frameW / 2) - (borderT / 2);
             frameGroup.add(topB, botB, leftB, rightB);
 
-            // Tela em Branco
-            const canvasMesh = new THREE.Mesh(
-                new THREE.PlaneGeometry(frameW - borderT * 1.5, frameH - borderT * 1.5),
-                blankCanvasMat.clone()
-            );
+            const canvasMesh = new THREE.Mesh(new THREE.PlaneGeometry(frameW - borderT * 1.5, frameH - borderT * 1.5), blankCanvasMat.clone());
             canvasMesh.position.z = 0.015;
-            const artworkNumber = interactiveObjects.filter(object => object.userData.action === 'inspectArtwork').length + 1;
+            const artworkNumber = interactiveObjects.filter(o => o.userData.action === 'inspectArtwork').length + 1;
             canvasMesh.userData = {
                 action: 'inspectArtwork',
-                title: easelInfo.title || `Obra ${artworkNumber}`,
-                description: easelInfo.description || 'Esta pintura integra a coleção desta sala. Informações sobre a obra e seu artista serão apresentadas aqui quando a exposição receber seu acervo definitivo.',
+                title: easelInfo.title || `Obra Moderna ${artworkNumber}`,
+                description: easelInfo.description || 'Vanguarda do século XX explorando novas formas, cores e abstrações.',
                 image: easelInfo.image || `imagens/moderna_obra_${String(artworkNumber).padStart(2, '0')}.png`
             };
             interactiveObjects.push(canvasMesh);
@@ -962,7 +668,6 @@
             frameGroup.position.set(0, 1.8, 0.035);
             group.add(frameGroup);
 
-            // Foco de Luz
             const spot = new THREE.SpotLight(0xfffae8, 2.5, 7, Math.PI / 5, 0.4, 1.0);
             spot.position.set(0, 4.0, 1.3);
             spot.target = frameGroup;
@@ -970,57 +675,36 @@
 
             group.position.set(x, 0, z);
             group.rotation.y = rotY;
-
-            // Registra colisão no mundo para a base do cavalete
             registerBoxCollider(galleryCenterX + x, galleryCenterZ + z, 1.1, 1.1);
-
             return group;
         }
 
-        /* 4.3 CONSTRUÇÃO COMPLETA DAS SALAS COM 4 PAREDES */
         function buildGallery(centerX, centerZ, floorColor, wallColor, easelConfigs) {
             const group = new THREE.Group();
             group.position.set(centerX, 0, centerZ);
+            const roomW = 26, roomD = 30, roomH = 5.2;
 
-            const roomW = 26;
-            const roomD = 30;
-            const roomH = 5.2;
-
-            // Piso
-            const floorMat = new THREE.MeshStandardMaterial({
-                map: createGalleryFloorTexture(floorColor),
-                roughness: 0.35,
-                metalness: 0.1
-            });
-            const floor = new THREE.Mesh(new THREE.PlaneGeometry(roomW, roomD), floorMat);
+            const floor = new THREE.Mesh(new THREE.PlaneGeometry(roomW, roomD), new THREE.MeshStandardMaterial({
+                map: createGalleryFloorTexture(floorColor), roughness: 0.35, metalness: 0.1
+            }));
             floor.rotation.x = -Math.PI / 2;
             floor.receiveShadow = true;
             group.add(floor);
 
-            // Teto
-            const ceilingMat = new THREE.MeshStandardMaterial({ color: 0x111317, roughness: 0.9 });
-            const ceiling = new THREE.Mesh(new THREE.PlaneGeometry(roomW, roomD), ceilingMat);
+            const ceiling = new THREE.Mesh(new THREE.PlaneGeometry(roomW, roomD), new THREE.MeshStandardMaterial({ color: 0x111317, roughness: 0.9 }));
             ceiling.position.y = roomH;
             ceiling.rotation.x = Math.PI / 2;
             group.add(ceiling);
 
-            // Paredes fechadas
-            const wallMat = new THREE.MeshStandardMaterial({
-                map: createMuseumWallTexture(wallColor),
-                roughness: 0.8
-            });
-
-            // Parede Traseira (Z negativo)
+            const wallMat = new THREE.MeshStandardMaterial({ map: createMuseumWallTexture(wallColor), roughness: 0.8 });
             const backWall = new THREE.Mesh(new THREE.BoxGeometry(roomW, roomH, 0.5), wallMat);
             backWall.position.set(0, roomH / 2, -roomD / 2);
             group.add(backWall);
 
-            // Parede Frontal (Z positivo)
             const frontWall = new THREE.Mesh(new THREE.BoxGeometry(roomW, roomH, 0.5), wallMat);
             frontWall.position.set(0, roomH / 2, roomD / 2);
             group.add(frontWall);
 
-            // Paredes Laterais (X negativo e positivo)
             const leftWall = new THREE.Mesh(new THREE.BoxGeometry(0.5, roomH, roomD), wallMat);
             leftWall.position.set(-roomW / 2, roomH / 2, 0);
             group.add(leftWall);
@@ -1029,10 +713,8 @@
             rightWall.position.set(roomW / 2, roomH / 2, 0);
             group.add(rightWall);
 
-            // Totem de Retorno à Recepção
             const totemPillar = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.2, 1.1, 16), darkWoodMat);
             totemPillar.position.set(2.5, 0.55, 12);
-
             const totemButton = new THREE.Mesh(
                 new THREE.BoxGeometry(0.35, 0.25, 0.08),
                 new THREE.MeshStandardMaterial({ color: 0x11141a, emissive: 0xd4af37, emissiveIntensity: 0.35 })
@@ -1040,109 +722,67 @@
             totemButton.position.set(2.5, 1.15, 12);
             totemButton.rotation.x = -Math.PI / 6;
 
-            totemButton.userData = {
-                action: 'returnLobby',
-                prompt: "[E] OU CLIQUE: RETORNAR À RECEPÇÃO"
-            };
+            totemButton.userData = { action: 'returnLobby', prompt: "[E] OU CLIQUE: RETORNAR À RECEPÇÃO" };
             interactiveObjects.push(totemButton);
             group.add(totemPillar, totemButton);
 
-            // Colisão do Totem
             registerBoxCollider(centerX + 2.5, centerZ + 12, 0.7, 0.7);
-
-            // Luz ambiente
             group.add(new THREE.AmbientLight(0xdce6f2, 0.65));
 
-            // Cavaletes
             easelConfigs.forEach(cfg => {
-                const easel = createEmptyEasel(centerX, centerZ, cfg.x, cfg.z, cfg.rotY, cfg.frame, cfg.w, cfg.aspect, cfg);
-                group.add(easel);
+                group.add(createEmptyEasel(centerX, centerZ, cfg.x, cfg.z, cfg.rotY, cfg.frame, cfg.w, cfg.aspect, cfg));
             });
 
             scene.add(group);
-
-            // Colisões das paredes desta sala
-            registerBoxCollider(centerX, centerZ - roomD / 2, roomW, 0.6); // Fundo
-            registerBoxCollider(centerX, centerZ + roomD / 2, roomW, 0.6); // Frente
-            registerBoxCollider(centerX - roomW / 2, centerZ, 0.6, roomD); // Esquerda
-            registerBoxCollider(centerX + roomW / 2, centerZ, 0.6, roomD); // Direita
+            registerBoxCollider(centerX, centerZ - roomD / 2, roomW, 0.6);
+            registerBoxCollider(centerX, centerZ + roomD / 2, roomW, 0.6);
+            registerBoxCollider(centerX - roomW / 2, centerZ, 0.6, roomD);
+            registerBoxCollider(centerX + roomW / 2, centerZ, 0.6, roomD);
         }
 
         const standardEasels = [
-            { x: -4.5, z: 4.5, rotY: 0.05, frame: 'gold', w: 1.35, aspect: 1.3, title: 'Obra Moderna 01', description: 'Uma obra da coleção moderna, apresentada em suporte de cristal. A ficha definitiva será preenchida quando a obra for escolhida.', image: 'imagens/moderna_obra_01.png' },
-            { x: 0, z: 5.0, rotY: -0.04, frame: 'wood', w: 1.25, aspect: 1.4, title: 'Obra Moderna 02', description: 'Uma obra da coleção moderna, apresentada em suporte de cristal. A ficha definitiva será preenchida quando a obra for escolhida.', image: 'imagens/moderna_obra_02.png' },
-            { x: 4.5, z: 4.2, rotY: 0.08, frame: 'gold', w: 1.45, aspect: 1.1, title: 'Obra Moderna 03', description: 'Uma obra da coleção moderna, apresentada em suporte de cristal. A ficha definitiva será preenchida quando a obra for escolhida.', image: 'imagens/moderna_obra_03.png' },
-            { x: -5.5, z: -0.5, rotY: -0.06, frame: 'wood', w: 1.6, aspect: 0.8, title: 'Obra Moderna 04', description: 'Uma obra da coleção moderna, apresentada em suporte de cristal. A ficha definitiva será preenchida quando a obra for escolhida.', image: 'imagens/moderna_obra_04.png' },
-            { x: -1.0, z: 0.0, rotY: 0.03, frame: 'gold', w: 1.25, aspect: 1.3, title: 'Obra Moderna 05', description: 'Uma obra da coleção moderna, apresentada em suporte de cristal. A ficha definitiva será preenchida quando a obra for escolhida.', image: 'imagens/moderna_obra_05.png' },
-            { x: 4.0, z: -1.0, rotY: -0.05, frame: 'gold', w: 1.35, aspect: 1.2, title: 'Obra Moderna 06', description: 'Uma obra da coleção moderna, apresentada em suporte de cristal. A ficha definitiva será preenchida quando a obra for escolhida.', image: 'imagens/moderna_obra_06.png' },
-            { x: -4.0, z: -5.5, rotY: 0.07, frame: 'gold', w: 1.3, aspect: 1.25, title: 'Obra Moderna 07', description: 'Uma obra da coleção moderna, apresentada em suporte de cristal. A ficha definitiva será preenchida quando a obra for escolhida.', image: 'imagens/moderna_obra_07.png' },
-            { x: 1.5, z: -5.0, rotY: -0.03, frame: 'wood', w: 1.7, aspect: 0.7, title: 'Obra Moderna 08', description: 'Uma obra da coleção moderna, apresentada em suporte de cristal. A ficha definitiva será preenchida quando a obra for escolhida.', image: 'imagens/moderna_obra_08.png' },
-            { x: 5.5, z: -5.8, rotY: 0.04, frame: 'gold', w: 1.4, aspect: 1.0, title: 'Obra Moderna 09', description: 'Uma obra da coleção moderna, apresentada em suporte de cristal. A ficha definitiva será preenchida quando a obra for escolhida.', image: 'imagens/moderna_obra_09.png' },
+            { x: -4.5, z: 4.5, rotY: 0.05, frame: 'gold', w: 1.35, aspect: 1.3, title: 'Obra Moderna 01', description: 'Composição abstrata expressiva com cores vibrantes.' },
+            { x: 0, z: 5.0, rotY: -0.04, frame: 'wood', w: 1.25, aspect: 1.4, title: 'Obra Moderna 02', description: 'Desconstrução cubista com planos geométricos sobrepostos.' },
+            { x: 4.5, z: 4.2, rotY: 0.08, frame: 'gold', w: 1.45, aspect: 1.1, title: 'Obra Moderna 03', description: 'Surrealismo lírico investigando a dimensão onírica.' },
+            { x: -5.5, z: -0.5, rotY: -0.06, frame: 'wood', w: 1.6, aspect: 0.8, title: 'Obra Moderna 04', description: 'Geometrismo concreto com ritmo espacial marcado.' },
+            { x: -1.0, z: 0.0, rotY: 0.03, frame: 'gold', w: 1.25, aspect: 1.3, title: 'Obra Moderna 05', description: 'Modernismo brasileiro com identidade e cores tropicais.' },
+            { x: 4.0, z: -1.0, rotY: -0.05, frame: 'gold', w: 1.35, aspect: 1.2, title: 'Obra Moderna 06', description: 'Expressão de vanguarda com pinceladas livres e expressivas.' },
+            { x: -4.0, z: -5.5, rotY: 0.07, frame: 'gold', w: 1.3, aspect: 1.25, title: 'Obra Moderna 07', description: 'Abstração gestual que retrata emoção e movimento.' },
+            { x: 1.5, z: -5.0, rotY: -0.03, frame: 'wood', w: 1.7, aspect: 0.7, title: 'Obra Moderna 08', description: 'Minimalismo conceitual em contraste cromático equilibrado.' },
+            { x: 5.5, z: -5.8, rotY: 0.04, frame: 'gold', w: 1.4, aspect: 1.0, title: 'Obra Moderna 09', description: 'Estudo de forma e matéria das vanguardas modernas.' }
         ];
 
-        // Construir Salas
-        const currentPage = document.body.dataset.page;
-        if (currentPage === 'recepcao') buildReception();
-        if (currentPage === 'classica') buildGallery(LOCATIONS.classica.spawn.x, -90, "#181a20", "#21242c", standardEasels);
-        if (currentPage === 'moderna') buildGallery(LOCATIONS.moderna.spawn.x, 0, "#20232a", "#1b1d24", standardEasels);
-        if (currentPage === 'impressionismo') buildGallery(LOCATIONS.impressionismo.spawn.x, 0, "#14161c", "#1f2229", standardEasels);
+        buildGallery(80, 0, "#20232a", "#1b1d24", standardEasels);
 
-        /* =======================================================
-           5. CONTROLES E TRANSIÇÕES
-           ======================================================= */
-        const controls = createPointerControls(camera, renderer.domElement);
-        const instructions = document.getElementById('instructions');
         const kioskModal = document.getElementById('kiosk-modal');
         const fadeOverlay = document.getElementById('fade-overlay');
         const crosshair = document.getElementById('crosshair');
         const interactPrompt = document.getElementById('interact-prompt');
-        const locBadge = document.getElementById('current-location');
         const artworkViewer = document.getElementById('artwork-viewer');
         const artworkTitle = document.getElementById('artwork-title');
         const artworkDescription = document.getElementById('artwork-description');
-        let viewingArtwork = false;
-        let previousCameraView = null;
+        const roomWelcome = document.getElementById('room-welcome');
+        const pauseMenu = document.getElementById('pause-menu');
 
-        const currentLocation = LOCATIONS[currentPage];
-        camera.position.copy(currentLocation.spawn);
-        camera.lookAt(currentLocation.lookAt);
-        locBadge.textContent = currentLocation.name;
-        if (currentPage !== 'recepcao') {
-            instructions.style.display = 'none';
-            setTimeout(() => document.getElementById('room-welcome').classList.add('is-hidden'), 2000);
-        }
+        camera.position.set(80, 1.7, 10);
+        yaw = 0;
+        updateCameraRotation();
 
-        instructions.addEventListener('click', () => controls.lock());
-        renderer.domElement.addEventListener('click', () => {
-            if (!controls.isLocked && kioskModal.style.display !== 'flex') controls.lock();
+        roomWelcome.addEventListener('click', () => {
+            if (gameStarted) return;
+            gameStarted = true;
+            roomWelcome.classList.add('is-hidden');
+            lockPointer();
         });
-        controls.addEventListener('lock', () => { instructions.style.display = 'none'; });
-        controls.addEventListener('unlock', () => {
-            if (currentPage === 'recepcao' && kioskModal.style.display !== 'flex') instructions.style.display = 'flex';
-        });
-        controls.addEventListener('lockerror', () => { instructions.style.display = 'flex'; });
-
-        function teleportTo(key) {
-            const loc = LOCATIONS[key];
-            if (!loc) return;
-
-            fadeOverlay.style.opacity = '1';
-            setTimeout(() => {
-                camera.position.copy(loc.spawn);
-                camera.lookAt(loc.lookAt);
-                locBadge.textContent = loc.name;
-                setTimeout(() => { fadeOverlay.style.opacity = '0'; }, 250);
-            }, 500);
-        }
 
         function openKioskModal() {
-            controls.unlock();
+            unlockPointer();
             kioskModal.style.display = 'flex';
         }
 
         function closeKioskModal() {
             kioskModal.style.display = 'none';
-            controls.lock();
+            if (gameStarted) lockPointer();
         }
 
         function travelToRoom(key) {
@@ -1153,18 +793,13 @@
                 impressionismo: 'sala_impressionismo.html'
             };
             if (!pages[key]) return;
-
             fadeOverlay.style.opacity = '1';
-            setTimeout(() => { window.location.href = pages[key]; }, 500);
+            setTimeout(() => { window.location.href = pages[key]; }, 400);
         }
 
         function inspectArtwork(artwork) {
             if (viewingArtwork) return;
-
-            previousCameraView = {
-                position: camera.position.clone(),
-                quaternion: camera.quaternion.clone()
-            };
+            previousCameraView = { position: camera.position.clone(), pitch: pitch, yaw: yaw };
 
             const artworkCenter = new THREE.Vector3();
             const artworkRotation = new THREE.Quaternion();
@@ -1173,21 +808,19 @@
 
             const artworkNormal = new THREE.Vector3(0, 0, 1).applyQuaternion(artworkRotation).normalize();
             const artworkRight = new THREE.Vector3(1, 0, 0).applyQuaternion(artworkRotation).normalize();
-            camera.position.copy(artworkCenter)
-                .addScaledVector(artworkNormal, 2.9)
-                .addScaledVector(artworkRight, 0.25);
-            camera.lookAt(artworkCenter.clone().addScaledVector(artworkRight, 1.45));
+            camera.position.copy(artworkCenter).addScaledVector(artworkNormal, 2.7).addScaledVector(artworkRight, 0.2);
+            camera.lookAt(artworkCenter.clone().addScaledVector(artworkRight, 1.3));
 
             if (!artwork.userData.imageLoadRequested) {
                 artwork.userData.imageLoadRequested = true;
-                new THREE.TextureLoader().load(artwork.userData.image, texture => {
-                    texture.encoding = THREE.sRGBEncoding;
-                    artwork.material.map = texture;
+                new THREE.TextureLoader().load(artwork.userData.image, tex => {
+                    tex.encoding = THREE.sRGBEncoding;
+                    artwork.material.map = tex;
                     artwork.material.needsUpdate = true;
                 }, undefined, () => {});
             }
 
-            controls.unlock();
+            unlockPointer();
             viewingArtwork = true;
             artworkTitle.textContent = artwork.userData.title;
             artworkDescription.textContent = artwork.userData.description;
@@ -1199,59 +832,74 @@
 
         function closeArtworkViewer() {
             if (!viewingArtwork) return;
-
             viewingArtwork = false;
             artworkViewer.classList.remove('is-open');
             artworkViewer.setAttribute('aria-hidden', 'true');
             crosshair.style.display = '';
-            focusedObject = null;
 
             if (previousCameraView) {
                 camera.position.copy(previousCameraView.position);
-                camera.quaternion.copy(previousCameraView.quaternion);
+                pitch = previousCameraView.pitch;
+                yaw = previousCameraView.yaw;
+                updateCameraRotation();
                 previousCameraView = null;
             }
-
-            controls.lock();
+            lockPointer();
         }
 
         document.getElementById('artwork-close').addEventListener('click', closeArtworkViewer);
 
-        // Teclado
         const keys = { forward: false, backward: false, left: false, right: false };
-        const handleKey = (code, state) => {
-            if (code === 'ArrowUp' || code === 'KeyW') keys.forward = state;
-            else if (code === 'ArrowDown' || code === 'KeyS') keys.backward = state;
-            else if (code === 'ArrowLeft' || code === 'KeyA') keys.left = state;
-            else if (code === 'ArrowRight' || code === 'KeyD') keys.right = state;
-            else return false;
+        function openPauseMenu() {
+            keys.forward = keys.backward = keys.left = keys.right = false;
+            pauseMenu.style.display = 'flex';
+            unlockPointer();
+        }
 
-            return true;
-        };
+        function closePauseMenu() {
+            pauseMenu.style.display = 'none';
+            if (gameStarted && kioskModal.style.display !== 'flex' && !viewingArtwork) lockPointer();
+        }
 
-        const clearMovementKeys = () => {
-            keys.forward = false;
-            keys.backward = false;
-            keys.left = false;
-            keys.right = false;
-        };
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) clearMovementKeys();
+        document.getElementById('pause-reception').addEventListener('click', () => {
+            window.location.href = 'index.html';
         });
-        controls.addEventListener('unlock', clearMovementKeys);
+        document.getElementById('pause-resume').addEventListener('click', closePauseMenu);
 
         window.addEventListener('keydown', (e) => {
-            if (handleKey(e.code, true)) e.preventDefault();
+            if (e.code === 'Escape') {
+                e.preventDefault();
+                if (pauseMenu.style.display !== 'flex') openPauseMenu();
+                return;
+            }
+            if (pauseMenu.style.display === 'flex') return;
+            if (!gameStarted) return;
+
+            if (e.code === 'KeyW' || e.code === 'ArrowUp') keys.forward = true;
+            if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.backward = true;
+            if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = true;
+            if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = true;
+
             if (e.code === 'KeyE' && !viewingArtwork && focusedObject) triggerAction(focusedObject);
-            if (e.code === 'KeyM' && !viewingArtwork) openKioskModal();
+            if (e.code === 'KeyM' && !viewingArtwork) {
+                if (kioskModal.style.display === 'flex') closeKioskModal();
+                else openKioskModal();
+            }
         });
 
         window.addEventListener('keyup', (e) => {
-            if (handleKey(e.code, false)) e.preventDefault();
+            if (e.code === 'KeyW' || e.code === 'ArrowUp') keys.forward = false;
+            if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.backward = false;
+            if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = false;
+            if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = false;
+        });
+
+        window.addEventListener('blur', () => {
+            keys.forward = keys.backward = keys.left = keys.right = false;
         });
 
         document.addEventListener('click', () => {
-            if (controls.isLocked && focusedObject) triggerAction(focusedObject);
+            if (isLocked && focusedObject && !viewingArtwork) triggerAction(focusedObject);
         });
 
         function triggerAction(obj) {
@@ -1260,97 +908,66 @@
             if (obj.userData.action === 'inspectArtwork') inspectArtwork(obj);
         }
 
-        /* =======================================================
-           6. DETECÇÃO DE COLISÃO DO JOGADOR
-           ======================================================= */
-        const playerRadius = 0.45;
-
-        function overlapsCollider(x, z, collider) {
-            return (
-                x + playerRadius > collider.minX &&
-                x - playerRadius < collider.maxX &&
-                z + playerRadius > collider.minZ &&
-                z - playerRadius < collider.maxZ
-            );
-        }
-
-        function canMoveTo(currentX, currentZ, targetX, targetZ, axis) {
+        const playerRadius = 0.42;
+        function checkCollision(x, z) {
             for (let i = 0; i < colliders.length; i++) {
-                const collider = colliders[i];
-                if (!overlapsCollider(targetX, targetZ, collider)) continue;
-                if (!overlapsCollider(currentX, currentZ, collider)) return false;
-
-                const currentOverlap = axis === 'x'
-                    ? Math.min(currentX + playerRadius, collider.maxX) - Math.max(currentX - playerRadius, collider.minX)
-                    : Math.min(currentZ + playerRadius, collider.maxZ) - Math.max(currentZ - playerRadius, collider.minZ);
-                const targetOverlap = axis === 'x'
-                    ? Math.min(targetX + playerRadius, collider.maxX) - Math.max(targetX - playerRadius, collider.minX)
-                    : Math.min(targetZ + playerRadius, collider.maxZ) - Math.max(targetZ - playerRadius, collider.minZ);
-
-                if (targetOverlap > currentOverlap) return false;
+                const c = colliders[i];
+                if (x + playerRadius > c.minX && x - playerRadius < c.maxX &&
+                    z + playerRadius > c.minZ && z - playerRadius < c.maxZ) {
+                    return true;
+                }
             }
-
-            return true;
+            return false;
         }
 
-        /* =======================================================
-           7. LOOP DE ANIMAÇÃO COM FÍSICA
-           ======================================================= */
-        const direction = new THREE.Vector3();
-        const forward = new THREE.Vector3();
-        const right = new THREE.Vector3();
-        const moveStep = new THREE.Vector3();
+        const forwardDir = new THREE.Vector3();
+        const rightDir = new THREE.Vector3();
         let prevTime = performance.now();
-
         const raycaster = new THREE.Raycaster();
-        const center = new THREE.Vector2(0, 0);
+        const screenCenter = new THREE.Vector2(0, 0);
         let focusedObject = null;
 
         function animate() {
             requestAnimationFrame(animate);
 
-            const time = performance.now();
-            const delta = Math.min((time - prevTime) / 1000, 0.1);
+            const now = performance.now();
+            const delta = Math.min((now - prevTime) / 1000, 0.08);
+            prevTime = now;
 
-            if (!viewingArtwork && kioskModal.style.display !== 'flex' &&
-                (controls.isLocked || keys.forward || keys.backward || keys.left || keys.right)) {
-                direction.z = Number(keys.forward) - Number(keys.backward);
-                direction.x = Number(keys.right) - Number(keys.left);
-                direction.normalize();
+            if (isLocked && !viewingArtwork && kioskModal.style.display !== 'flex') {
+                forwardDir.set(-Math.sin(yaw), 0, -Math.cos(yaw)).normalize();
+                rightDir.set(Math.cos(yaw), 0, -Math.sin(yaw)).normalize();
 
-                // Use apenas o yaw: olhar para cima ou para baixo não altera a direção do movimento.
-                const yaw = camera.rotation.y;
-                forward.set(-Math.sin(yaw), 0, -Math.cos(yaw));
-                right.set(Math.cos(yaw), 0, -Math.sin(yaw));
+                let moveX = 0, moveZ = 0;
+                const speed = 4.2;
 
-                // Movimento pretendido
-                moveStep.set(0, 0, 0);
-                moveStep.addScaledVector(forward, direction.z * 4.0 * delta);
-                moveStep.addScaledVector(right, direction.x * 4.0 * delta);
+                if (keys.forward) { moveX += forwardDir.x; moveZ += forwardDir.z; }
+                if (keys.backward) { moveX -= forwardDir.x; moveZ -= forwardDir.z; }
+                if (keys.right) { moveX += rightDir.x; moveZ += rightDir.z; }
+                if (keys.left) { moveX -= rightDir.x; moveZ -= rightDir.z; }
 
-                // Verificação e deslizamento nos eixos X e Z separadamente
-                const curPos = camera.position;
+                const len = Math.hypot(moveX, moveZ);
+                if (len > 0) {
+                    moveX = (moveX / len) * speed * delta;
+                    moveZ = (moveZ / len) * speed * delta;
 
-                // Eixo X
-                if (canMoveTo(curPos.x, curPos.z, curPos.x + moveStep.x, curPos.z, 'x')) {
-                    curPos.x += moveStep.x;
+                    if (!checkCollision(camera.position.x + moveX, camera.position.z)) {
+                        camera.position.x += moveX;
+                    }
+                    if (!checkCollision(camera.position.x, camera.position.z + moveZ)) {
+                        camera.position.z += moveZ;
+                    }
                 }
 
-                // Eixo Z
-                if (canMoveTo(curPos.x, curPos.z, curPos.x, curPos.z + moveStep.z, 'z')) {
-                    curPos.z += moveStep.z;
-                }
+                camera.position.y = 1.7;
 
-                camera.position.y = 1.7; // Altura dos olhos consistente
-
-                // Raycast central para interações
-                raycaster.setFromCamera(center, camera);
+                raycaster.setFromCamera(screenCenter, camera);
                 const hits = raycaster.intersectObjects(interactiveObjects, false);
 
                 if (hits.length > 0 && hits[0].distance < 3.8) {
                     focusedObject = hits[0].object;
                     crosshair.classList.add('interactive');
-                    interactPrompt.textContent = focusedObject.userData.prompt || "[E] INTERAGIR";
+                    interactPrompt.textContent = focusedObject.userData.prompt || "[E] EXAMINAR";
                     interactPrompt.style.opacity = '1';
                 } else {
                     focusedObject = null;
@@ -1359,7 +976,6 @@
                 }
             }
 
-            prevTime = time;
             renderer.render(scene, camera);
         }
 
