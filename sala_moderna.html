@@ -429,7 +429,6 @@
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/PointerLockControls.js"></script>
 </head>
 <body data-page="moderna">
 
@@ -639,6 +638,7 @@
         scene.fog = new THREE.FogExp2(0x06080b, 0.015);
 
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
+        camera.rotation.order = 'YXZ';
         
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -646,6 +646,84 @@
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         container.appendChild(renderer.domElement);
+
+        function createPointerControls(camera, domElement) {
+            const controls = new THREE.EventDispatcher();
+            const euler = new THREE.Euler(0, 0, 0, 'YXZ');
+            controls.isLocked = false;
+            controls.minPolarAngle = 0.1;
+            controls.maxPolarAngle = Math.PI - 0.1;
+            let isDragging = false;
+            let previousMouseX = 0;
+            let previousMouseY = 0;
+
+            const onMouseMove = event => {
+                if (!controls.isLocked && !isDragging) return;
+
+                euler.setFromQuaternion(camera.quaternion, 'YXZ');
+                const movementX = controls.isLocked ? event.movementX : event.clientX - previousMouseX;
+                const movementY = controls.isLocked ? event.movementY : event.clientY - previousMouseY;
+                euler.y -= movementX * 0.002;
+                euler.x -= movementY * 0.002;
+                euler.x = Math.max(
+                    Math.PI / 2 - controls.maxPolarAngle,
+                    Math.min(Math.PI / 2 - controls.minPolarAngle, euler.x)
+                );
+                camera.quaternion.setFromEuler(euler);
+                previousMouseX = event.clientX;
+                previousMouseY = event.clientY;
+            };
+
+            const onPointerDown = event => {
+                if (controls.isLocked || event.button !== 0) return;
+                isDragging = true;
+                previousMouseX = event.clientX;
+                previousMouseY = event.clientY;
+            };
+            const stopDragging = () => { isDragging = false; };
+
+            const onPointerLockChange = () => {
+                const isLocked = document.pointerLockElement === domElement;
+                if (controls.isLocked === isLocked) return;
+
+                controls.isLocked = isLocked;
+                controls.dispatchEvent({ type: isLocked ? 'lock' : 'unlock' });
+            };
+
+            const onPointerLockError = () => {
+                console.error('O navegador não permitiu capturar o mouse.');
+                controls.dispatchEvent({ type: 'lockerror' });
+            };
+
+            controls.lock = () => {
+                if (document.pointerLockElement === domElement) return;
+
+                try {
+                    const request = domElement.requestPointerLock();
+                    if (request && typeof request.catch === 'function') {
+                        request.catch(error => {
+                            console.error('Não foi possível capturar o mouse:', error);
+                            controls.dispatchEvent({ type: 'lockerror' });
+                        });
+                    }
+                } catch (error) {
+                    console.error('Não foi possível capturar o mouse:', error);
+                    controls.dispatchEvent({ type: 'lockerror' });
+                }
+            };
+
+            controls.unlock = () => {
+                if (document.pointerLockElement === domElement) document.exitPointerLock();
+            };
+
+            document.addEventListener('mousemove', onMouseMove);
+            domElement.addEventListener('pointerdown', onPointerDown);
+            document.addEventListener('pointerup', stopDragging);
+            window.addEventListener('blur', stopDragging);
+            document.addEventListener('pointerlockchange', onPointerLockChange);
+            document.addEventListener('pointerlockerror', onPointerLockError);
+            return controls;
+        }
 
         /* =======================================================
            3. MATERIAIS
@@ -1012,7 +1090,7 @@
         /* =======================================================
            5. CONTROLES E TRANSIÇÕES
            ======================================================= */
-        const controls = new THREE.PointerLockControls(camera, document.body);
+        const controls = createPointerControls(camera, renderer.domElement);
         const instructions = document.getElementById('instructions');
         const kioskModal = document.getElementById('kiosk-modal');
         const fadeOverlay = document.getElementById('fade-overlay');
@@ -1042,6 +1120,7 @@
         controls.addEventListener('unlock', () => {
             if (currentPage === 'recepcao' && kioskModal.style.display !== 'flex') instructions.style.display = 'flex';
         });
+        controls.addEventListener('lockerror', () => { instructions.style.display = 'flex'; });
 
         function teleportTo(key) {
             const loc = LOCATIONS[key];
@@ -1142,9 +1221,12 @@
         const keys = { forward: false, backward: false, left: false, right: false };
         const handleKey = (code, state) => {
             if (code === 'ArrowUp' || code === 'KeyW') keys.forward = state;
-            if (code === 'ArrowDown' || code === 'KeyS') keys.backward = state;
-            if (code === 'ArrowLeft' || code === 'KeyA') keys.left = state;
-            if (code === 'ArrowRight' || code === 'KeyD') keys.right = state;
+            else if (code === 'ArrowDown' || code === 'KeyS') keys.backward = state;
+            else if (code === 'ArrowLeft' || code === 'KeyA') keys.left = state;
+            else if (code === 'ArrowRight' || code === 'KeyD') keys.right = state;
+            else return false;
+
+            return true;
         };
 
         const clearMovementKeys = () => {
@@ -1153,19 +1235,20 @@
             keys.left = false;
             keys.right = false;
         };
-        window.addEventListener('blur', clearMovementKeys);
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) clearMovementKeys();
         });
         controls.addEventListener('unlock', clearMovementKeys);
 
-        document.addEventListener('keydown', (e) => {
-            handleKey(e.code, true);
+        window.addEventListener('keydown', (e) => {
+            if (handleKey(e.code, true)) e.preventDefault();
             if (e.code === 'KeyE' && !viewingArtwork && focusedObject) triggerAction(focusedObject);
             if (e.code === 'KeyM' && !viewingArtwork) openKioskModal();
         });
 
-        document.addEventListener('keyup', (e) => handleKey(e.code, false));
+        window.addEventListener('keyup', (e) => {
+            if (handleKey(e.code, false)) e.preventDefault();
+        });
 
         document.addEventListener('click', () => {
             if (controls.isLocked && focusedObject) triggerAction(focusedObject);
@@ -1182,25 +1265,41 @@
            ======================================================= */
         const playerRadius = 0.45;
 
-        function checkCollision(targetX, targetZ) {
+        function overlapsCollider(x, z, collider) {
+            return (
+                x + playerRadius > collider.minX &&
+                x - playerRadius < collider.maxX &&
+                z + playerRadius > collider.minZ &&
+                z - playerRadius < collider.maxZ
+            );
+        }
+
+        function canMoveTo(currentX, currentZ, targetX, targetZ, axis) {
             for (let i = 0; i < colliders.length; i++) {
-                const b = colliders[i];
-                if (
-                    targetX + playerRadius > b.minX &&
-                    targetX - playerRadius < b.maxX &&
-                    targetZ + playerRadius > b.minZ &&
-                    targetZ - playerRadius < b.maxZ
-                ) {
-                    return true;
-                }
+                const collider = colliders[i];
+                if (!overlapsCollider(targetX, targetZ, collider)) continue;
+                if (!overlapsCollider(currentX, currentZ, collider)) return false;
+
+                const currentOverlap = axis === 'x'
+                    ? Math.min(currentX + playerRadius, collider.maxX) - Math.max(currentX - playerRadius, collider.minX)
+                    : Math.min(currentZ + playerRadius, collider.maxZ) - Math.max(currentZ - playerRadius, collider.minZ);
+                const targetOverlap = axis === 'x'
+                    ? Math.min(targetX + playerRadius, collider.maxX) - Math.max(targetX - playerRadius, collider.minX)
+                    : Math.min(targetZ + playerRadius, collider.maxZ) - Math.max(targetZ - playerRadius, collider.minZ);
+
+                if (targetOverlap > currentOverlap) return false;
             }
-            return false;
+
+            return true;
         }
 
         /* =======================================================
            7. LOOP DE ANIMAÇÃO COM FÍSICA
            ======================================================= */
         const direction = new THREE.Vector3();
+        const forward = new THREE.Vector3();
+        const right = new THREE.Vector3();
+        const moveStep = new THREE.Vector3();
         let prevTime = performance.now();
 
         const raycaster = new THREE.Raycaster();
@@ -1213,22 +1312,19 @@
             const time = performance.now();
             const delta = Math.min((time - prevTime) / 1000, 0.1);
 
-            if ((controls.isLocked || currentPage !== 'recepcao') && !viewingArtwork && kioskModal.style.display !== 'flex') {
+            if (!viewingArtwork && kioskModal.style.display !== 'flex' &&
+                (controls.isLocked || keys.forward || keys.backward || keys.left || keys.right)) {
                 direction.z = Number(keys.forward) - Number(keys.backward);
                 direction.x = Number(keys.right) - Number(keys.left);
                 direction.normalize();
 
-                // Vetores de direção da câmera no plano XZ
-                const forward = new THREE.Vector3();
-                camera.getWorldDirection(forward);
-                forward.y = 0;
-                forward.normalize();
-
-                const right = new THREE.Vector3();
-                right.crossVectors(camera.up, forward).negate().normalize();
+                // Use apenas o yaw: olhar para cima ou para baixo não altera a direção do movimento.
+                const yaw = camera.rotation.y;
+                forward.set(-Math.sin(yaw), 0, -Math.cos(yaw));
+                right.set(Math.cos(yaw), 0, -Math.sin(yaw));
 
                 // Movimento pretendido
-                const moveStep = new THREE.Vector3();
+                moveStep.set(0, 0, 0);
                 moveStep.addScaledVector(forward, direction.z * 4.0 * delta);
                 moveStep.addScaledVector(right, direction.x * 4.0 * delta);
 
@@ -1236,12 +1332,12 @@
                 const curPos = camera.position;
 
                 // Eixo X
-                if (!checkCollision(curPos.x + moveStep.x, curPos.z)) {
+                if (canMoveTo(curPos.x, curPos.z, curPos.x + moveStep.x, curPos.z, 'x')) {
                     curPos.x += moveStep.x;
                 }
 
                 // Eixo Z
-                if (!checkCollision(curPos.x, curPos.z + moveStep.z)) {
+                if (canMoveTo(curPos.x, curPos.z, curPos.x, curPos.z + moveStep.z, 'z')) {
                     curPos.z += moveStep.z;
                 }
 
