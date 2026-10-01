@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grand Musée 3D - Ala Clássica</title>
+    <title>Clássica</title>
     <style>
         * {
             margin: 0;
@@ -648,6 +648,18 @@
             });
         }
 
+        function loadArtworkImage(artwork) {
+            if (!artwork.userData.image) return;
+
+            new THREE.TextureLoader().load(artwork.userData.image, texture => {
+                texture.encoding = THREE.sRGBEncoding;
+                artwork.material.map = texture;
+                artwork.material.needsUpdate = true;
+            }, undefined, error => {
+                console.error(`Não foi possível carregar a imagem da obra: ${artwork.userData.image}`, error);
+            });
+        }
+
         function createEmptyEasel(galleryCenterX, galleryCenterZ, x, z, rotY = 0, frameType = "gold", width = 1.4, aspect = 1.25, easelInfo = {}) {
             const group = new THREE.Group();
 
@@ -693,8 +705,9 @@
                 action: 'inspectArtwork',
                 title: easelInfo.title || `Obra Clássica ${artworkNumber}`,
                 description: easelInfo.description || 'Pintura representativa do Renascimento ou Barroco com técnicas avançadas de claro-escuro.',
-                image: easelInfo.image || `imagens/classica_obra_${String(artworkNumber).padStart(2, '0')}.png`
+                image: easelInfo.image || null
             };
+            loadArtworkImage(canvasMesh);
             interactiveObjects.push(canvasMesh);
             frameGroup.add(canvasMesh);
 
@@ -784,13 +797,13 @@
         }
 
         const standardEasels = [
-            { x: -4.5, z: 4.5, rotY: 0.05, frame: 'gold', w: 1.35, aspect: 1.3, title: 'Obra Clássica 01', description: 'Obra renascentista com harmonização estética geométrica.' },
-            { x: 0, z: 5.0, rotY: -0.04, frame: 'wood', w: 1.25, aspect: 1.4, title: 'Obra Clássica 02', description: 'Composição clássica valorizando anatomia e realismo expressivo.' },
-            { x: 4.5, z: 4.2, rotY: 0.08, frame: 'gold', w: 1.45, aspect: 1.1, title: 'Obra Clássica 03', description: 'Estudo mitológico com pintura a óleo sobre tela.' },
-            { x: -5.5, z: -0.5, rotY: -0.06, frame: 'wood', w: 1.6, aspect: 0.8, title: 'Obra Clássica 04', description: 'Paisagem barroca com forte contraste de luz e sombra.' },
-            { x: -1.0, z: 0.0, rotY: 0.03, frame: 'gold', w: 1.25, aspect: 1.3, title: 'Obra Clássica 05', description: 'Retrato nobre da era clássica europeia.' },
-            { x: 4.0, z: -1.0, rotY: -0.05, frame: 'gold', w: 1.35, aspect: 1.2, title: 'Obra Clássica 06', description: 'Cena histórica capturada com fidelidade e cores terrosas.' },
-            { x: -4.0, z: -5.5, rotY: 0.07, frame: 'gold', w: 1.3, aspect: 1.25, title: 'Obra Clássica 07', description: 'Alegoria filosófica com perspectiva linear refinada.' },
+            { x: -4.5, z: 4.5, rotY: 0.05, frame: 'gold', w: 1.35, aspect: 0.72, title: 'Obra Clássica 01', description: 'Obra renascentista com harmonização estética geométrica.', image: 'imagens/renascentista/atenas.png' },
+            { x: 0, z: 5.0, rotY: -0.04, frame: 'wood', w: 1.25, aspect: 1.4, title: 'Obra Clássica 02', description: 'Composição clássica valorizando anatomia e realismo expressivo.', image: 'imagens/renascentista/arnolfini.png' },
+            { x: 4.5, z: 4.2, rotY: 0.08, frame: 'gold', w: 1.45, aspect: 1.49, title: 'Obra Clássica 03', description: 'Estudo mitológico com pintura a óleo sobre tela.', image: 'imagens/renascentista/monalisa.png' },
+            { x: -5.5, z: -0.5, rotY: -0.06, frame: 'wood', w: 1.6, aspect: 0.56, title: 'Obra Clássica 04', description: 'Paisagem barroca com forte contraste de luz e sombra.', image: 'imagens/renascentista/adao.png' },
+            { x: -1.0, z: 0.0, rotY: 0.03, frame: 'gold', w: 1.25, aspect: 1.0, title: 'Obra Clássica 05', description: 'Retrato nobre da era clássica europeia.', image: 'imagens/renascentista/venus.png' },
+            { x: 4.0, z: -1.0, rotY: -0.05, frame: 'gold', w: 1.35, aspect: 0.48, title: 'Obra Clássica 06', description: 'Cena histórica capturada com fidelidade e cores terrosas.', image: 'imagens/renascentista/ceia.png' },
+            { x: -4.0, z: -5.5, rotY: 0.07, frame: 'gold', w: 1.3, aspect: 0.8, title: 'Obra Clássica 07', description: 'Alegoria filosófica com perspectiva linear refinada.', image: 'imagens/renascentista/primavera.png' },
             { x: 1.5, z: -5.0, rotY: -0.03, frame: 'wood', w: 1.7, aspect: 0.7, title: 'Obra Clássica 08', description: 'Panorama renascentista com acabamento em verniz natural.' },
             { x: 5.5, z: -5.8, rotY: 0.04, frame: 'gold', w: 1.4, aspect: 1.0, title: 'Obra Clássica 09', description: 'Natureza morta com riqueza meticulosa de texturas.' }
         ];
@@ -862,15 +875,6 @@
             const artworkRight = new THREE.Vector3(1, 0, 0).applyQuaternion(artworkRotation).normalize();
             camera.position.copy(artworkCenter).addScaledVector(artworkNormal, 2.7).addScaledVector(artworkRight, 0.2);
             camera.lookAt(artworkCenter.clone().addScaledVector(artworkRight, 1.3));
-
-            if (!artwork.userData.imageLoadRequested) {
-                artwork.userData.imageLoadRequested = true;
-                new THREE.TextureLoader().load(artwork.userData.image, tex => {
-                    tex.encoding = THREE.sRGBEncoding;
-                    artwork.material.map = tex;
-                    artwork.material.needsUpdate = true;
-                }, undefined, () => {});
-            }
 
             unlockPointer();
             viewingArtwork = true;
