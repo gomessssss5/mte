@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grand Musée 3D - Sala das Vanguardas / Arte Moderna</title>
+    <title>Grand Musée 3D - Sala Medieval / Bizantina</title>
     <style>
         * {
             margin: 0;
@@ -447,14 +447,14 @@
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body data-page="moderna">
+<body data-page="medieval">
 
     <div id="canvas-container"></div>
     <div id="crosshair"></div>
     <div id="interact-prompt">[E] EXAMINAR OBRA</div>
 
     <div id="hud-top">
-        <div class="hud-badge"><b>LOCAL:</b> <span id="current-location">Sala das Vanguardas / Arte Moderna</span></div>
+        <div class="hud-badge"><b>LOCAL:</b> <span id="current-location">Sala Medieval / Bizantina</span></div>
         <div class="hud-badge">
             <span class="keys-badge">W</span><span class="keys-badge">A</span><span class="keys-badge">S</span><span class="keys-badge">D</span> Andar &nbsp;|&nbsp; 
             <span class="keys-badge">E</span> Interagir &nbsp;|&nbsp; 
@@ -820,15 +820,15 @@
         }
 
         const standardEasels = [
-            { x: -4.5, z: 4.5, rotY: 0.05, frame: 'gold', w: 1.35, aspect: 1.19, title: 'Abaporu', description: 'Tarsila do Amaral combina formas marcantes e cores vibrantes nesta obra do modernismo brasileiro.', image: 'imagens/abaporu.png' },
-            { x: 0, z: 5.0, rotY: -0.04, frame: 'wood', w: 1.25, aspect: 0.79, title: 'A Noite Estrelada', description: 'Vincent van Gogh representa o céu noturno com formas ondulantes e cores intensas.', image: 'imagens/a_noite_estrelada.png' },
-            { x: 4.5, z: 4.2, rotY: 0.08, frame: 'gold', w: 1.45, aspect: 1.1, title: 'Obra Moderna 03', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: -5.5, z: -0.5, rotY: -0.06, frame: 'wood', w: 1.6, aspect: 0.8, title: 'Obra Moderna 04', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: -1.0, z: 0.0, rotY: 0.03, frame: 'gold', w: 1.25, aspect: 1.3, title: 'Obra Moderna 05', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: 4.0, z: -1.0, rotY: -0.05, frame: 'gold', w: 1.35, aspect: 1.2, title: 'Obra Moderna 06', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: -4.0, z: -5.5, rotY: 0.07, frame: 'gold', w: 1.3, aspect: 1.25, title: 'Obra Moderna 07', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: 1.5, z: -5.0, rotY: -0.03, frame: 'wood', w: 1.7, aspect: 0.7, title: 'Obra Moderna 08', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: 5.5, z: -5.8, rotY: 0.04, frame: 'gold', w: 1.4, aspect: 1.0, title: 'Obra Moderna 09', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null }
+            { x: -4.5, z: 4.5, rotY: 0.05, frame: 'gold', w: 1.35, aspect: 0.54, title: 'Cristo Pantocrator (Mosteiro de Santa Catarina, século VI)', description: 'Um dos mais antigos ícones do Cristo Pantocrator preservados, esta pintura apresenta Jesus abençoando com uma mão e segurando o Evangelho com a outra. A assimetria do rosto e o fundo dourado reforçam sua presença solene.', image: 'imagens/medieval/cristo-pantocrator-sinai.jpg' },
+            { x: 0, z: 5.0, rotY: -0.04, frame: 'wood', w: 1.25, aspect: 1.5, title: 'Lamentação sobre Cristo Morto (Giotto, c. 1305)', description: 'Na Capela dos Scrovegni, em Pádua, Maria e os discípulos se reúnem em torno do corpo de Cristo. Giotto dá peso e emoção à cena com gestos expressivos, figuras volumosas e uma paisagem que conduz o olhar ao momento central.', image: 'imagens/medieval/lamentacao-giotto.jpg' },
+            { x: 4.5, z: 4.2, rotY: 0.08, frame: 'gold', w: 1.45, aspect: 0.81, title: 'A Santíssima Trindade (Andrei Rublev, século XV)', description: 'Três anjos sentados ao redor de uma mesa representam a Trindade em uma composição marcada pela calma e pela harmonia. O círculo formado pelas figuras e os tons suaves convidam à contemplação e fazem deste ícone uma obra central da arte religiosa russa.', image: 'imagens/medieval/trindade-andrei-rublev.jpg' },
+            { x: -5.5, z: -0.5, rotY: -0.06, frame: 'wood', w: 1.6, aspect: 1.41, title: 'O Imperador Justiniano e sua Corte (c. 547)', description: 'Este mosaico da Basílica de San Vitale, em Ravena, mostra Justiniano acompanhado por soldados e membros do clero. A posição central do imperador, os halos e os ricos trajes expressam a união entre poder político e autoridade religiosa no Império Bizantino.', image: 'imagens/medieval/justiniano-san-vitale.png' },
+            { x: -1.0, z: 0.0, rotY: 0.03, frame: 'gold', w: 1.25, aspect: 0.6, title: 'Madonna Entronizada com o Menino (Cimabue, c. 1280)', description: 'Maria aparece majestosa em um trono cercado por anjos, enquanto profetas ocupam os espaços abaixo. O fundo dourado e a hierarquia das figuras seguem a tradição bizantina, mas o volume dos corpos e a tentativa de profundidade anunciam mudanças na pintura italiana.', image: 'imagens/medieval/cimabue-madonna-entronizada.jpg' },
+            { x: 4.0, z: -1.0, rotY: -0.05, frame: 'gold', w: 1.35, aspect: 1.38, title: 'Díptico de Wilton (final do século XIV)', description: 'Neste pequeno díptico inglês, o rei Ricardo II se ajoelha diante da Virgem e do Menino, acompanhados por anjos. O azul intenso, o ouro e os detalhes minuciosos criam uma cena devocional refinada, que também apresenta o rei como governante protegido por Deus.', image: 'imagens/medieval/diptico-wilton.jpg' },
+            { x: -4.0, z: -5.5, rotY: 0.07, frame: 'gold', w: 1.3, aspect: 1.78, title: 'Mosaico da Deésis (Santa Sofia, Constantinopla)', description: 'Cristo aparece ao centro, ladeado pela Virgem Maria e por João Batista, que intercedem pela humanidade. A expressão serena e os fragmentos dourados do mosaico de Santa Sofia revelam a força da arte bizantina e sua tradição de imagens voltadas à oração.', image: 'imagens/medieval/deesis-santa-sofia.jpg' },
+            { x: 1.5, z: -5.0, rotY: -0.03, frame: 'wood', w: 1.7, aspect: 1.5, title: 'Maestà (Duccio di Buoninsegna, 1308–1311)', description: 'A Virgem e o Menino ocupam o centro de uma corte de santos e anjos, reunida em torno de um trono ricamente decorado. Criada para a Catedral de Siena, a obra combina a solenidade bizantina com figuras mais delicadas e uma atenção crescente às relações entre elas.', image: 'imagens/medieval/maesta-duccio.png' },
+            { x: 5.5, z: -5.8, rotY: 0.04, frame: 'gold', w: 1.4, aspect: 0.75, title: 'Virgem de Vladimir (ícone bizantino, século XII)', description: 'A Virgem inclina o rosto junto ao Menino, que se volta para ela em um gesto afetuoso. Conhecida como um ícone da Eleousa, a imagem aproxima a representação sagrada da experiência humana e usa o contraste entre o manto escuro e o fundo dourado para concentrar a atenção nas figuras.', image: 'imagens/medieval/icone-virgem-vladimir.jpg' }
         ];
 
         buildGallery(0, 0, "#20232a", "#1b1d24", standardEasels);

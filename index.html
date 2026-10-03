@@ -260,7 +260,7 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            max-width: 720px;
+            max-width: 1040px;
             width: 92%;
         }
 
@@ -272,6 +272,8 @@
             border-radius: 8px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 35px rgba(0,0,0,0.7);
             width: 100%;
+            max-height: 88vh;
+            overflow-y: auto;
             padding: 24px 28px;
             background-color: #f7d679;
             color: #1a160d;
@@ -310,7 +312,7 @@
 
         .rooms-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 14px;
             margin-bottom: 20px;
         }
@@ -389,6 +391,14 @@
             transition: opacity 0.4s ease;
             z-index: 100;
         }
+
+        @media (max-width: 700px) {
+            .rooms-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 460px) {
+            .rooms-grid { grid-template-columns: 1fr; }
+        }
     </style>
     <link rel="preload" href="personagens/recepcionista.glb" as="fetch" crossorigin>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -435,24 +445,44 @@
                 <h2>Salas</h2>
                 <p class="subtitle">Selecione uma sala para iniciar a visita:</p>
                 <div class="rooms-grid">
-                    <div class="room-item" onclick="travelToRoom('classica')">
+                    <div class="room-item" onclick="travelToRoom('antiguidade')">
+                        <div class="room-icon">🏺</div>
+                        <div class="room-title">Sala Pré-Histórica e Antiguidade</div>
+                        <div class="room-desc">Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.</div>
+                    </div>
+                    <div class="room-item" onclick="travelToRoom('medieval')">
+                        <div class="room-icon">🏰</div>
+                        <div class="room-title">Sala Medieval / Bizantina</div>
+                        <div class="room-desc">Pinturas sacras em painéis de madeira, iluminuras e afrescos com fundo em folha de ouro.</div>
+                    </div>
+                    <div class="room-item" onclick="travelToRoom('renascentista')">
+                        <div class="room-icon">🎨</div>
+                        <div class="room-title">Sala Renascentista</div>
+                        <div class="room-desc">Retratos icônicos, afrescos, cenas mitológicas e o domínio da figura humana e da perspectiva.</div>
+                    </div>
+                    <div class="room-item" onclick="travelToRoom('barroca')">
+                        <div class="room-icon">🖼️</div>
+                        <div class="room-title">Sala Barroca e Rococó</div>
+                        <div class="room-desc">Pinturas com forte contraste de luz e sombra (chiaroscuro), retratos expressivos e cenas dramáticas.</div>
+                    </div>
+                    <div class="room-item" onclick="travelToRoom('neoclassica')">
                         <div class="room-icon">🏛️</div>
-                        <div class="room-title">Sala Clássica</div>
-                        <div class="room-desc">Mestres do Renascimento e Barroco em suportes de cristal.</div>
+                        <div class="room-title">Sala Neoclássica e Romântica</div>
+                        <div class="room-desc">Pinturas de fatos históricos, cenas dramáticas, mitológicas e retratos marcantes.</div>
                     </div>
                     <div class="room-item" onclick="travelToRoom('moderna')">
-                        <div class="room-icon">🎨</div>
-                        <div class="room-title">Sala Moderna</div>
-                        <div class="room-desc">Vanguardas do séc. XX e Abstracionismo minimalista.</div>
+                        <div class="room-icon">🌀</div>
+                        <div class="room-title">Sala das Vanguardas / Arte Moderna</div>
+                        <div class="room-desc">Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.</div>
                     </div>
-                    <div class="room-item" onclick="travelToRoom('impressionismo')">
-                        <div class="room-icon">🌌</div>
-                        <div class="room-title">Sala Renascentista</div>
-                        <div class="room-desc">Retratos icônicos, afrescos, mitologia e perspectiva.</div>
+                    <div class="room-item" onclick="travelToRoom('contemporanea')">
+                        <div class="room-icon">🧩</div>
+                        <div class="room-title">Sala Contemporânea</div>
+                        <div class="room-desc">Pinturas em tela de grandes proporções, mídias mistas, arte urbana e composições conceituais.</div>
                     </div>
                 </div>
                 <div class="kiosk-footer">
-                    <button class="btn-close-modal" onclick="closeKioskModal()">Fechar Terminal</button>
+                    <button class="btn-close-modal" onclick="closeKioskModal()">Fechar</button>
                 </div>
             </div>
             <div class="kiosk-pedestal"></div>
@@ -615,9 +645,12 @@
 
         function lockPointer() {
             try {
-                renderer.domElement.requestPointerLock();
-            } catch (err) {
-                console.warn(err);
+                const request = renderer.domElement.requestPointerLock();
+                if (request && typeof request.catch === 'function') {
+                    request.catch(error => console.warn('Não foi possível capturar o mouse.', error));
+                }
+            } catch (error) {
+                console.warn('Não foi possível capturar o mouse.', error);
             }
         }
 
@@ -661,7 +694,67 @@
 
         let isReceptionistLoaded = false;
         let pendingGameStart = false;
+        let shouldAutoStart = false;
         const btnStart = document.querySelector('#instructions .btn-start');
+
+        function startReceptionGame() {
+            if (!isReceptionistLoaded) return;
+            pendingGameStart = false;
+            gameStarted = true;
+            instructions.style.display = 'none';
+            lockPointer();
+        }
+
+        function loadReceptionist(onLoad, onError) {
+            const loader = new THREE.GLTFLoader();
+            const modelUrl = new URL('personagens/recepcionista.glb', document.baseURI).href;
+            const parseModel = data => loader.parse(data, new URL('.', modelUrl).href, onLoad, onError);
+
+            if (!window.isSecureContext || !('caches' in window) || !('fetch' in window)) {
+                console.warn('Cache local indisponível; carregando o recepcionista pela URL.');
+                loader.load(modelUrl, onLoad, undefined, onError);
+                return;
+            }
+
+            (async () => {
+                try {
+                    const cache = await caches.open('grand-musee-models-v1');
+                    const cachedModel = await cache.match(modelUrl);
+                    if (cachedModel) {
+                        shouldAutoStart = true;
+                        instructions.style.display = 'none';
+                        parseModel(await cachedModel.arrayBuffer());
+                        return;
+                    }
+
+                    const response = await fetch(modelUrl);
+                    if (!response.ok) {
+                        throw new Error(`Falha ao baixar recepcionista: HTTP ${response.status}`);
+                    }
+
+                    const [modelData, wasCached] = await Promise.all([
+                        response.clone().arrayBuffer(),
+                        cache.put(modelUrl, response.clone()).then(() => true, error => {
+                            console.warn('Não foi possível salvar o recepcionista no cache local.', error);
+                            return false;
+                        })
+                    ]);
+
+                    if (wasCached && navigator.storage && navigator.storage.persist) {
+                        navigator.storage.persist().then(persisted => {
+                            if (!persisted) console.info('O navegador pode remover o cache local do recepcionista para liberar espaço.');
+                        }).catch(error => {
+                            console.warn('Não foi possível solicitar a persistência do cache local.', error);
+                        });
+                    }
+
+                    parseModel(modelData);
+                } catch (error) {
+                    console.warn('Falha ao acessar o cache local; tentando carregar o recepcionista pela URL.', error);
+                    loader.load(modelUrl, onLoad, undefined, onError);
+                }
+            })();
+        }
 
         function buildReception() {
             const group = new THREE.Group();
@@ -783,9 +876,7 @@
             group.add(kioskScreen);
 
             // Recepcionista 3D
-            const gltfLoader = new THREE.GLTFLoader();
-            gltfLoader.load(
-                'personagens/recepcionista.glb',
+            loadReceptionist(
                 (gltf) => {
                     const receptionist = gltf.scene;
                     const bbox = new THREE.Box3().setFromObject(receptionist);
@@ -815,20 +906,18 @@
 
                     group.add(receptionist);
                     isReceptionistLoaded = true;
-                    btnStart.disabled = false;
-                    btnStart.textContent = 'Iniciar jogo';
-                    if (pendingGameStart) {
-                        pendingGameStart = false;
-                        gameStarted = true;
-                        if (pauseMenu.style.display !== 'flex') lockPointer();
+                    if (pendingGameStart || shouldAutoStart) {
+                        startReceptionGame();
+                    } else {
+                        btnStart.disabled = false;
+                        btnStart.textContent = 'Iniciar jogo';
                     }
                 },
-                undefined,
-                () => {
-                    // Fallback gracioso se não houver modelo
-                    isReceptionistLoaded = true;
-                    btnStart.disabled = false;
-                    btnStart.textContent = 'Iniciar jogo';
+                error => {
+                    console.error('Não foi possível carregar o recepcionista.', error);
+                    btnStart.disabled = true;
+                    btnStart.textContent = 'Erro ao carregar';
+                    btnStart.title = 'Recarregue a página para tentar novamente.';
                 }
             );
 
@@ -866,6 +955,10 @@
         camera.position.copy(LOCATIONS.recepcao.spawn);
         updateCameraRotation();
 
+        renderer.domElement.addEventListener('click', () => {
+            if (gameStarted && !isLocked && pauseMenu.style.display !== 'flex') lockPointer();
+        });
+
         btnStart.addEventListener('click', (e) => {
             e.stopPropagation();
             if (!isReceptionistLoaded) {
@@ -874,8 +967,7 @@
                 btnStart.textContent = 'Carregando...';
                 return;
             }
-            gameStarted = true;
-            lockPointer();
+            startReceptionGame();
         });
 
         function openKioskModal() {
@@ -891,9 +983,13 @@
         function travelToRoom(key) {
             const pages = {
                 recepcao: 'index.html',
-                classica: 'classica.html',
+                antiguidade: 'antiguidade.html',
+                medieval: 'medieval.html',
+                renascentista: 'renascentista.html',
+                barroca: 'barroco.html',
+                neoclassica: 'neoclassica.html',
                 moderna: 'moderna.html',
-                impressionismo: 'renascentista.html'
+                contemporanea: 'contemporanea.html'
             };
             if (!pages[key]) return;
 

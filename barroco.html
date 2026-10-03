@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grand Musée 3D - Sala das Vanguardas / Arte Moderna</title>
+    <title>Grand Musée 3D - Sala Barroca e Rococó</title>
     <style>
         * {
             margin: 0;
@@ -219,6 +219,8 @@
             right: clamp(20px, 4vw, 60px);
             transform: translateY(-50%);
             width: min(440px, calc(100vw - 40px));
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
             padding: 28px 24px;
             color: #f3f4f6;
             background: rgba(12, 15, 20, 0.94);
@@ -447,14 +449,14 @@
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body data-page="moderna">
+<body data-page="barroca">
 
     <div id="canvas-container"></div>
     <div id="crosshair"></div>
     <div id="interact-prompt">[E] EXAMINAR OBRA</div>
 
     <div id="hud-top">
-        <div class="hud-badge"><b>LOCAL:</b> <span id="current-location">Sala das Vanguardas / Arte Moderna</span></div>
+        <div class="hud-badge"><b>LOCAL:</b> <span id="current-location">Sala Barroca e Rococó</span></div>
         <div class="hud-badge">
             <span class="keys-badge">W</span><span class="keys-badge">A</span><span class="keys-badge">S</span><span class="keys-badge">D</span> Andar &nbsp;|&nbsp; 
             <span class="keys-badge">E</span> Interagir &nbsp;|&nbsp; 
@@ -820,18 +822,18 @@
         }
 
         const standardEasels = [
-            { x: -4.5, z: 4.5, rotY: 0.05, frame: 'gold', w: 1.35, aspect: 1.19, title: 'Abaporu', description: 'Tarsila do Amaral combina formas marcantes e cores vibrantes nesta obra do modernismo brasileiro.', image: 'imagens/abaporu.png' },
-            { x: 0, z: 5.0, rotY: -0.04, frame: 'wood', w: 1.25, aspect: 0.79, title: 'A Noite Estrelada', description: 'Vincent van Gogh representa o céu noturno com formas ondulantes e cores intensas.', image: 'imagens/a_noite_estrelada.png' },
-            { x: 4.5, z: 4.2, rotY: 0.08, frame: 'gold', w: 1.45, aspect: 1.1, title: 'Obra Moderna 03', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: -5.5, z: -0.5, rotY: -0.06, frame: 'wood', w: 1.6, aspect: 0.8, title: 'Obra Moderna 04', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: -1.0, z: 0.0, rotY: 0.03, frame: 'gold', w: 1.25, aspect: 1.3, title: 'Obra Moderna 05', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: 4.0, z: -1.0, rotY: -0.05, frame: 'gold', w: 1.35, aspect: 1.2, title: 'Obra Moderna 06', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: -4.0, z: -5.5, rotY: 0.07, frame: 'gold', w: 1.3, aspect: 1.25, title: 'Obra Moderna 07', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: 1.5, z: -5.0, rotY: -0.03, frame: 'wood', w: 1.7, aspect: 0.7, title: 'Obra Moderna 08', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: 5.5, z: -5.8, rotY: 0.04, frame: 'gold', w: 1.4, aspect: 1.0, title: 'Obra Moderna 09', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null }
+            { x: -4.5, z: 4.5, rotY: 0.05, frame: 'gold', w: 1.35, aspect: 0.81, title: 'A Ronda Noturna - Rembrandt van Rijn (1642)', description: '3,63 x 4,37 m, Rijksmuseum, Amsterdã. Retrato da milícia do Capitão Frans Banninck Cocq e seu tenente Willem van Ruytenburch. Rembrandt quebra o retrato coletivo parado: cria diagonais, movimento e usa luz teatral para destacar o capitão de preto, o tenente de amarelo e a menina de branco ao centro carregando um frango. Chiaroscuro dramático, ação congelada e psicologia dos personagens. É o barroco holandês no auge: realismo, drama e teatralidade.', image: 'imagens/barroca/ronda-noturna.png' },
+            { x: 0, z: 5.0, rotY: -0.04, frame: 'wood', w: 1.25, aspect: 0.94, title: 'A Vocação de São Mateus - Caravaggio (1599-1600)', description: 'Capela Contarelli, San Luigi dei Francesi, Roma. Cristo, quase escondido na sombra à direita com São Pedro, chama Mateus, que está contando dinheiro na taberna. O facho de luz que entra pela janela é o próprio chamado divino e reproduz o gesto da Criação de Adão de Michelangelo. Tenebrismo puro: fundo escuro, figuras plebeias com pés sujos e roupas rasgadas, momento de conversão capturado como cena de rua. Obra que fundou o barroco.', image: 'imagens/barroca/vocacao-sao-mateus.png' },
+            { x: 4.5, z: 4.2, rotY: 0.08, frame: 'gold', w: 1.45, aspect: 1.43, title: 'Moça com Brinco de Pérola - Johannes Vermeer (1665)', description: '44,5 x 39 cm, Mauritshuis, Haia. Não é um retrato encomendado, é um tronie - estudo de expressão. Menina anônima em turbante azul e amarelo exótico vira o rosto por cima do ombro. Luz suave modela o rosto e cria um ponto de brilho nos lábios e na pérola. Fundo escuro absoluto para focar na luz. Técnica de pontilhado de luz de Vermeer e intimidade silenciosa típica do barroco holandês.', image: 'imagens/barroca/brinco-perola.png' },
+            { x: -5.5, z: -0.5, rotY: -0.06, frame: 'wood', w: 1.6, aspect: 1.15, title: 'As Meninas - Diego Velázquez (1656)', description: '3,18 x 2,76 m, Museu do Prado, Madri. A infanta Margarida Teresa aparece cercada de damas, anões, um cão e o próprio Velázquez, que se pinta na cena. Ao fundo, um espelho reflete o rei e a rainha, que estariam no lugar do espectador, enquanto um homem aparece na porta. É uma meta-pintura barroca: quem está sendo pintado? Jogo de perspectiva, ilusão, luz que entra pela direita e hierarquia da corte espanhola em uma única cena.', image: 'imagens/barroca/as-meninas.png' },
+            { x: -1.0, z: 0.0, rotY: 0.03, frame: 'gold', w: 1.25, aspect: 0.75, title: 'Lição de Anatomia do Dr. Nicolaes Tulp - Rembrandt (1632)', description: '169 x 216 cm, Mauritshuis. Primeiro grande sucesso de Rembrandt, aos 26 anos. Dr. Tulp demonstra os músculos do antebraço para cirurgiões da Guilda. Ao contrário de retratos estáticos, cada médico tem uma reação diferente: inclina-se, olha o livro ou observa o cadáver. Luz forte no corpo pálido e nos rostos, fundo escuro. Chiaroscuro para criar drama e interesse científico do século XVII, com realismo anatômico e psicologia coletiva.', image: 'imagens/barroca/anatomia.png' },
+            { x: 4.0, z: -1.0, rotY: -0.05, frame: 'gold', w: 1.35, aspect: 1.25, title: 'O Balanço - Jean-Honoré Fragonard (1767)', description: '81 x 64 cm, Wallace Collection, Londres. Obra-prima do Rococó francês. Uma dama aristocrática de vestido rosa voa no balanço, empurrada pelo marido ou bispo ao fundo na sombra, enquanto o amante escondido nos arbustos olha por baixo da saia. Cores pastel, pincelada leve e rápida, jardim luxuriante, sapato voando e estátuas de Cupido cúmplices. Erótica, frívola e teatral: o mundo aristocrático antes da Revolução Francesa.', image: 'imagens/barroca/balanco.png' },
+            { x: -4.0, z: -5.5, rotY: 0.07, frame: 'gold', w: 1.3, aspect: 1.15, title: 'A Leiteira - Johannes Vermeer (1658)', description: '45,5 x 41 cm, Rijksmuseum. Uma cozinha simples transformada em cena monumental. Uma mulher robusta derrama leite com concentração total. A luz da janela à esquerda cria textura no pão, no jarro de cerâmica e na parede craquelada. Amarelo e azul vibrantes, técnica pontilhista. Barroco holandês doméstico que valoriza o trabalho, a virtude e a luz como protagonista silenciosa.', image: 'imagens/barroca/leiteira.png' },
+            { x: 1.5, z: -5.0, rotY: -0.03, frame: 'wood', w: 1.7, aspect: 1.22, title: 'Judite Decapitando Holofernes - Artemisia Gentileschi (1612-1613)', description: '199 x 162 cm, Capodimonte, Nápoles. Judite e sua serva Abra matam o general assírio Holofernes. Diferente das versões masculinas idealizadas, aqui há força física real, sangue jorrando, mãos apertando o cabelo e expressão de esforço. Luz de Caravaggio cruel sobre o ato. Obra ligada à história pessoal da artista e lida hoje como símbolo de poder feminino e vingança. Chiaroscuro dramático no limite da violência barroca.', image: 'imagens/barroca/judite.png' },
+            { x: 5.5, z: -5.8, rotY: 0.04, frame: 'gold', w: 1.4, aspect: 1.17, title: 'Baco - Caravaggio (1596)', description: '95 x 85 cm, Uffizi, Florença. O jovem Baco, deus do vinho, oferece uma taça ao espectador com olhar lânguido e bochechas rosadas de embriaguez. Túnica escorregando, coroa de uvas e folhas, natureza-morta à frente com frutas já passando do ponto e jarra com reflexo do pintor. Caravaggio se autorretratou como o deus. Sensualidade, realismo cru e vaidade - memento mori das frutas apodrecendo - marcam o início do barroco romano.', image: 'imagens/barroca/baco.png' }
         ];
 
-        buildGallery(0, 0, "#20232a", "#1b1d24", standardEasels);
+        buildGallery(80, 0, "#20232a", "#1b1d24", standardEasels);
 
         const kioskModal = document.getElementById('kiosk-modal');
         const fadeOverlay = document.getElementById('fade-overlay');
@@ -843,7 +845,7 @@
         const roomWelcome = document.getElementById('room-welcome');
         const pauseMenu = document.getElementById('pause-menu');
 
-        camera.position.set(0, 1.7, 10);
+        camera.position.set(80, 1.7, 10);
         yaw = 0;
         updateCameraRotation();
 

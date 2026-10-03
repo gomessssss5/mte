@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grand Musée 3D - Impressionismo</title>
+    <title>Grand Musée 3D - Sala Renascentista</title>
     <style>
         * {
             margin: 0;
@@ -308,7 +308,7 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            max-width: 720px;
+            max-width: 1040px;
             width: 92%;
         }
 
@@ -319,6 +319,8 @@
             border-radius: 8px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 35px rgba(0,0,0,0.7);
             width: 100%;
+            max-height: 88vh;
+            overflow-y: auto;
             padding: 24px 28px;
             background-color: #f7d679;
             color: #1a160d;
@@ -356,7 +358,7 @@
 
         .rooms-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 14px;
             margin-bottom: 20px;
         }
@@ -434,17 +436,25 @@
             transition: opacity 0.4s ease;
             z-index: 100;
         }
+
+        @media (max-width: 700px) {
+            .rooms-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 460px) {
+            .rooms-grid { grid-template-columns: 1fr; }
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body data-page="impressionismo">
+<body data-page="renascentista">
 
     <div id="canvas-container"></div>
     <div id="crosshair"></div>
     <div id="interact-prompt">[E] EXAMINAR OBRA</div>
 
     <div id="hud-top">
-        <div class="hud-badge"><b>LOCAL:</b> <span id="current-location">Ala Impressionismo</span></div>
+        <div class="hud-badge"><b>LOCAL:</b> <span id="current-location">Sala Renascentista</span></div>
         <div class="hud-badge">
             <span class="keys-badge">W</span><span class="keys-badge">A</span><span class="keys-badge">S</span><span class="keys-badge">D</span> Andar &nbsp;|&nbsp; 
             <span class="keys-badge">E</span> Interagir &nbsp;|&nbsp; 
@@ -480,22 +490,42 @@
         <div class="kiosk-device-container">
             <div class="kiosk-monitor-frame">
                 <h2>Terminal Interativo</h2>
-                <p class="subtitle">Selecione uma galeria para iniciar a visita:</p>
+                <p class="subtitle">Selecione uma sala para iniciar a visita:</p>
                 <div class="rooms-grid">
-                    <div class="room-item" onclick="travelToRoom('classica')">
+                    <div class="room-item" onclick="travelToRoom('antiguidade')">
+                        <div class="room-icon">🏺</div>
+                        <div class="room-title">Sala Pré-Histórica e Antiguidade</div>
+                        <div class="room-desc">Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.</div>
+                    </div>
+                    <div class="room-item" onclick="travelToRoom('medieval')">
+                        <div class="room-icon">🏰</div>
+                        <div class="room-title">Sala Medieval / Bizantina</div>
+                        <div class="room-desc">Pinturas sacras em painéis de madeira, iluminuras e afrescos com fundo em folha de ouro.</div>
+                    </div>
+                    <div class="room-item" onclick="travelToRoom('renascentista')">
+                        <div class="room-icon">🎨</div>
+                        <div class="room-title">Sala Renascentista</div>
+                        <div class="room-desc">Retratos icônicos, afrescos, cenas mitológicas e o domínio da figura humana e da perspectiva.</div>
+                    </div>
+                    <div class="room-item" onclick="travelToRoom('barroca')">
+                        <div class="room-icon">🖼️</div>
+                        <div class="room-title">Sala Barroca e Rococó</div>
+                        <div class="room-desc">Pinturas com forte contraste de luz e sombra (chiaroscuro), retratos expressivos e cenas dramáticas.</div>
+                    </div>
+                    <div class="room-item" onclick="travelToRoom('neoclassica')">
                         <div class="room-icon">🏛️</div>
-                        <div class="room-title">Ala Clássica</div>
-                        <div class="room-desc">Mestres do Renascimento e Barroco em suportes de cristal.</div>
+                        <div class="room-title">Sala Neoclássica e Romântica</div>
+                        <div class="room-desc">Pinturas de fatos históricos, cenas dramáticas, mitológicas e retratos marcantes.</div>
                     </div>
                     <div class="room-item" onclick="travelToRoom('moderna')">
-                        <div class="room-icon">🎨</div>
-                        <div class="room-title">Arte Moderna</div>
-                        <div class="room-desc">Vanguardas do séc. XX e Abstracionismo minimalista.</div>
+                        <div class="room-icon">🌀</div>
+                        <div class="room-title">Sala das Vanguardas / Arte Moderna</div>
+                        <div class="room-desc">Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.</div>
                     </div>
-                    <div class="room-item" onclick="travelToRoom('impressionismo')">
-                        <div class="room-icon">🌌</div>
-                        <div class="room-title">Renascentista</div>
-                        <div class="room-desc">Retratos icônicos, afrescos, mitologia e perspectiva.</div>
+                    <div class="room-item" onclick="travelToRoom('contemporanea')">
+                        <div class="room-icon">🧩</div>
+                        <div class="room-title">Sala Contemporânea</div>
+                        <div class="room-desc">Pinturas em tela de grandes proporções, mídias mistas, arte urbana e composições conceituais.</div>
                     </div>
                 </div>
                 <div class="kiosk-footer">
@@ -620,13 +650,47 @@
             colliders.push({ minX: x - sizeX / 2, maxX: x + sizeX / 2, minZ: z - sizeZ / 2, maxZ: z + sizeZ / 2 });
         }
 
-        function loadArtworkImage(artwork) {
+        function fitArtworkFrame(texture, artwork, rails, glass, frameGroup, maxWidth, maxHeight, borderT, frameD) {
+            const imageWidth = texture.image?.width;
+            const imageHeight = texture.image?.height;
+            if (!imageWidth || !imageHeight) return;
+
+            let artworkWidth = maxWidth - borderT * 2;
+            let artworkHeight = maxHeight - borderT * 2;
+            const imageAspect = imageWidth / imageHeight;
+            if (artworkWidth / artworkHeight > imageAspect) {
+                artworkWidth = artworkHeight * imageAspect;
+            } else {
+                artworkHeight = artworkWidth / imageAspect;
+            }
+
+            const frameWidth = artworkWidth + borderT * 2;
+            const frameHeight = artworkHeight + borderT * 2;
+            const [topB, botB, leftB, rightB] = rails;
+            const replaceGeometry = (mesh, geometry) => {
+                mesh.geometry.dispose();
+                mesh.geometry = geometry;
+            };
+
+            replaceGeometry(artwork, new THREE.PlaneGeometry(artworkWidth, artworkHeight));
+            replaceGeometry(topB, new THREE.BoxGeometry(frameWidth, borderT, frameD));
+            topB.position.y = frameHeight / 2 - borderT / 2;
+            replaceGeometry(botB, new THREE.BoxGeometry(frameWidth, borderT, frameD));
+            botB.position.y = -frameHeight / 2 + borderT / 2;
+            replaceGeometry(leftB, new THREE.BoxGeometry(borderT, frameHeight, frameD));
+            leftB.position.x = -frameWidth / 2 + borderT / 2;
+            replaceGeometry(rightB, new THREE.BoxGeometry(borderT, frameHeight, frameD));
+            rightB.position.x = frameWidth / 2 - borderT / 2;
+        }
+
+        function loadArtworkImage(artwork, onLoad) {
             if (!artwork.userData.image) return;
 
             new THREE.TextureLoader().load(artwork.userData.image, texture => {
                 texture.encoding = THREE.sRGBEncoding;
                 artwork.material.map = texture;
                 artwork.material.needsUpdate = true;
+                onLoad?.(texture);
             }, undefined, error => {
                 console.error(`Não foi possível carregar a imagem da obra: ${artwork.userData.image}`, error);
             });
@@ -674,7 +738,9 @@
                 description: easelInfo.description || 'Pintura ao ar livre capturando a efemeridade da luz e atmosferas cromáticas.',
                 image: easelInfo.image || null
             };
-            loadArtworkImage(canvasMesh);
+            loadArtworkImage(canvasMesh, texture => {
+                fitArtworkFrame(texture, canvasMesh, [topB, botB, leftB, rightB], glass, frameGroup, glassW - 0.2, glassH - 0.2, borderT, frameD);
+            });
             interactiveObjects.push(canvasMesh);
             frameGroup.add(canvasMesh);
 
@@ -754,15 +820,15 @@
         }
 
         const standardEasels = [
-            { x: -4.5, z: 4.5, rotY: 0.05, frame: 'gold', w: 1.35, aspect: 0.75, title: 'A Escola de Athenas', description: 'Rafael reúne filósofos da Antiguidade em uma grandiosa arquitetura renascentista.', image: 'imagens/renascentista/atenas.png' },
-            { x: 0, z: 5.0, rotY: -0.04, frame: 'wood', w: 1.25, aspect: 1.5, title: 'O Casal Arnolfini', description: 'Jan van Eyck retrata um casal em um interior doméstico, com riqueza de detalhes e simbolismo.', image: 'imagens/renascentista/arnolfini.png' },
-            { x: 4.5, z: 4.2, rotY: 0.08, frame: 'gold', w: 1.45, aspect: 1.5, title: 'Mona Lisa', description: 'Leonardo da Vinci retrata Lisa Gherardini com expressão enigmática e uma paisagem ao fundo.', image: 'imagens/renascentista/monalisa.png' },
-            { x: -5.5, z: -0.5, rotY: -0.06, frame: 'wood', w: 1.6, aspect: 0.67, title: 'A Criação de Adão', description: 'Michelangelo representa o instante em que Deus estende a mão para dar vida a Adão.', image: 'imagens/renascentista/adao.png' },
-            { x: -1.0, z: 0.0, rotY: 0.03, frame: 'gold', w: 1.25, aspect: 1.0, title: 'O Nascimento de Vênus', description: 'Sandro Botticelli mostra Vênus chegando à praia sobre uma concha, conduzida pelo vento.', image: 'imagens/renascentista/venus.png' },
-            { x: 4.0, z: -1.0, rotY: -0.05, frame: 'gold', w: 1.35, aspect: 0.5, title: 'A Última Ceia', description: 'Leonardo da Vinci retrata Jesus e os apóstolos durante a última refeição.', image: 'imagens/renascentista/ceia.png' },
-            { x: -4.0, z: -5.5, rotY: 0.07, frame: 'gold', w: 1.3, aspect: 1.0, title: 'A Primavera', description: 'Sandro Botticelli reúne figuras mitológicas em uma cena alegórica de renovação e fertilidade.', image: 'imagens/renascentista/primavera.png' },
-            { x: 1.5, z: -5.0, rotY: -0.03, frame: 'wood', w: 1.7, aspect: 1.31, title: 'Dama com Arminho', description: 'Leonardo da Vinci retrata Cecilia Gallerani segurando um arminho.', image: 'imagens/renascentista/dama.png' },
-            { x: 5.5, z: -5.8, rotY: 0.04, frame: 'gold', w: 1.4, aspect: 1.51, title: 'O Casamento da Virgem', description: 'Rafael representa o casamento de Maria e José diante de um templo renascentista.', image: 'imagens/renascentista/casamento.png' }
+            { x: -4.5, z: 4.5, rotY: 0.05, frame: 'gold', w: 1.35, aspect: 0.75, title: 'A Escola de Atenas', description: 'A Escola de Atenas, de Rafael, representa um grande encontro de filósofos e pensadores da Grécia Antiga, reunidos em um cenário arquitetônico grandioso. No centro estão Platão e Aristóteles, simbolizando diferentes ideias sobre conhecimento e filosofia.', image: 'imagens/renascentista/atenas.png' },
+            { x: 0, z: 5.0, rotY: -0.04, frame: 'wood', w: 1.25, aspect: 1.5, title: 'O Casal Arnolfini', description: 'O Casal Arnolfini, de Jan van Eyck, retrata um casal em um interior doméstico, cercado por objetos simbólicos. A obra se destaca pelo realismo, pela riqueza de detalhes e pelo uso cuidadoso da luz e dos reflexos.', image: 'imagens/renascentista/arnolfini.png' },
+            { x: 4.5, z: 4.2, rotY: 0.08, frame: 'gold', w: 1.45, aspect: 1.5, title: 'Mona Lisa', description: 'A Mona Lisa, de Leonardo da Vinci, retrata uma mulher sentada diante de uma paisagem. A obra é famosa por seu olhar marcante, seu sorriso enigmático e pela técnica de transição suave entre luz e sombra.', image: 'imagens/renascentista/monalisa.png' },
+            { x: -5.5, z: -0.5, rotY: -0.06, frame: 'wood', w: 1.6, aspect: 0.67, title: 'A Criação de Adão', description: 'A Criação de Adão, de Michelangelo, mostra Deus dando vida a Adão por meio do toque de suas mãos. A cena destaca a proximidade entre Deus e o homem e é uma das pinturas mais famosas do teto da Capela Sistina.', image: 'imagens/renascentista/adao.png' },
+            { x: -1.0, z: 0.0, rotY: 0.03, frame: 'gold', w: 1.25, aspect: 1.0, title: 'O Nascimento de Vênus', description: 'O Nascimento de Vênus, de Sandro Botticelli, representa a deusa Vênus surgindo do mar sobre uma concha. A obra destaca a beleza idealizada, a delicadeza das figuras e os temas da mitologia clássica.', image: 'imagens/renascentista/venus.png' },
+            { x: 4.0, z: -1.0, rotY: -0.05, frame: 'gold', w: 1.35, aspect: 0.5, title: 'A Última Ceia', description: 'A Última Ceia, de Leonardo da Vinci, representa o momento em que Jesus anuncia aos apóstolos que um deles irá traí-lo. A obra se destaca pela composição, pelas expressões dos personagens e pelo uso da perspectiva.', image: 'imagens/renascentista/ceia.png' },
+            { x: -4.0, z: -5.5, rotY: 0.07, frame: 'gold', w: 1.3, aspect: 1.0, title: 'A Primavera', description: 'A Primavera, de Sandro Botticelli, representa várias figuras da mitologia romana em um cenário de natureza. A obra celebra a chegada da primavera, destacando a beleza, o amor e a renovação da natureza.', image: 'imagens/renascentista/primavera.png' },
+            { x: 1.5, z: -5.0, rotY: -0.03, frame: 'wood', w: 1.7, aspect: 1.31, title: 'Dama com Arminho', description: 'Dama com Arminho, de Leonardo da Vinci, retrata Cecilia Gallerani segurando um pequeno arminho nos braços. A obra se destaca pelo olhar da personagem, pela delicadeza dos detalhes e pela expressão naturalista.', image: 'imagens/renascentista/dama.png' },
+            { x: 5.5, z: -5.8, rotY: 0.04, frame: 'gold', w: 1.4, aspect: 1.51, title: 'O Casamento da Virgem', description: 'O Casamento da Virgem, de Rafael, representa o casamento de Maria e José diante de um grupo de pessoas. A obra se destaca pela perspectiva, pela harmonia da composição e pela arquitetura ao fundo.', image: 'imagens/renascentista/casamento.png' }
         ];
 
         buildGallery(-80, 0, "#14161c", "#1f2229", standardEasels);
@@ -801,9 +867,13 @@
         function travelToRoom(key) {
             const pages = {
                 recepcao: 'index.html',
-                classica: 'sala_classica.html',
-                moderna: 'sala_moderna.html',
-                impressionismo: 'sala_impressionismo.html'
+                antiguidade: 'antiguidade.html',
+                medieval: 'medieval.html',
+                renascentista: 'renascentista.html',
+                barroca: 'barroco.html',
+                neoclassica: 'neoclassica.html',
+                moderna: 'moderna.html',
+                contemporanea: 'contemporanea.html'
             };
             if (!pages[key]) return;
             fadeOverlay.style.opacity = '1';

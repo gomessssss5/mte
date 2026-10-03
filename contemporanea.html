@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grand Musée 3D - Sala das Vanguardas / Arte Moderna</title>
+    <title>Grand Musée 3D - Sala Contemporânea</title>
     <style>
         * {
             margin: 0;
@@ -447,14 +447,14 @@
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body data-page="moderna">
+<body data-page="contemporanea">
 
     <div id="canvas-container"></div>
     <div id="crosshair"></div>
     <div id="interact-prompt">[E] EXAMINAR OBRA</div>
 
     <div id="hud-top">
-        <div class="hud-badge"><b>LOCAL:</b> <span id="current-location">Sala das Vanguardas / Arte Moderna</span></div>
+        <div class="hud-badge"><b>LOCAL:</b> <span id="current-location">Sala Contemporânea</span></div>
         <div class="hud-badge">
             <span class="keys-badge">W</span><span class="keys-badge">A</span><span class="keys-badge">S</span><span class="keys-badge">D</span> Andar &nbsp;|&nbsp; 
             <span class="keys-badge">E</span> Interagir &nbsp;|&nbsp; 
@@ -820,15 +820,15 @@
         }
 
         const standardEasels = [
-            { x: -4.5, z: 4.5, rotY: 0.05, frame: 'gold', w: 1.35, aspect: 1.19, title: 'Abaporu', description: 'Tarsila do Amaral combina formas marcantes e cores vibrantes nesta obra do modernismo brasileiro.', image: 'imagens/abaporu.png' },
-            { x: 0, z: 5.0, rotY: -0.04, frame: 'wood', w: 1.25, aspect: 0.79, title: 'A Noite Estrelada', description: 'Vincent van Gogh representa o céu noturno com formas ondulantes e cores intensas.', image: 'imagens/a_noite_estrelada.png' },
-            { x: 4.5, z: 4.2, rotY: 0.08, frame: 'gold', w: 1.45, aspect: 1.1, title: 'Obra Moderna 03', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: -5.5, z: -0.5, rotY: -0.06, frame: 'wood', w: 1.6, aspect: 0.8, title: 'Obra Moderna 04', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: -1.0, z: 0.0, rotY: 0.03, frame: 'gold', w: 1.25, aspect: 1.3, title: 'Obra Moderna 05', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: 4.0, z: -1.0, rotY: -0.05, frame: 'gold', w: 1.35, aspect: 1.2, title: 'Obra Moderna 06', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: -4.0, z: -5.5, rotY: 0.07, frame: 'gold', w: 1.3, aspect: 1.25, title: 'Obra Moderna 07', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: 1.5, z: -5.0, rotY: -0.03, frame: 'wood', w: 1.7, aspect: 0.7, title: 'Obra Moderna 08', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null },
-            { x: 5.5, z: -5.8, rotY: 0.04, frame: 'gold', w: 1.4, aspect: 1.0, title: 'Obra Moderna 09', description: 'Pinturas cubistas, surrealistas, abstratas e figuras humanas desconstruídas.', image: null }
+            { x: -4.5, z: 4.5, rotY: 0.05, frame: 'gold', w: 1.35, aspect: 1.3, title: 'Obra Contemporanea 01', description: 'Pinturas em tela de grandes proporções, mídias mistas, arte urbana e composições conceituais.', image: null },
+            { x: 0, z: 5.0, rotY: -0.04, frame: 'wood', w: 1.25, aspect: 1.4, title: 'Obra Contemporanea 02', description: 'Pinturas em tela de grandes proporções, mídias mistas, arte urbana e composições conceituais.', image: null },
+            { x: 4.5, z: 4.2, rotY: 0.08, frame: 'gold', w: 1.45, aspect: 1.1, title: 'Obra Contemporanea 03', description: 'Pinturas em tela de grandes proporções, mídias mistas, arte urbana e composições conceituais.', image: null },
+            { x: -5.5, z: -0.5, rotY: -0.06, frame: 'wood', w: 1.6, aspect: 0.8, title: 'Obra Contemporanea 04', description: 'Pinturas em tela de grandes proporções, mídias mistas, arte urbana e composições conceituais.', image: null },
+            { x: -1.0, z: 0.0, rotY: 0.03, frame: 'gold', w: 1.25, aspect: 1.3, title: 'Obra Contemporanea 05', description: 'Pinturas em tela de grandes proporções, mídias mistas, arte urbana e composições conceituais.', image: null },
+            { x: 4.0, z: -1.0, rotY: -0.05, frame: 'gold', w: 1.35, aspect: 1.2, title: 'Obra Contemporanea 06', description: 'Pinturas em tela de grandes proporções, mídias mistas, arte urbana e composições conceituais.', image: null },
+            { x: -4.0, z: -5.5, rotY: 0.07, frame: 'gold', w: 1.3, aspect: 1.25, title: 'Obra Contemporanea 07', description: 'Pinturas em tela de grandes proporções, mídias mistas, arte urbana e composições conceituais.', image: null },
+            { x: 1.5, z: -5.0, rotY: -0.03, frame: 'wood', w: 1.7, aspect: 0.7, title: 'Obra Contemporanea 08', description: 'Pinturas em tela de grandes proporções, mídias mistas, arte urbana e composições conceituais.', image: null },
+            { x: 5.5, z: -5.8, rotY: 0.04, frame: 'gold', w: 1.4, aspect: 1.0, title: 'Obra Contemporanea 09', description: 'Pinturas em tela de grandes proporções, mídias mistas, arte urbana e composições conceituais.', image: null }
         ];
 
         buildGallery(0, 0, "#20232a", "#1b1d24", standardEasels);
