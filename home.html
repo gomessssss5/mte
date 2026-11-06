@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yumira Studios - Home</title>
+  
+  <!-- Fonte Inter Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================
+       VARIÁVEIS DE SISTEMA & CORES (iOS 26 PALETTE)
+       Base: Azul puxado pro roxo (#5539EB, #6842FF, #4823D9)
+       Acento: Rosa clarinho puxado pro lavanda (#F5C4E8, #ECC8F7)
+       Canvas: OLED Midnight Blurple (#070512)
+       ========================================================== */
+    :root {
+      --bg-canvas: #070512;
+      --bg-surface: rgba(26, 20, 56, 0.45);
+      --bg-surface-elevated: rgba(38, 29, 82, 0.55);
+      --bg-pill: rgba(255, 255, 255, 0.08);
+
+      --primary-blurple: #6340FF;
+      --primary-indigo: #4A27E8;
+      --primary-glow: rgba(99, 64, 255, 0.35);
+
+      --pink-soft: #F6C8E9;
+      --pink-subtle: rgba(246, 200, 233, 0.18);
+      --pink-glow: rgba(246, 200, 233, 0.3);
+
+      --border-glass: rgba(255, 255, 255, 0.12);
+      --border-highlight: rgba(246, 200, 233, 0.35);
+
+      --text-primary: #FFFFFF;
+      --text-secondary: rgba(240, 238, 255, 0.72);
+      --text-tertiary: rgba(240, 238, 255, 0.45);
+
+      --blur-strength: 32px;
+      --squircle-lg: 32px;
+      --squircle-md: 22px;
+      --squircle-sm: 14px;
+      --ease-ios: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
+      line-height: 1.5;
+      selection-background-color: var(--pink-soft);
+      selection-color: var(--bg-canvas);
+    }
+
+    ::selection {
+      background: var(--pink-soft);
+      color: #170b2e;
+    }
+
+    /* Ambient Spotlight & Mesh Glow */
+    .ambient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .ambient-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.5;
+      transition: transform 1.2s var(--ease-ios);
+    }
+
+    .orb-1 {
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, #5b36f5 0%, #3017a4 60%, transparent 80%);
+      top: -150px;
+      left: -100px;
+      animation: floatOrb 22s infinite alternate ease-in-out;
+    }
+
+    .orb-2 {
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, #f3b6df 0%, #8537b8 50%, transparent 75%);
+      top: 30%;
+      right: -150px;
+      opacity: 0.35;
+      animation: floatOrb 26s infinite alternate-reverse ease-in-out;
+    }
+
+    .orb-3 {
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, #3d22b8 0%, #160a4e 65%, transparent 85%);
+      bottom: -200px;
+      left: 20%;
+      opacity: 0.45;
+    }
+
+    /* Interactive Cursor Spotlight */
+    #cursor-light {
+      position: fixed;
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(119, 78, 255, 0.16) 0%, rgba(246, 200, 233, 0.08) 35%, transparent 70%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(60px, 40px) scale(1.08); }
+      100% { transform: translate(-40px, 70px) scale(0.95); }
+    }
+
+    /* ==========================================================
+       DYNAMIC ISLAND FLOATING NAVBAR (iOS 26 Style)
+       ========================================================== */
+    .nav-wrapper {
+      position: fixed;
+      top: 24px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      z-index: 1000;
+      padding: 0 20px;
+    }
+
+    .dynamic-island-nav {
+      background: rgba(18, 14, 40, 0.65);
+      backdrop-filter: blur(var(--blur-strength)) saturate(180%);
+      -webkit-backdrop-filter: blur(var(--blur-strength)) saturate(180%);
+      border: 1px solid var(--border-glass);
+      border-top-color: rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      padding: 8px 12px 8px 24px;
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.65), 
+                  0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+      transition: all 0.4s var(--ease-ios);
+    }
+
+    .dynamic-island-nav:hover {
+      border-color: rgba(246, 200, 233, 0.3);
+      box-shadow: 0 25px 50px -12px rgba(89, 53, 236, 0.28), 
+                  0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.03em;
+    }
+
+    .logo-squircle {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #7b58ff 0%, #f6c8e9 120%);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+
+    .logo-squircle svg {
+      width: 17px;
+      height: 17px;
+      fill: #fff;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: 26px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      transition: color 0.25s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-btn {
+      background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06));
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--text-primary);
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s var(--ease-ios);
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-btn:hover {
+      background: linear-gradient(135deg, #6d4aff, #e4a7d7);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.6);
+      transform: scale(1.03);
+      box-shadow: 0 8px 24px var(--primary-glow);
+    }
+
+    /* ==========================================================
+       CONTAINER & LAYOUT
+       ========================================================== */
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 28px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ==========================================================
+       HERO SECTION
+       ========================================================== */
+    .hero {
+      padding-top: 200px;
+      padding-bottom: 90px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .version-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(43, 30, 92, 0.5);
+      border: 1px solid rgba(246, 200, 233, 0.2);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--pink-soft);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 0 20px rgba(119, 78, 255, 0.15);
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--pink-soft);
+      box-shadow: 0 0 8px var(--pink-soft);
+      animation: pulseAnim 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseAnim {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 6.2vw, 5.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+      max-width: 950px;
+      color: #fff;
+    }
+
+    .hero-title .gradient-text {
+      background: linear-gradient(135deg, #ffffff 20%, #bfb0ff 55%, var(--pink-soft) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      color: var(--text-secondary);
+      max-width: 640px;
+      font-weight: 400;
+      letter-spacing: -0.015em;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-liquid {
+      position: relative;
+      background: linear-gradient(145deg, #6c46ff, #512ce2);
+      color: #fff;
+      padding: 15px 34px;
+      border-radius: 999px;
+      font-size: 0.96rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 14px 35px -8px var(--primary-glow),
+                  inset 0 1px 1px rgba(255,255,255,0.4);
+      transition: all 0.35s var(--ease-ios);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-liquid:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 20px 45px -5px rgba(108, 70, 255, 0.55),
+                  0 0 25px rgba(246, 200, 233, 0.4);
+      background: linear-gradient(145deg, #7853ff, #5b35f0);
+    }
+
+    .btn-secondary-glass {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      padding: 15px 30px;
+      border-radius: 999px;
+      font-size: 0.96rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(20px);
+      transition: all 0.3s var(--ease-ios);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-secondary-glass:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(246, 200, 233, 0.3);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================
+       SPATIAL DISPLAY CARD / INTERACTIVE HERO EMBED
+       ========================================================== */
+    .spatial-mockup-wrapper {
+      margin-top: 60px;
+      width: 100%;
+      max-width: 1060px;
+      border-radius: var(--squircle-lg);
+      padding: 8px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.02) 100%);
+      box-shadow: 0 40px 100px -30px rgba(10, 4, 30, 0.95),
+                  0 0 50px -10px rgba(104, 66, 255, 0.25);
+    }
+
+    .spatial-image {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: calc(var(--squircle-lg) - 6px);
+    }
+
+    /* ==========================================================
+       SECTION LABELS & TITLES
+       ========================================================== */
+    .section-head {
+      margin-bottom: 60px;
+      text-align: center;
+    }
+
+    .section-tag {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--pink-soft);
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-title {
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.15;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 580px;
+      margin: 14px auto 0 auto;
+    }
+
+    /* ==========================================================
+       BENTO GRID (iOS 26 FLUID CARDS)
+       ========================================================== */
+    .services-bento {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+      margin-bottom: 140px;
+    }
+
+    .bento-card {
+      background: var(--bg-surface);
+      border-radius: var(--squircle-lg);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(var(--blur-strength));
+      -webkit-backdrop-filter: blur(var(--blur-strength));
+      padding: 38px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s var(--ease-ios);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+    }
+
+    .bento-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(246, 200, 233, 0.4), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .bento-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(246, 200, 233, 0.3);
+      box-shadow: 0 25px 50px -15px rgba(88, 51, 235, 0.35);
+    }
+
+    .bento-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-col-8 {
+      grid-column: span 8;
+    }
+
+    .card-col-4 {
+      grid-column: span 4;
+    }
+
+    .card-col-6 {
+      grid-column: span 6;
+    }
+
+    .card-col-12 {
+      grid-column: span 12;
+    }
+
+    .card-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(104, 66, 255, 0.3), rgba(246, 200, 233, 0.15));
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: grid;
+      place-items: center;
+      margin-bottom: 24px;
+      color: var(--pink-soft);
+    }
+
+    .card-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke-width: 1.8;
+    }
+
+    .card-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .card-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .card-meta-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .meta-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    /* ==========================================================
+       FEATURED WORKS (SHOWCASE PORTFOLIO)
+       ========================================================== */
+    .works-section {
+      margin-bottom: 140px;
+    }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 900px);
+      justify-content: center;
+    }
+
+    .work-card {
+      border-radius: var(--squircle-lg);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(var(--blur-strength));
+      overflow: hidden;
+      transition: all 0.4s var(--ease-ios);
+      position: relative;
+    }
+
+    .work-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(246, 200, 233, 0.35);
+      box-shadow: 0 28px 60px -20px rgba(99, 64, 255, 0.4);
+    }
+
+    .work-thumb {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .work-body {
+      padding: 28px;
+    }
+
+    .work-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    /* ==========================================================
+       INTERACTIVE STATEMENT / PHILOSOPHY
+       ========================================================== */
+    .philosophy-banner {
+      background: linear-gradient(135deg, rgba(46, 28, 115, 0.45) 0%, rgba(20, 15, 45, 0.7) 100%);
+      border: 1px solid rgba(246, 200, 233, 0.25);
+      border-radius: var(--squircle-lg);
+      padding: 64px 48px;
+      backdrop-filter: blur(30px);
+      margin-bottom: 140px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+      box-shadow: 0 30px 70px -20px rgba(0,0,0,0.6);
+    }
+
+    .philosophy-text h3 {
+      font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .philosophy-text p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 580px;
+    }
+
+    /* ==========================================================
+       CONTACT / INTERACTIVE PROJECT ESTIMATOR
+       ========================================================== */
+    .contact-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--squircle-lg);
+      backdrop-filter: blur(40px);
+      padding: 56px;
+      margin-bottom: 120px;
+      box-shadow: 0 35px 80px -20px rgba(6, 4, 18, 0.8);
+    }
+
+    .contact-title {
+      margin-bottom: 32px;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+
+    .contact-details {
+      display: grid;
+      gap: 14px;
+      color: var(--text-tertiary);
+      font-size: 0.95rem;
+    }
+
+    .contact-details p {
+      margin: 0;
+    }
+
+    .contact-details strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+
+    .contact-details a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .contact-details a:hover {
+      color: var(--text-primary);
+    }
+
+    .contact-map {
+      height: 360px;
+      margin-top: 0;
+      overflow: hidden;
+      border: 1px solid var(--border-glass);
+      border-radius: var(--squircle-md);
+    }
+
+    .contact-map iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .contact-info h3 {
+      font-size: 2.3rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .contact-info p {
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      font-size: 1rem;
+    }
+
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(56, 32, 128, 0.35);
+      border: 1px solid rgba(246, 200, 233, 0.25);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--pink-soft);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .input-ios {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--squircle-sm);
+      padding: 14px 18px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+
+    .input-ios:focus {
+      border-color: var(--pink-soft);
+      background: rgba(255, 255, 255, 0.07);
+      box-shadow: 0 0 0 3px rgba(246, 200, 233, 0.15);
+    }
+
+    textarea.input-ios {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .submit-button {
+      width: 100%;
+      background: linear-gradient(135deg, #6c46ff 0%, #e5a7d6 130%);
+      color: #ffffff;
+      padding: 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-ios);
+      box-shadow: 0 10px 30px -5px var(--primary-glow);
+    }
+
+    .submit-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px -5px rgba(108, 70, 255, 0.6), 0 0 20px var(--pink-glow);
+      filter: brightness(1.08);
+    }
+
+    /* ==========================================================
+       MODAL DE CONFIRMAÇÃO (iOS ALERT STYLE)
+       ========================================================== */
+    .ios-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 4, 18, 0.7);
+      backdrop-filter: blur(20px);
+      display: none;
+      place-items: center;
+      z-index: 2000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .ios-modal-overlay.active {
+      display: grid;
+      opacity: 1;
+    }
+
+    .ios-modal-box {
+      width: 90%;
+      max-width: 420px;
+      background: rgba(30, 22, 60, 0.9);
+      border: 1px solid rgba(246, 200, 233, 0.3);
+      border-radius: var(--squircle-lg);
+      padding: 32px;
+      text-align: center;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 0 0 30px var(--primary-glow);
+      transform: scale(0.92);
+      transition: transform 0.35s var(--ease-ios);
+    }
+
+    .ios-modal-overlay.active .ios-modal-box {
+      transform: scale(1);
+    }
+
+    .modal-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6c46ff, #f6c8e9);
+      display: grid;
+      place-items: center;
+      margin: 0 auto 18px auto;
+      color: #fff;
+    }
+
+    .modal-close-btn {
+      margin-top: 24px;
+      padding: 12px 28px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-weight: 600;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .modal-close-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* ==========================================================
+       FOOTER
+       ========================================================== */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 50px 0 60px 0;
+      position: relative;
+      z-index: 2;
+      background: rgba(6, 4, 18, 0.6);
+      backdrop-filter: blur(20px);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer-copy {
+      font-size: 0.88rem;
+      color: var(--text-tertiary);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--pink-soft);
+    }
+
+    .live-clock-pill {
+      font-family: monospace;
+      font-size: 0.78rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-secondary);
+    }
+
+    /* ==========================================================
+       RESPONSIVIDADE (MOBILE & TABLET)
+       ========================================================== */
+    @media (max-width: 992px) {
+      .card-col-8, .card-col-4, .card-col-6 {
+        grid-column: span 12;
+      }
+      .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .philosophy-banner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-wrapper {
+        padding: 0 12px;
+      }
+      .dynamic-island-nav {
+        width: 100%;
+        padding: 8px 14px;
+        gap: 8px 14px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        border-radius: 22px;
+      }
+      .nav-links {
+        display: flex;
+        flex: 1 0 100%;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      .nav-links a {
+        font-size: 0.78rem;
+        white-space: nowrap;
+      }
+      .nav-btn {
+        display: none;
+      }
+      .works-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding-top: 140px;
+      }
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      .contact-card {
+        padding: 32px 20px;
+      }
+      .contact-map {
+        height: 300px;
+        margin-top: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Light Elements -->
+  <div class="ambient-bg">
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+  </div>
+
+  <div id="cursor-light"></div>
+
+  <!-- Dynamic Island Header Nav -->
+  <header class="nav-wrapper">
+    <nav class="dynamic-island-nav">
+      <a href="#" class="brand-logo">
+        <div class="logo-squircle">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+        </div>
+        <span>Yumira</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#equipe">Equipe</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+      </ul>
+
+      <a href="index.html" class="nav-btn">
+        <span>Entrar</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="container hero">
+      <h1 class="hero-title">
+        Do conceito ao 3D: ideias que <span class="gradient-text">ganham forma</span>.
+      </h1>
+
+      <p class="hero-subtitle">
+        A Yumira Studios cria experiências digitais interativas, unindo tecnologia, inovação e desenvolvimento.
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="#contato" class="btn-liquid">
+          <span>Solicitar Proposta</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+        <a href="#projetos" class="btn-secondary-glass">
+          <span>Explorar Casos</span>
+        </a>
+      </div>
+
+      <!-- Gallery Preview -->
+      <div class="spatial-mockup-wrapper">
+        <img class="spatial-image" src="imagens/home.png" alt="Galeria virtual com obras de arte em exposição" />
+      </div>
+    </section>
+
+    <!-- BENTO GRID (SERVIÇOS) -->
+    <section class="container" id="experiencias">
+      <div class="services-bento">
+        <!-- Card 1 -->
+        <div class="bento-card card-col-8">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 12h20M12 2v20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/></svg>
+          </div>
+          <h3 class="card-title">Experiências 3D</h3>
+          <p class="card-desc">
+            Interfaces hiper-contextuais preparadas para dispositivos imersivos. Trabalhamos com física de materiais, refrações de vidro dinâmico e microinterações que respondem ao olhar e aos gestos.
+          </p>
+          <div class="card-meta-list">
+            <span class="meta-chip">Liquid Glass UI</span>
+            <span class="meta-chip">Eye & Hand Gestures</span>
+            <span class="meta-chip">Depth Shaders</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bento-card card-col-4">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          </div>
+          <h3 class="card-title">Design Liquid Glass</h3>
+          <p class="card-desc">
+            Tokens de design matematicamente coerentes, bibliotecas acessíveis e componentes de ultra-performance em escala.
+          </p>
+          <div class="card-meta-list">
+            <span class="meta-chip">Figma Pro</span>
+            <span class="meta-chip">Variables</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bento-card card-col-4">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m18 15-6-6-6 6"/></svg>
+          </div>
+          <h3 class="card-title">Inovação</h3>
+          <p class="card-desc">
+            Animações orgânicas inspiradas na desaceleração inercial do iOS e experiências WebGL imersivas.
+          </p>
+          <div class="card-meta-list">
+            <span class="meta-chip">Three.js</span>
+            <span class="meta-chip">GLSL</span>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bento-card card-col-8">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+          </div>
+          <h3 class="card-title">Qualidade dos jogos</h3>
+          <p class="card-desc">
+            Desenvolvimento ponta a ponta com TypeScript, stacks modernas ultra-leves e integração com infraestruturas inteligentes orientadas a eventos.
+          </p>
+          <div class="card-meta-list">
+            <span class="meta-chip">Next-Gen Architecture</span>
+            <span class="meta-chip">Sub-50ms Global Edge</span>
+            <span class="meta-chip">Segurança Biométrica</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECTED PROJECTS -->
+    <section class="container works-section" id="projetos">
+      <div class="section-head">
+        <span class="section-tag">Portfólio Selecionado</span>
+        <h2 class="section-title">Obras autorais da Yumira</h2>
+        <p class="section-desc">Alguns dos ambientes digitais mais impactantes que concebemos recentemente.</p>
+      </div>
+
+      <div class="works-grid">
+        <div class="work-card">
+          <img class="work-thumb" src="imagens/museu.png" alt="Recepção principal do museu virtual da Yumira Studios" />
+          <div class="work-body">
+            <h3 class="work-title">Nome do museu</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATEMENT / PHILOSOPHY -->
+    <section class="container" id="sobre">
+      <div class="section-head">
+        <h2 class="section-title">Sobre</h2>
+        <p class="section-desc">Este é um texto de teste para a seção Sobre da Yumira Studios.</p>
+      </div>
+      <p class="section-desc">Este é um texto de teste para a seção Sobre da Yumira Studios.</p>
+    </section>
+
+    <section class="container" id="equipe">
+      <div class="section-head">
+        <span class="section-tag">Equipe</span>
+        <h2 class="section-title">Quem cria e desenvolve na Yumira</h2>
+        <p class="section-desc">Conheça os fundadores por trás das ideias e experiências da Yumira Studios.</p>
+      </div>
+
+      <div class="services-bento">
+        <article class="bento-card card-col-6">
+          <div class="card-icon" aria-hidden="true">LG</div>
+          <h3 class="card-title">Luiz Gustavo Gomes Miranda</h3>
+          <p class="card-desc">CEO e fundador, criador e designer do site, e desenvolvedor do jogo Museu 3D.</p>
+        </article>
+
+        <article class="bento-card card-col-6">
+          <div class="card-icon" aria-hidden="true">MP</div>
+          <h3 class="card-title">Maysa Carmen Pereira</h3>
+          <p class="card-desc">CEO e fundadora, desenvolvedora do jogo Museu 3D, responsável pela organização maker e pela área financeira da empresa.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT / PROPOSAL SECTION -->
+    <section class="container" id="contato">
+      <div class="contact-card">
+        <h2 class="section-title contact-title">Contatos</h2>
+        <div class="contact-layout">
+          <div class="contact-details">
+            <p><strong>Endereço</strong>Rua Amazonas, 99 – Jardim Nova Veneza, Sumaré - SP</p>
+            <p><strong>Telefone</strong>(4497-0722)</p>
+            <p><strong>E-mail</strong><a href="mailto:yumira@gmail.com">yumira@gmail.com</a></p>
+          </div>
+
+          <div class="contact-map">
+            <iframe
+              title="Mapa OpenStreetMap da localização da Yumira Studios em Sumaré"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=-47.2213%2C-22.8110%2C-47.2153%2C-22.8050&amp;layer=mapnik&amp;marker=-22.8080107%2C-47.2182843"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-content">
+      <div class="brand-logo">
+        <div class="logo-squircle" style="width: 24px; height: 24px; border-radius: 8px;">
+          <svg viewBox="0 0 24 24" style="width: 13px; height: 13px;">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+        </div>
+        <span style="font-size: 0.95rem;">Yumira Studios</span>
+      </div>
+
+      <div class="footer-copy">
+        &copy; 2026 Yumira Studios, Inc. Todos os direitos reservados.
+      </div>
+
+      <div class="footer-links">
+        <span class="live-clock-pill" id="liveClock">BRT --:--:--</span>
+        <a href="#experiencias">Soluções</a>
+        <a href="#projetos">Projetos</a>
+        <a href="#contato">Privacidade</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT DE INTERATIVIDADE -->
+  <script>
+    // 1. Interactive Mouse Spotlight
+    const cursorLight = document.getElementById('cursor-light');
+    window.addEventListener('mousemove', (e) => {
+      cursorLight.style.left = `${e.clientX}px`;
+      cursorLight.style.top = `${e.clientY}px`;
+    });
+
+    // 2. Real-time Clock (Brasília Time)
+    function updateClock() {
+      const clockElement = document.getElementById('liveClock');
+      const now = new Date();
+      const options = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+      clockElement.textContent = `SP / BRT ${now.toLocaleTimeString('pt-BR', options)}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 3. 3D Card Hover Tilt Effect for Bento Cards
+    const bentoCards = document.querySelectorAll('.bento-card');
+    bentoCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const rotateX = (-y / rect.height) * 4;
+        const rotateY = (x / rect.width) * 4;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+      });
+    });
+
+    // 4. Smooth Scroll for Dynamic Island navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

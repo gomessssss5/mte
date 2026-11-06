@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grand Musée 3D - Recepção & Galerias</title>
+    <script>
+        if (window.location.pathname.endsWith('/')) {
+            window.location.replace('home.html');
+        }
+    </script>
     <style>
         * {
             margin: 0;
@@ -424,7 +429,7 @@
         <h1>MUSEU 3D</h1>
         <h2>By Yumira Studios</h2>
         <div class="menu-actions">
-            <button class="btn-start" type="button">Iniciar jogo</button>
+            <button class="btn-start" type="button" disabled>Carregando personagem...</button>
             <button class="btn-shop" type="button" disabled>Loja de Skins</button>
         </div>
     </div>
@@ -693,13 +698,10 @@
         };
 
         let isReceptionistLoaded = false;
-        let pendingGameStart = false;
-        let shouldAutoStart = false;
         const btnStart = document.querySelector('#instructions .btn-start');
 
         function startReceptionGame() {
             if (!isReceptionistLoaded) return;
-            pendingGameStart = false;
             gameStarted = true;
             instructions.style.display = 'none';
             lockPointer();
@@ -721,8 +723,6 @@
                     const cache = await caches.open('grand-musee-models-v1');
                     const cachedModel = await cache.match(modelUrl);
                     if (cachedModel) {
-                        shouldAutoStart = true;
-                        instructions.style.display = 'none';
                         parseModel(await cachedModel.arrayBuffer());
                         return;
                     }
@@ -906,18 +906,16 @@
 
                     group.add(receptionist);
                     isReceptionistLoaded = true;
-                    if (pendingGameStart || shouldAutoStart) {
-                        startReceptionGame();
-                    } else {
-                        btnStart.disabled = false;
-                        btnStart.textContent = 'Iniciar jogo';
-                    }
+                    btnStart.disabled = false;
+                    btnStart.textContent = 'Iniciar jogo';
+                    instructions.setAttribute('aria-busy', 'false');
                 },
                 error => {
                     console.error('Não foi possível carregar o recepcionista.', error);
                     btnStart.disabled = true;
                     btnStart.textContent = 'Erro ao carregar';
                     btnStart.title = 'Recarregue a página para tentar novamente.';
+                    instructions.setAttribute('aria-busy', 'false');
                 }
             );
 
@@ -962,9 +960,8 @@
         btnStart.addEventListener('click', (e) => {
             e.stopPropagation();
             if (!isReceptionistLoaded) {
-                pendingGameStart = true;
                 btnStart.disabled = true;
-                btnStart.textContent = 'Carregando...';
+                btnStart.textContent = 'Carregando personagem...';
                 return;
             }
             startReceptionGame();
