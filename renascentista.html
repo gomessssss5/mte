@@ -261,8 +261,13 @@
             font-size: 0.78rem;
             font-weight: 700;
             border-radius: 20px;
+            cursor: pointer;
+            opacity: 1;
+        }
+
+        #start-painting:disabled {
             cursor: not-allowed;
-            opacity: 0.7;
+            opacity: 0.55;
         }
 
         #artwork-close {
@@ -898,6 +903,8 @@
             viewingArtwork = true;
             artworkTitle.textContent = artwork.userData.title;
             artworkDescription.textContent = artwork.userData.description;
+            window.currentArtwork = artwork;
+            document.getElementById('start-painting').disabled = !artwork.userData.image;
             artworkViewer.classList.add('is-open');
             artworkViewer.setAttribute('aria-hidden', 'false');
             crosshair.style.display = 'none';
@@ -942,6 +949,7 @@
 
         window.addEventListener('keydown', (e) => {
             if (e.code === 'Escape') {
+                if (window.paintingActive) return;
                 e.preventDefault();
                 if (pauseMenu.style.display !== 'flex') openPauseMenu();
                 return;
@@ -1061,5 +1069,6 @@
 
         animate();
     </script>
+    <script src="painting.js"></script>
 </body>
 </html>

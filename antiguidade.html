@@ -261,8 +261,13 @@
             font-size: 0.78rem;
             font-weight: 700;
             border-radius: 20px;
+            cursor: pointer;
+            opacity: 1;
+        }
+
+        #start-painting:disabled {
             cursor: not-allowed;
-            opacity: 0.7;
+            opacity: 0.55;
         }
 
         #artwork-close {
@@ -863,15 +868,15 @@
         }
 
         const standardEasels = [
-            { x: -4.5, z: 4.5, rotY: 0.05, frame: 'gold', w: 1.35, aspect: 1.3, title: 'Obra Antiguidade 01', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: null },
-            { x: 0, z: 5.0, rotY: -0.04, frame: 'wood', w: 1.25, aspect: 1.4, title: 'Obra Antiguidade 02', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: null },
-            { x: 4.5, z: 4.2, rotY: 0.08, frame: 'gold', w: 1.45, aspect: 1.1, title: 'Obra Antiguidade 03', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: null },
-            { x: -5.5, z: -0.5, rotY: -0.06, frame: 'wood', w: 1.6, aspect: 0.8, title: 'Obra Antiguidade 04', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: null },
-            { x: -1.0, z: 0.0, rotY: 0.03, frame: 'gold', w: 1.25, aspect: 1.3, title: 'Obra Antiguidade 05', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: null },
-            { x: 4.0, z: -1.0, rotY: -0.05, frame: 'gold', w: 1.35, aspect: 1.2, title: 'Obra Antiguidade 06', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: null },
-            { x: -4.0, z: -5.5, rotY: 0.07, frame: 'gold', w: 1.3, aspect: 1.25, title: 'Obra Antiguidade 07', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: null },
-            { x: 1.5, z: -5.0, rotY: -0.03, frame: 'wood', w: 1.7, aspect: 0.7, title: 'Obra Antiguidade 08', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: null },
-            { x: 5.5, z: -5.8, rotY: 0.04, frame: 'gold', w: 1.4, aspect: 1.0, title: 'Obra Antiguidade 09', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: null }
+            { x: -4.5, z: 4.5, rotY: 0.05, frame: 'gold', w: 1.35, aspect: 1.3, title: 'Obra Antiguidade 01', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: 'imagens/antiguidade/bisonte-altamira.jpg' },
+            { x: 0, z: 5.0, rotY: -0.04, frame: 'wood', w: 1.25, aspect: 1.4, title: 'Obra Antiguidade 02', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: 'imagens/antiguidade/cena-egipcia.jpg' },
+            { x: 4.5, z: 4.2, rotY: 0.08, frame: 'gold', w: 1.45, aspect: 1.1, title: 'Obra Antiguidade 03', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: 'imagens/antiguidade/salto-touro-minoico.jpg' },
+            { x: -5.5, z: -0.5, rotY: -0.06, frame: 'wood', w: 1.6, aspect: 0.8, title: 'Obra Antiguidade 04', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: 'imagens/antiguidade/bisoes-rupestres.jpg' },
+            { x: -1.0, z: 0.0, rotY: 0.03, frame: 'gold', w: 1.25, aspect: 1.3, title: 'Obra Antiguidade 05', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: 'imagens/antiguidade/figura-minoica.jpg' },
+            { x: 4.0, z: -1.0, rotY: -0.05, frame: 'gold', w: 1.35, aspect: 1.2, title: 'Obra Antiguidade 06', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: 'imagens/antiguidade/caca-no-nilo.jpg' },
+            { x: -4.0, z: -5.5, rotY: 0.07, frame: 'gold', w: 1.3, aspect: 1.25, title: 'Obra Antiguidade 07', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: 'imagens/antiguidade/leoes-chauvet.jpg' },
+            { x: 1.5, z: -5.0, rotY: -0.03, frame: 'wood', w: 1.7, aspect: 0.7, title: 'Obra Antiguidade 08', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: 'imagens/antiguidade/mosaico-batalha-issus.jpg' },
+            { x: 5.5, z: -5.8, rotY: 0.04, frame: 'gold', w: 1.4, aspect: 1.0, title: 'Obra Antiguidade 09', description: 'Pinturas rupestres, afrescos egípcios, romanos e murais da Antiguidade.', image: 'imagens/antiguidade/tumba-nefertari-isis.jpg' }
         ];
 
         buildGallery(0, -90, "#181a20", "#21242c", standardEasels);
@@ -950,6 +955,8 @@
             viewingArtwork = true;
             artworkTitle.textContent = artwork.userData.title;
             artworkDescription.textContent = artwork.userData.description;
+            window.currentArtwork = artwork;
+            document.getElementById('start-painting').disabled = !artwork.userData.image;
             artworkViewer.classList.add('is-open');
             artworkViewer.setAttribute('aria-hidden', 'false');
             crosshair.style.display = 'none';
@@ -997,6 +1004,7 @@
 
         window.addEventListener('keydown', (e) => {
             if (e.code === 'Escape') {
+                if (window.paintingActive) return;
                 e.preventDefault();
                 if (pauseMenu.style.display !== 'flex') openPauseMenu();
                 return;
@@ -1121,5 +1129,6 @@
 
         animate();
     </script>
+    <script src="painting.js"></script>
 </body>
 </html>
