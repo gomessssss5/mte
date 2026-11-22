@@ -186,16 +186,16 @@
       width: 30px;
       height: 30px;
       border-radius: 10px;
-      background: linear-gradient(135deg, #7b58ff 0%, #f6c8e9 120%);
+      background: transparent;
       display: grid;
       place-items: center;
-      box-shadow: 0 4px 12px var(--primary-glow);
     }
 
-    .logo-squircle svg {
-      width: 17px;
-      height: 17px;
-      fill: #fff;
+    .logo-squircle img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: inherit;
     }
 
     .nav-links {
@@ -267,6 +267,18 @@
       align-items: center;
     }
 
+    .hero-logo {
+      width: 1em;
+      height: 1em;
+      object-fit: contain;
+      background: transparent;
+      box-shadow: none;
+      filter: none;
+      display: inline-block;
+      vertical-align: -0.08em;
+      margin-right: 0.12em;
+    }
+
     .version-tag {
       display: inline-flex;
       align-items: center;
@@ -304,9 +316,15 @@
       font-weight: 800;
       line-height: 1.05;
       letter-spacing: -0.04em;
-      margin-bottom: 24px;
+      margin: 0 auto 24px;
+      width: min(950px, 100%);
       max-width: 950px;
       color: #fff;
+      text-align: center;
+    }
+
+    .hero-title-copy {
+      display: inline;
     }
 
     .hero-title .gradient-text {
@@ -937,6 +955,11 @@
       .hero {
         padding-top: 140px;
       }
+      .hero-logo {
+        width: 1em;
+        height: 1em;
+        margin-right: 0.1em;
+      }
       .hero-title {
         font-size: 2.5rem;
       }
@@ -966,9 +989,7 @@
     <nav class="dynamic-island-nav">
       <a href="#" class="brand-logo">
         <div class="logo-squircle">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-          </svg>
+          <img src="imagens/logo.png" alt="Yumira" />
         </div>
         <span>Yumira</span>
       </a>
@@ -994,7 +1015,8 @@
     <!-- HERO SECTION -->
     <section class="container hero">
       <h1 class="hero-title">
-        Do conceito ao 3D: ideias que <span class="gradient-text">ganham forma</span>.
+        <img class="hero-logo" src="imagens/logo.png" alt="" />
+        <span class="hero-title-copy">Do conceito ao 3D: ideias que <span class="gradient-text">ganham forma</span>.</span>
       </h1>
 
       <p class="hero-subtitle">
@@ -1165,9 +1187,7 @@
     <div class="container footer-content">
       <div class="brand-logo">
         <div class="logo-squircle" style="width: 24px; height: 24px; border-radius: 8px;">
-          <svg viewBox="0 0 24 24" style="width: 13px; height: 13px;">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-          </svg>
+          <img src="imagens/logo.png" alt="Yumira Studios" />
         </div>
         <span style="font-size: 0.95rem;">Yumira Studios</span>
       </div>
