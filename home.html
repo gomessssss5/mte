@@ -613,6 +613,270 @@
       letter-spacing: -0.02em;
     }
 
+    .business-development {
+      margin-bottom: 140px;
+    }
+
+    .business-development-card {
+      max-width: 900px;
+      margin: 0 auto;
+      align-items: center;
+      text-align: center;
+    }
+
+    .business-development-card .card-desc {
+      max-width: 620px;
+    }
+
+    .business-price-label {
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .business-price {
+      margin: 0;
+      color: var(--pink-soft);
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+    }
+
+    .soundtrack-section {
+      margin-bottom: 140px;
+    }
+
+    .soundtrack-card {
+      overflow: hidden;
+      border: 1px solid var(--border-glass);
+      border-radius: var(--squircle-lg);
+      background: linear-gradient(155deg, rgba(48, 30, 104, 0.72), rgba(16, 13, 35, 0.94) 42%);
+      backdrop-filter: blur(var(--blur-strength));
+      box-shadow: 0 25px 60px -24px rgba(0, 0, 0, 0.65);
+    }
+
+    .soundtrack-header {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      padding: 36px;
+    }
+
+    .soundtrack-cover {
+      display: grid;
+      flex: 0 0 190px;
+      width: 190px;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(130, 91, 255, 0.55), rgba(246, 200, 233, 0.2) 55%, rgba(32, 19, 76, 0.9));
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .soundtrack-cover svg {
+      width: 52px;
+      height: 52px;
+      stroke: currentColor;
+      stroke-width: 1.4;
+      fill: none;
+    }
+
+    .soundtrack-heading {
+      min-width: 0;
+    }
+
+    .soundtrack-label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .soundtrack-title {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      line-height: 0.98;
+    }
+
+    .soundtrack-title-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .soundtrack-pro-badge {
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f6c8e9, #bfb0ff);
+      color: #21153f;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      line-height: 1;
+    }
+
+    .soundtrack-creator {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .soundtrack-columns,
+    .soundtrack-track {
+      display: grid;
+      grid-template-columns: 36px 48px minmax(0, 1fr) minmax(120px, 0.8fr);
+      align-items: center;
+      gap: 16px;
+    }
+
+    .soundtrack-columns {
+      padding: 14px 28px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-tertiary);
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .soundtrack-list {
+      margin: 0;
+      padding: 8px 16px 16px;
+      list-style: none;
+    }
+
+    .soundtrack-track {
+      min-height: 76px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      color: var(--text-secondary);
+      transition: background 0.2s ease;
+    }
+
+    .soundtrack-track:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .soundtrack-track-number {
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .soundtrack-track-art {
+      display: grid;
+      width: 48px;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background: linear-gradient(145deg, rgba(104, 66, 255, 0.28), rgba(246, 200, 233, 0.1));
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .soundtrack-track-art svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      fill: none;
+    }
+
+    .soundtrack-track-art img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      object-fit: cover;
+    }
+
+    .soundtrack-track-details {
+      display: grid;
+      min-width: 0;
+      gap: 4px;
+    }
+
+    .soundtrack-track-name,
+    .soundtrack-track-artist,
+    .soundtrack-track-album {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .soundtrack-track-name {
+      color: var(--text-primary);
+      font-size: 0.96rem;
+      font-weight: 600;
+    }
+
+    .soundtrack-track-artist,
+    .soundtrack-track-album {
+      color: var(--text-tertiary);
+      font-size: 0.82rem;
+    }
+
+    .store-section {
+      margin-bottom: 140px;
+    }
+
+    .store-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .store-item {
+      overflow: hidden;
+      border: 1px solid var(--border-glass);
+      border-radius: var(--squircle-md);
+      background: var(--bg-surface);
+      backdrop-filter: blur(var(--blur-strength));
+      transition: transform 0.3s var(--ease-ios), border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .store-item:hover {
+      transform: translateY(-5px);
+      border-color: rgba(246, 200, 233, 0.3);
+      box-shadow: 0 20px 40px -18px rgba(99, 64, 255, 0.38);
+    }
+
+    .store-item-image {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.96);
+      object-fit: contain;
+    }
+
+    .store-item-details {
+      padding: 18px;
+    }
+
+    .store-item-title {
+      margin: 0 0 10px;
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .store-item-price {
+      margin: 0;
+      color: var(--pink-soft);
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
     /* ==========================================================
        INTERACTIVE STATEMENT / PHILOSOPHY
        ========================================================== */
@@ -952,6 +1216,23 @@
       .works-grid {
         grid-template-columns: 1fr;
       }
+      .store-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .soundtrack-header {
+        gap: 20px;
+        padding: 24px;
+      }
+      .soundtrack-cover {
+        flex-basis: 140px;
+        width: 140px;
+      }
+      .soundtrack-columns,
+      .soundtrack-track {
+        grid-template-columns: 28px 42px minmax(0, 1fr) minmax(90px, 0.8fr);
+        gap: 10px;
+      }
       .hero {
         padding-top: 140px;
       }
@@ -969,6 +1250,69 @@
       .contact-map {
         height: 300px;
         margin-top: 0;
+      }
+      .store-item-details {
+        padding: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .store-grid {
+        gap: 12px;
+      }
+      .store-item-image {
+        padding: 8px;
+      }
+      .store-item-details {
+        padding: 12px;
+      }
+      .store-item-title {
+        font-size: 0.9rem;
+      }
+      .store-item-price {
+        font-size: 1.1rem;
+      }
+      .soundtrack-header {
+        gap: 16px;
+        padding: 20px;
+      }
+      .soundtrack-cover {
+        flex-basis: 96px;
+        width: 96px;
+        border-radius: 12px;
+      }
+      .soundtrack-cover svg {
+        width: 34px;
+        height: 34px;
+      }
+      .soundtrack-title {
+        font-size: clamp(2rem, 9vw, 2.8rem);
+      }
+      .soundtrack-columns,
+      .soundtrack-track {
+        grid-template-columns: 22px 36px minmax(0, 1fr) minmax(68px, 0.7fr);
+        gap: 8px;
+      }
+      .soundtrack-columns {
+        padding: 12px 16px;
+        font-size: 0.7rem;
+      }
+      .soundtrack-list {
+        padding: 8px;
+      }
+      .soundtrack-track {
+        min-height: 66px;
+        padding: 8px 4px;
+      }
+      .soundtrack-track-art {
+        width: 36px;
+      }
+      .soundtrack-track-name {
+        font-size: 0.84rem;
+      }
+      .soundtrack-track-artist,
+      .soundtrack-track-album {
+        font-size: 0.72rem;
       }
     }
   </style>
@@ -999,6 +1343,7 @@
         <li><a href="#equipe">Equipe</a></li>
         <li><a href="#contato">Contato</a></li>
         <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#loja">Loja</a></li>
       </ul>
 
       <a href="index.html" class="nav-btn">
@@ -1024,15 +1369,12 @@
       </p>
 
       <div class="hero-cta-group">
-        <a href="#contato" class="btn-liquid">
-          <span>Solicitar Proposta</span>
+        <a href="index.html" class="btn-liquid">
+          <span>Entrar</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="7" y1="17" x2="17" y2="7"></line>
-            <polyline points="7 7 17 7 17 17"></polyline>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
-        </a>
-        <a href="#projetos" class="btn-secondary-glass">
-          <span>Explorar Casos</span>
         </a>
       </div>
 
@@ -1127,13 +1469,141 @@
       </div>
     </section>
 
+    <section class="container business-development">
+      <div class="section-head">
+        <span class="section-tag">Serviços para empresas</span>
+        <h2 class="section-title">Desenvolvimento de jogos para outras empresas</h2>
+        <p class="section-desc">Criamos jogos para empresas que querem transformar suas ideias em experiências interativas.</p>
+      </div>
+
+      <article class="bento-card business-development-card">
+        <p class="business-price-label">Faixa de valor</p>
+        <p class="business-price">R$ 30 a R$ 400</p>
+      </article>
+    </section>
+
+    <section class="container soundtrack-section" aria-labelledby="soundtrack-title">
+      <article class="soundtrack-card">
+        <header class="soundtrack-header">
+          <div class="soundtrack-cover" role="img" aria-label="Espaço para a capa da playlist">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 18V5l12-2v13" />
+              <circle cx="6" cy="18" r="3" />
+              <circle cx="18" cy="16" r="3" />
+            </svg>
+          </div>
+          <div class="soundtrack-heading">
+            <span class="soundtrack-label">Playlist oficial</span>
+            <div class="soundtrack-title-row">
+              <h2 class="soundtrack-title" id="soundtrack-title">Trilha Sonora</h2>
+              <span class="soundtrack-pro-badge">PRO</span>
+            </div>
+            <p class="soundtrack-creator">Yumira Studios</p>
+          </div>
+        </header>
+
+        <div class="soundtrack-columns" aria-hidden="true">
+          <span>#</span>
+          <span></span>
+          <span>Título / Cantor</span>
+          <span>Álbum</span>
+        </div>
+
+        <ol class="soundtrack-list" aria-label="5 músicas da Trilha Sonora">
+          <li class="soundtrack-track">
+            <span class="soundtrack-track-number">1</span>
+            <span class="soundtrack-track-art"><img src="imagens/musicas/expresso.png" alt="" /></span>
+            <span class="soundtrack-track-details">
+              <span class="soundtrack-track-name">Espresso</span>
+              <span class="soundtrack-track-artist">Sabrina Carpenter</span>
+            </span>
+            <span class="soundtrack-track-album">Short n' Sweet</span>
+          </li>
+          <li class="soundtrack-track">
+            <span class="soundtrack-track-number">2</span>
+            <span class="soundtrack-track-art"><img src="imagens/musicas/please.png" alt="" /></span>
+            <span class="soundtrack-track-details">
+              <span class="soundtrack-track-name">Please Please Please</span>
+              <span class="soundtrack-track-artist">Sabrina Carpenter</span>
+            </span>
+            <span class="soundtrack-track-album">Short n' Sweet</span>
+          </li>
+          <li class="soundtrack-track">
+            <span class="soundtrack-track-number">3</span>
+            <span class="soundtrack-track-art"><img src="imagens/musicas/badatherest.png" alt="" /></span>
+            <span class="soundtrack-track-details">
+              <span class="soundtrack-track-name">Bad as the Rest</span>
+              <span class="soundtrack-track-artist">Jessie Murph</span>
+            </span>
+            <span class="soundtrack-track-album">Sex Hysteria</span>
+          </li>
+          <li class="soundtrack-track">
+            <span class="soundtrack-track-number">4</span>
+            <span class="soundtrack-track-art"><img src="imagens/musicas/dontstartnow.png" alt="" /></span>
+            <span class="soundtrack-track-details">
+              <span class="soundtrack-track-name">Don't Start Now</span>
+              <span class="soundtrack-track-artist">Dua Lipa</span>
+            </span>
+            <span class="soundtrack-track-album">Future Nostalgia</span>
+          </li>
+          <li class="soundtrack-track">
+            <span class="soundtrack-track-number">5</span>
+            <span class="soundtrack-track-art"><img src="imagens/musicas/millionreasons.png" alt="" /></span>
+            <span class="soundtrack-track-details">
+              <span class="soundtrack-track-name">Million Reasons</span>
+              <span class="soundtrack-track-artist">Lady Gaga</span>
+            </span>
+            <span class="soundtrack-track-album">Joanne</span>
+          </li>
+        </ol>
+      </article>
+    </section>
+
+    <section class="container store-section" id="loja" aria-labelledby="store-title">
+      <div class="section-head">
+        <span class="section-tag">Produtos Yumira</span>
+        <h2 class="section-title" id="store-title">Loja</h2>
+        <p class="section-desc">Produtos da Yumira Studios.</p>
+      </div>
+
+      <div class="store-grid">
+        <article class="store-item">
+          <img class="store-item-image" src="imagens/loja/xicara.png" alt="Xícara da Yumira Studios" loading="lazy" />
+          <div class="store-item-details">
+            <h3 class="store-item-title">Xícara</h3>
+            <p class="store-item-price">R$ 20,00</p>
+          </div>
+        </article>
+        <article class="store-item">
+          <img class="store-item-image" src="imagens/loja/garrafa.jpg" alt="Garrafa térmica da Yumira Studios" loading="lazy" />
+          <div class="store-item-details">
+            <h3 class="store-item-title">Garrafa térmica</h3>
+            <p class="store-item-price">R$ 30,00</p>
+          </div>
+        </article>
+        <article class="store-item">
+          <img class="store-item-image" src="imagens/loja/caneta.jpg" alt="Caneta da Yumira Studios" loading="lazy" />
+          <div class="store-item-details">
+            <h3 class="store-item-title">Caneta</h3>
+            <p class="store-item-price">R$ 8,00</p>
+          </div>
+        </article>
+        <article class="store-item">
+          <img class="store-item-image" src="imagens/loja/vinil.jpg" alt="Disco de vinil da Yumira Studios" loading="lazy" />
+          <div class="store-item-details">
+            <h3 class="store-item-title">Disco de vinil</h3>
+            <p class="store-item-price">R$ 300,00</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <!-- STATEMENT / PHILOSOPHY -->
     <section class="container" id="sobre">
       <div class="section-head">
         <h2 class="section-title">Sobre</h2>
-        <p class="section-desc">Este é um texto de teste para a seção Sobre da Yumira Studios.</p>
+        <p class="section-desc">Yumira Studios é uma empresa dedicada à criação e desenvolvimento de softwares e jogos. Nosso objetivo é entregar experiências imersivas e de alta qualidade para nossos usuários.</p>
       </div>
-      <p class="section-desc">Este é um texto de teste para a seção Sobre da Yumira Studios.</p>
     </section>
 
     <section class="container" id="equipe">
