@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grand Musée 3D - Recepção & Galerias</title>
+    <title>Artfaker - Recepção & Galerias</title>
     <script>
         if (window.location.pathname.endsWith('/')) {
             window.location.replace('home.html');
@@ -174,19 +174,6 @@
         .btn-start:hover {
             transform: translateY(-1px);
             box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
-        }
-
-        .btn-shop {
-            padding: 9px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.03);
-            color: #aeb4bf;
-            font-size: 0.78rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            cursor: not-allowed;
-            opacity: 0.6;
         }
 
         #pause-menu {
@@ -426,11 +413,10 @@
 
     <!-- Tela de Início -->
     <div id="instructions" aria-busy="true">
-        <h1>MUSEU 3D</h1>
+        <h1>ARTFAKER</h1>
         <h2>By Yumira Studios</h2>
         <div class="menu-actions">
             <button class="btn-start" type="button" disabled>Carregando personagem...</button>
-            <button class="btn-shop" type="button" disabled>Loja de Skins</button>
         </div>
     </div>
 
@@ -438,7 +424,6 @@
         <section id="pause-card">
             <h2 id="pause-title">Jogo Pausado</h2>
             <button class="pause-option" id="pause-reception" type="button">Ir para Recepção</button>
-            <button class="pause-option" type="button">Loja de Skinns</button>
             <button class="pause-option pause-option-primary" id="pause-resume" type="button">Voltar ao jogo</button>
         </section>
     </div>
