@@ -392,9 +392,8 @@
             .rooms-grid { grid-template-columns: 1fr; }
         }
     </style>
-    <link rel="preload" href="personagens/recepcionista.glb" as="fetch" crossorigin>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="vendor/three.min.js"></script>
+    <script src="vendor/GLTFLoader.js"></script>
 </head>
 <body data-page="recepcao">
 
@@ -692,10 +691,51 @@
             lockPointer();
         }
 
+        function createOfflineReceptionist() {
+            const character = new THREE.Group();
+            const skin = new THREE.MeshStandardMaterial({ color: 0xb97857, roughness: 0.82 });
+            const suit = new THREE.MeshStandardMaterial({ color: 0x22334b, roughness: 0.65 });
+            const shirt = new THREE.MeshStandardMaterial({ color: 0xe9e3d6, roughness: 0.8 });
+            const hair = new THREE.MeshStandardMaterial({ color: 0x201814, roughness: 0.9 });
+            const eye = new THREE.MeshStandardMaterial({ color: 0x171717, roughness: 0.5 });
+
+            function addPart(geometry, material, x, y, z, rotationZ = 0) {
+                const part = new THREE.Mesh(geometry, material);
+                part.position.set(x, y, z);
+                part.rotation.z = rotationZ;
+                part.castShadow = true;
+                character.add(part);
+                return part;
+            }
+
+            addPart(new THREE.CylinderGeometry(0.29, 0.38, 0.9, 16), suit, 0, 1.1, 0);
+            addPart(new THREE.BoxGeometry(0.12, 0.65, 0.035), shirt, 0, 1.12, 0.31);
+            addPart(new THREE.CylinderGeometry(0.07, 0.07, 0.16, 12), skin, 0, 1.63, 0);
+            addPart(new THREE.SphereGeometry(0.19, 16, 12), skin, 0, 1.82, 0);
+            addPart(new THREE.SphereGeometry(0.195, 16, 12), hair, 0, 1.91, -0.025);
+            addPart(new THREE.SphereGeometry(0.035, 8, 8), eye, -0.07, 1.83, 0.16);
+            addPart(new THREE.SphereGeometry(0.035, 8, 8), eye, 0.07, 1.83, 0.16);
+            addPart(new THREE.CylinderGeometry(0.075, 0.11, 0.7, 12), suit, -0.14, 0.34, 0);
+            addPart(new THREE.CylinderGeometry(0.075, 0.11, 0.7, 12), suit, 0.14, 0.34, 0);
+            addPart(new THREE.BoxGeometry(0.25, 0.13, 0.34), hair, -0.14, 0.065, 0.06);
+            addPart(new THREE.BoxGeometry(0.25, 0.13, 0.34), hair, 0.14, 0.065, 0.06);
+            addPart(new THREE.CylinderGeometry(0.075, 0.1, 0.65, 12), suit, -0.38, 1.13, 0, -0.18);
+            addPart(new THREE.CylinderGeometry(0.075, 0.1, 0.65, 12), suit, 0.38, 1.13, 0, 0.18);
+            addPart(new THREE.SphereGeometry(0.09, 10, 8), skin, -0.44, 0.78, 0);
+            addPart(new THREE.SphereGeometry(0.09, 10, 8), skin, 0.44, 0.78, 0);
+            return character;
+        }
+
         function loadReceptionist(onLoad, onError) {
             const loader = new THREE.GLTFLoader();
             const modelUrl = new URL('personagens/recepcionista.glb', document.baseURI).href;
             const parseModel = data => loader.parse(data, new URL('.', modelUrl).href, onLoad, onError);
+
+            if (window.location.protocol === 'file:') {
+                console.info('Modo arquivo local: usando o recepcionista 3D simplificado.');
+                window.setTimeout(() => onLoad({ scene: createOfflineReceptionist() }), 0);
+                return;
+            }
 
             if (!window.isSecureContext || !('caches' in window) || !('fetch' in window)) {
                 console.warn('Cache local indisponível; carregando o recepcionista pela URL.');
