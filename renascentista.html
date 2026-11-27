@@ -451,6 +451,7 @@
         }
     </style>
     <script src="vendor/three.min.js"></script>
+    <script src="gallery-visuals.js"></script>
 </head>
 <body data-page="renascentista">
 
@@ -769,7 +770,7 @@
             const roomW = 26, roomD = 30, roomH = 5.2;
 
             const floor = new THREE.Mesh(new THREE.PlaneGeometry(roomW, roomD), new THREE.MeshStandardMaterial({
-                map: createGalleryFloorTexture(floorColor), roughness: 0.35, metalness: 0.1
+                map: createArtGalleryFloorTexture(), roughness: 0.42, metalness: 0.16
             }));
             floor.rotation.x = -Math.PI / 2;
             floor.receiveShadow = true;
@@ -780,7 +781,7 @@
             ceiling.rotation.x = Math.PI / 2;
             group.add(ceiling);
 
-            const wallMat = new THREE.MeshStandardMaterial({ map: createMuseumWallTexture(wallColor), roughness: 0.8 });
+            const wallMat = new THREE.MeshStandardMaterial({ map: createArtGalleryWallTexture('#dedbd2'), roughness: 0.86, metalness: 0.01 });
             const backWall = new THREE.Mesh(new THREE.BoxGeometry(roomW, roomH, 0.5), wallMat);
             backWall.position.set(0, roomH / 2, -roomD / 2);
             group.add(backWall);
@@ -796,6 +797,7 @@
             const rightWall = new THREE.Mesh(new THREE.BoxGeometry(0.5, roomH, roomD), wallMat);
             rightWall.position.set(roomW / 2, roomH / 2, 0);
             group.add(rightWall);
+            buildArtMuseumArchitecture(group, roomW, roomD, roomH);
 
             const totemPillar = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.2, 1.1, 16), darkWoodMat);
             totemPillar.position.set(2.5, 0.55, 12);
@@ -806,7 +808,7 @@
             totemButton.position.set(2.5, 1.15, 12);
             totemButton.rotation.x = -Math.PI / 6;
 
-            totemButton.userData = { action: 'returnLobby', prompt: "[E] OU CLIQUE: RETORNAR À RECEPÇÃO" };
+            totemButton.userData = { action: 'openModal', prompt: "[E] OU CLIQUE: TROCAR DE SALA" };
             interactiveObjects.push(totemButton);
             group.add(totemPillar, totemButton);
 
@@ -843,6 +845,7 @@
         const crosshair = document.getElementById('crosshair');
         const interactPrompt = document.getElementById('interact-prompt');
         const artworkViewer = document.getElementById('artwork-viewer');
+        const artworkCard = document.getElementById('artwork-card');
         const artworkTitle = document.getElementById('artwork-title');
         const artworkDescription = document.getElementById('artwork-description');
         const roomWelcome = document.getElementById('room-welcome');
@@ -885,10 +888,7 @@
             setTimeout(() => { window.location.href = pages[key]; }, 400);
         }
 
-        function inspectArtwork(artwork) {
-            if (viewingArtwork) return;
-            previousCameraView = { position: camera.position.clone(), pitch: pitch, yaw: yaw };
-
+        function fitArtworkInAvailableArea(artwork) {
             const artworkCenter = new THREE.Vector3();
             const artworkRotation = new THREE.Quaternion();
             artwork.getWorldPosition(artworkCenter);
@@ -896,8 +896,34 @@
 
             const artworkNormal = new THREE.Vector3(0, 0, 1).applyQuaternion(artworkRotation).normalize();
             const artworkRight = new THREE.Vector3(1, 0, 0).applyQuaternion(artworkRotation).normalize();
-            camera.position.copy(artworkCenter).addScaledVector(artworkNormal, 2.7).addScaledVector(artworkRight, 0.2);
-            camera.lookAt(artworkCenter.clone().addScaledVector(artworkRight, 1.3));
+            const cardBounds = artworkCard.getBoundingClientRect();
+            const padding = 24;
+            const hudBottom = document.getElementById('hud-top').getBoundingClientRect().bottom;
+            const availableTop = Math.max(padding, hudBottom + padding);
+            const availableWidth = Math.max(1, cardBounds.left - padding * 2);
+            const availableHeight = Math.max(1, window.innerHeight - availableTop - padding);
+            const focalLength = window.innerHeight / (2 * Math.tan(camera.fov * Math.PI / 360));
+            const artworkWidth = (artwork.geometry.parameters.width || 1) + 0.14;
+            const artworkHeight = (artwork.geometry.parameters.height || 1) + 0.14;
+            const distance = Math.max(
+                artworkWidth * focalLength / (availableWidth * 0.92),
+                artworkHeight * focalLength / (availableHeight * 0.92),
+                0.8
+            );
+            const artworkAreaCenterX = (padding + cardBounds.left - padding) / 2;
+            const artworkAreaCenterY = (availableTop + window.innerHeight - padding) / 2;
+            const horizontalOffset = (window.innerWidth / 2 - artworkAreaCenterX) * distance / focalLength;
+            const verticalOffset = (artworkAreaCenterY - window.innerHeight / 2) * distance / focalLength;
+
+            camera.position.copy(artworkCenter).addScaledVector(artworkNormal, distance);
+            camera.lookAt(artworkCenter.clone()
+                .addScaledVector(artworkRight, horizontalOffset)
+                .add(new THREE.Vector3(0, verticalOffset, 0)));
+        }
+
+        function inspectArtwork(artwork) {
+            if (viewingArtwork) return;
+            previousCameraView = { position: camera.position.clone(), pitch: pitch, yaw: yaw };
 
             unlockPointer();
             viewingArtwork = true;
@@ -907,9 +933,16 @@
             document.getElementById('start-painting').disabled = !artwork.userData.image;
             artworkViewer.classList.add('is-open');
             artworkViewer.setAttribute('aria-hidden', 'false');
+            fitArtworkInAvailableArea(artwork);
             crosshair.style.display = 'none';
             interactPrompt.style.opacity = '0';
         }
+
+        window.addEventListener('paintinglayoutchange', () => {
+            if (viewingArtwork && window.currentArtwork) {
+                requestAnimationFrame(() => fitArtworkInAvailableArea(window.currentArtwork));
+            }
+        });
 
         function closeArtworkViewer() {
             if (!viewingArtwork) return;
@@ -1065,6 +1098,7 @@
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
+            if (viewingArtwork && window.currentArtwork) fitArtworkInAvailableArea(window.currentArtwork);
         });
 
         animate();

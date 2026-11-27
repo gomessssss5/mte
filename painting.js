@@ -61,6 +61,10 @@
         if (timer) timer.textContent = formatTime(secondsLeft);
     }
 
+    function updatePaintingLayout() {
+        window.dispatchEvent(new Event('paintinglayoutchange'));
+    }
+
     function stopTimer() {
         if (timerId) window.clearInterval(timerId);
         timerId = null;
@@ -150,6 +154,7 @@
             <div class="painting-actions"><button id="open-painting" type="button">Abrir</button><button id="finish-result" type="button">Concluir e voltar à sala</button></div>`;
         document.getElementById('open-painting').addEventListener('click', () => openPainting(imageData, artworkTitle()));
         document.getElementById('finish-result').addEventListener('click', returnToRoom);
+        updatePaintingLayout();
     }
 
     function artworkTitle() {
@@ -235,6 +240,7 @@
             });
             document.getElementById('finish-painting').addEventListener('click', finishPainting);
             bindDrawing();
+            updatePaintingLayout();
             secondsLeft = DURATION_SECONDS;
             setTimer();
             timerId = window.setInterval(() => {

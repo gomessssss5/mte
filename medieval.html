@@ -451,6 +451,7 @@
         }
     </style>
     <script src="vendor/three.min.js"></script>
+    <script src="gallery-visuals.js"></script>
 </head>
 <body data-page="medieval">
 
@@ -769,7 +770,7 @@
             const roomW = 26, roomD = 30, roomH = 5.2;
 
             const floor = new THREE.Mesh(new THREE.PlaneGeometry(roomW, roomD), new THREE.MeshStandardMaterial({
-                map: createGalleryFloorTexture(floorColor), roughness: 0.35, metalness: 0.1
+                map: createArtGalleryFloorTexture(), roughness: 0.42, metalness: 0.16
             }));
             floor.rotation.x = -Math.PI / 2;
             floor.receiveShadow = true;
@@ -780,7 +781,7 @@
             ceiling.rotation.x = Math.PI / 2;
             group.add(ceiling);
 
-            const wallMat = new THREE.MeshStandardMaterial({ map: createMuseumWallTexture(wallColor), roughness: 0.8 });
+            const wallMat = new THREE.MeshStandardMaterial({ map: createArtGalleryWallTexture('#dedbd2'), roughness: 0.86, metalness: 0.01 });
             const backWall = new THREE.Mesh(new THREE.BoxGeometry(roomW, roomH, 0.5), wallMat);
             backWall.position.set(0, roomH / 2, -roomD / 2);
             group.add(backWall);
@@ -796,6 +797,7 @@
             const rightWall = new THREE.Mesh(new THREE.BoxGeometry(0.5, roomH, roomD), wallMat);
             rightWall.position.set(roomW / 2, roomH / 2, 0);
             group.add(rightWall);
+            buildArtMuseumArchitecture(group, roomW, roomD, roomH);
 
             const totemPillar = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.2, 1.1, 16), darkWoodMat);
             totemPillar.position.set(2.5, 0.55, 12);
@@ -806,7 +808,7 @@
             totemButton.position.set(2.5, 1.15, 12);
             totemButton.rotation.x = -Math.PI / 6;
 
-            totemButton.userData = { action: 'returnLobby', prompt: "[E] OU CLIQUE: RETORNAR À RECEPÇÃO" };
+            totemButton.userData = { action: 'openModal', prompt: "[E] OU CLIQUE: TROCAR DE SALA" };
             interactiveObjects.push(totemButton);
             group.add(totemPillar, totemButton);
 
